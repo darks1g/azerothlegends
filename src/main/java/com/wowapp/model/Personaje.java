@@ -7,6 +7,11 @@ import java.time.LocalDateTime;
 @Table(name = "personajes")
 public class Personaje {
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id") // nombre de la columna en la tabla personajes
+    private Usuario usuario;
+
+
     @Id
     private Long id;
 
@@ -153,6 +158,14 @@ public class Personaje {
     
     public void setHeroeId(Integer heroeId) {
         this.heroeId = heroeId;
+    }
+    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     

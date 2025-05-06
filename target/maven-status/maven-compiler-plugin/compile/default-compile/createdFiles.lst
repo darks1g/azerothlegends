@@ -20,12 +20,11 @@ com/wowapp/service/EstadisticasService.class
 com/wowapp/controller/PersonajeController.class
 com/wowapp/service/UsuarioService.class
 com/wowapp/model/EstadisticasPersonaje.class
-UsuarioController.class
 com/wowapp/repository/EstadisticasPersonajeRepository.class
 com/wowapp/model/Reino.class
-com/wowapp/HelloController.class
 com/wowapp/repository/TalentoRetailRepository.class
 com/wowapp/WowappApplication.class
 com/wowapp/service/TalentoRetailService.class
 com/wowapp/model/EquipoPersonaje.class
+com/wowapp/config/SecurityConfig.class
 com/wowapp/repository/EquipoPersonajeRepository.class
