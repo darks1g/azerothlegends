@@ -1,0 +1,323 @@
+
+package com.wowapp.service;
+
+import com.wowapp.model.Personaje;
+import com.wowapp.model.Personaje.VersionJuego;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDateTime;
+import java.util.Base64;
+import java.util.Map;
+import java.util.List;
+
+import com.wowapp.repository.ReinoRepository;
+import com.wowapp.model.Reino;
+import com.wowapp.repository.PersonajeRepository;
+
+
+@Service
+public class ApiService {
+
+    @Value("${blizzard.client-id}")
+    private String clientId;
+
+    @Value("${blizzard.client-secret}")
+    private String clientSecret;
+
+    private String token;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public String obtenerToken() {
+        if (token != null) {
+            return token; // Si el token es válido, lo reutilizamos
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        String credentials = clientId + ":" + clientSecret;
+        String base64Creds = Base64.getEncoder().encodeToString(credentials.getBytes());
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", "Basic " + base64Creds);
+
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("grant_type", "client_credentials");
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
+
+        ResponseEntity<Map> response = restTemplate.postForEntity(
+                "https://eu.battle.net/oauth/token", request, Map.class);
+
+        token = (String) response.getBody().get("access_token");
+        return token;
+    }
+
+    public Personaje obtenerPersonajeDesdeAPI(String nombre, String reino, String region, VersionJuego versionJuego) {
+        List<String> namespaces;
+        String reinoFormateado = reino.toLowerCase().replace(" ", "-");
+
+        switch (versionJuego) {
+            case retail -> namespaces = List.of("profile-" + region);
+            case classic -> namespaces = List.of("profile-classic-" + region);
+            case classic_era -> namespaces = List.of("profile-classic1x-" + region);
+            default -> throw new IllegalArgumentException("Versión de juego no reconocida.");
+        }
+
+        for (String ns : namespaces) {
+            try {
+                String url = String.format(
+                        "https://%s.api.blizzard.com/profile/wow/character/%s/%s?namespace=%s&locale=es_ES",
+                        region,
+                        reinoFormateado,
+                        nombre.toLowerCase(),
+                        ns);
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("Authorization", "Bearer " + obtenerToken());
+                HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+                ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Map.class);
+                Map<String, Object> datos = response.getBody();
+
+                if (datos == null)
+                    continue;
+
+                Personaje p = new Personaje();
+                p.setId(((Number) datos.get("id")).longValue());
+                p.setNombre(nombre);
+                p.setReino(reino);
+                p.setRegion(region);
+                p.setNivel((Integer) datos.get("level"));
+
+                if (datos.containsKey("character_class"))
+                    p.setClase(((Map<?, ?>) datos.get("character_class")).get("name").toString());
+
+                if (datos.containsKey("race"))
+                    p.setRaza(((Map<?, ?>) datos.get("race")).get("name").toString());
+
+                if (datos.containsKey("gender"))
+                    p.setGenero(((Map<?, ?>) datos.get("gender")).get("type").toString());
+
+                p.setVersionJuego(versionJuego);
+                return p;
+
+            } catch (Exception e) {
+                
+            }
+        }
+
+        throw new RuntimeException("No se pudo encontrar el personaje en ningún namespace.");
+    }
+
+    @Autowired
+    private ReinoRepository reinoRepository;
+
+    public void poblarReinosDesdeAPI(String region, VersionJuego version) {
+        String versionSuffix = switch (version) {
+            case retail -> "";
+            case classic_era -> "classic1x-";
+            case classic -> "classic-";
+        };
+
+        String namespace = "dynamic-" + versionSuffix + region;
+        String url = String.format(
+                "https://%s.api.blizzard.com/data/wow/realm/index?namespace=%s&locale=es_ES",
+                region, namespace);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + obtenerToken());
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+
+        try {
+            ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Map.class);
+            List<Map<String, Object>> reinos = (List<Map<String, Object>>) response.getBody().get("realms");
+
+            for (Map<String, Object> reinoData : reinos) {
+                Reino r = new Reino();
+                r.setId(((Number) reinoData.get("id")).longValue());
+                r.setNombre((String) reinoData.get("name"));
+                r.setSlug((String) reinoData.get("slug"));
+                r.setRegion(region);
+                r.setVersionJuego(version);
+
+                reinoRepository.save(r);
+            }
+
+            System.out.println("✅ Reinos poblados: " + region + " / " + version);
+        } catch (Exception e) {
+            System.err.println("⚠️ Error al poblar reinos para " + region + " / " + version + ": " + e.getMessage());
+        }
+    }
+
+    @Autowired
+private EstadisticasService estadisticasService;
+
+@Autowired
+private PersonajeRepository personajeRepository;
+
+public void obtenerYGuardarEstadisticas(Personaje personaje) {
+
+    // ⚠️ Omitir si fue actualizado en los últimos 10 minutos
+    if (personaje.getFechaActualizacion() != null) {
+        LocalDateTime haceDiezMinutos = LocalDateTime.now().minusMinutes(10);
+        if (personaje.getFechaActualizacion().isAfter(haceDiezMinutos)) {
+            System.out.println("⏱️ Personaje " + personaje.getNombre() + " fue actualizado recientemente. Se omite llamada a la API.");
+            return;
+        }
+    }
+
+    String reinoSlug = personaje.getReino().toLowerCase().replace(" ", "-");
+    String ns = switch (personaje.getVersionJuego()) {
+        case retail -> "profile-" + personaje.getRegion();
+        case classic -> "profile-classic-" + personaje.getRegion();
+        case classic_era -> "profile-classic1x-" + personaje.getRegion();
+    };
+    String url = String.format(
+        "https://%s.api.blizzard.com/profile/wow/character/%s/%s/statistics?namespace=%s&locale=es_ES",
+        personaje.getRegion(),
+        reinoSlug,
+        personaje.getNombre().toLowerCase(),
+        ns
+    );
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Authorization", "Bearer " + obtenerToken());
+    HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+    try {
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Map.class);
+        Map<String, Object> datos = response.getBody();
+
+        System.out.println("Datos crudos de estadísticas recibidos:");
+        datos.forEach((clave, valor) -> System.out.println(clave + " => " + valor));
+
+        estadisticasService.guardarEstadisticas(personaje, datos);
+
+        // ⏳ Actualizar la fecha de actualización y guardar el personaje
+        personaje.setFechaActualizacion(LocalDateTime.now());
+        personajeRepository.save(personaje);
+
+        System.out.println("Estadísticas actualizadas para: " + personaje.getNombre());
+    } catch (Exception e) {
+        System.err.println("No se pudieron obtener estadísticas para " + personaje.getNombre() + ": " + e.getMessage());
+    }
+}
+
+@Autowired
+private TalentoRetailService talentoRetailService;
+
+@Autowired
+private TalentoClassicService talentoClassicService;
+
+public void obtenerYGuardarTalentos(Personaje personaje) {
+    String reinoSlug = personaje.getReino().toLowerCase().replace(" ", "-");
+
+    String ns = switch (personaje.getVersionJuego()) {
+        case retail -> "profile-" + personaje.getRegion();
+        case classic -> "profile-classic-" + personaje.getRegion();
+        case classic_era -> "profile-classic1x-" + personaje.getRegion();
+    };
+
+    String endpoint = "specializations"; // Usado en todas las versiones actuales
+
+    String url = String.format(
+        "https://%s.api.blizzard.com/profile/wow/character/%s/%s/%s?namespace=%s&locale=es_ES",
+        personaje.getRegion(),
+        reinoSlug,
+        personaje.getNombre().toLowerCase(),
+        endpoint,
+        ns
+    );
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Authorization", "Bearer " + obtenerToken());
+    HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+    try {
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Map.class);
+        Map<String, Object> datos = response.getBody();
+
+        System.out.println("📦 Datos crudos de talentos recibidos:");
+        datos.forEach((k, v) -> System.out.println(k + " => " + v));
+
+        switch (personaje.getVersionJuego()) {
+            case retail -> talentoRetailService.guardarTalentos(personaje, datos);
+            case classic, classic_era -> talentoClassicService.guardarTalentos(personaje, datos);
+        }
+
+        System.out.println("✅ Talentos guardados para: " + personaje.getNombre());
+    } catch (Exception e) {
+        System.err.println("❌ No se pudieron obtener talentos para " + personaje.getNombre() + ": " + e.getMessage());
+    }
+}
+
+@Autowired
+private EquipoPersonajeService equipoPersonajeService;
+
+public void obtenerYGuardarEquipo(Personaje personaje) {
+    String reinoSlug = personaje.getReino().toLowerCase().replace(" ", "-");
+    String ns;
+    String url;
+
+    switch (personaje.getVersionJuego()) {
+        case retail -> {
+            ns = "profile-" + personaje.getRegion();
+            url = String.format(
+                "https://%s.api.blizzard.com/profile/wow/character/%s/%s/equipment?namespace=%s&locale=es_ES",
+                personaje.getRegion(), reinoSlug, personaje.getNombre().toLowerCase(), ns
+            );
+        }
+        case classic -> {
+            ns = "profile-classic-" + personaje.getRegion();
+            url = String.format(
+                "https://%s.api.blizzard.com/profile/wow/character/%s/%s/equipment?namespace=%s&locale=es_ES",
+                personaje.getRegion(), reinoSlug, personaje.getNombre().toLowerCase(), ns
+            );
+        }
+        case classic_era -> {
+            ns = "profile-classic1x-" + personaje.getRegion();
+            url = String.format(
+                "https://%s.api.blizzard.com/profile/wow/character/%s/%s/equipment?namespace=%s&locale=es_ES",
+                personaje.getRegion(), reinoSlug, personaje.getNombre().toLowerCase(), ns
+            );
+        }
+        default -> {
+            System.out.println("❌ Versión no soportada para equipo: " + personaje.getVersionJuego());
+            return;
+        }
+    }
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Authorization", "Bearer " + obtenerToken());
+    HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+    try {
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Map.class);
+        Map<String, Object> datos = response.getBody();
+
+        // 🔍 Mostrar JSON crudo de forma clara
+        System.out.println("📦 Datos crudos de equipo recibidos:");
+        datos.forEach((clave, valor) -> System.out.println(clave + " => " + valor));
+
+        equipoPersonajeService.guardarEquipo(personaje, datos);
+
+    } catch (Exception e) {
+        System.err.println("❌ Error obteniendo equipo para " + personaje.getNombre() + ": " + e.getMessage());
+    }
+}
+
+
+
+}

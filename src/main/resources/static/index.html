@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Buscar Personaje</title>
+</head>
+
+<body>
+  <form id="buscarForm">
+    <input type="text" name="nombre" placeholder="Nombre del personaje" required>
+
+    <select name="region" id="regionSelect" required style="display: none;">
+      <option value="eu" selected>EU</option>
+      <option value="us">US</option>
+    </select>
+
+    <select name="version" required>
+      <option value="retail">Retail</option>
+      <option value="classic_era">Classic Era</option>
+      <option value="classic">Cataclysm Classic</option>
+    </select>
+
+    <select name="reino" id="reinoSelect" required>
+    </select>
+
+    <button type="submit">Buscar</button>
+  </form>
+
+  <pre id="resultado"></pre>
+
+  <script src="/js/buscar-personaje.js"></script>
+</body>
+
+</html>
