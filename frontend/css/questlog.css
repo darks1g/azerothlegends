@@ -1,0 +1,498 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: "friz";
+	font-style: normal;
+  font-weight: 400;
+  src: url("../assets/FQTTR.ttf");
+}
+
+body{
+  background: rgb(43, 43, 43);
+  padding:130px 0 0 0;
+}
+
+body, input, button {
+  font-family: 'friz', sans-serif;
+}
+
+.noFill {
+  fill:none;
+}
+
+header {
+  background:url('../assets/ironforge.jpg') no-repeat center/cover; /*img*/
+  display: inline-flex;
+  flex-direction: column;
+  width:100%;
+  height: 125px;
+  position: fixed;
+  padding:15px;
+  top:0;
+  left:0;
+  z-index:5;
+  /* background:#3c332f; */
+  box-shadow:0px 2px 4px rgba(44,62,80,0.15);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+header h1 {
+  position: relative;
+  color:#e9c02c;
+  text-align: center;
+  text-shadow:2px 2px 1px #000000
+}
+
+header .options {
+  color:#e9c02c;
+  text-shadow:2px 2px 1px #000000;
+}
+
+header input#item {
+  width:100%;
+  height:40px;
+  position: relative;
+  top:2px;
+  float:left;
+  color:#e9c02c;
+  font-size: 50;
+  font-weight: 400;
+  text-indent: 18px;
+  text-shadow:1px 1px 1px #000000;
+  padding: 0 130px 0 0;
+  
+
+  background:rgba(255,255,255,0.2);
+
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  
+  border:0px;
+  box-shadow:none;
+  outline:none;
+
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance:none;
+  appearance: none;
+}
+
+header input::-webkit-input-placeholder {
+  color:rgba(255,255,255,0.75);
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color:rgba(255,255,255,0.75);
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color:rgba(255,255,255,0.75);
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color:rgba(255,255,255,0.75);
+}
+:-moz-placeholder { /* Firefox 18- */
+  color:rgba(255,255,255,0.75);
+}
+
+header button#help {
+  width:50px;
+  height:50px;
+  position:fixed;
+  top:9px;
+  right:53px;
+  cursor: pointer;
+
+  color: #ffc700;
+  background-color: rgba(8, 8, 8, 0.678);
+  border: rgb(248, 182, 0);
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50%;
+  box-shadow: 3px 3px 5px #000000;
+  text-align: center;
+  text-decoration: none;
+  font-size: 35px;
+  margin: 4px 2px;
+}
+
+.popuphelp{
+  z-index: 13;
+  width: 90%;
+  height: 90%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  text-align: center;
+  color:#ffc700;
+  line-height:20px;
+  text-shadow:1px 1px 1px #000000;
+
+  background-color: #3c332f;
+  border-style: ridge;
+  border-width: 5px;
+  border-color: #757575;
+}
+
+.x {
+  z-index: 13;
+  top: -5px;
+  right: -5px;
+  width: 25px;
+  height: 26px;
+  position:fixed;
+  background-image: url('../assets/x.png');
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  border: none;
+  background-color: rgba(255, 255, 255, 0)
+}
+
+.helptext {
+  height:95%;
+  width:95%;
+  position:fixed;
+  top:5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+header button#addItem {
+  width:104px;
+  height:26px;
+  position:absolute;
+  top:83px;
+  right:30px;
+  cursor: pointer;
+  
+  background-image: url('../assets/accept.png');
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  border: none;
+  background-color: rgba(255, 255, 255, 0)
+}
+
+button {
+  background-size: contain;
+}
+
+.container {
+  width: 100%;
+  float:left;
+  padding:15px;
+}
+
+/* ul {
+  word-wrap: break-word;
+} */
+
+ul.todo {
+  width:100%;
+  float:left;
+}
+
+ul.todo li {
+  display: inline-flex;
+  flex-direction: row;
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  align-items: center;
+
+  word-wrap: break-all;
+  overflow-wrap: break-word;
+  width: 100%;
+  min-height:30px;
+  max-height: 250px;
+  float:left;
+  font-size:14px;
+  font-weight:500;
+  color:#ffc700;
+  line-height:2px;
+  line-height: 15px;
+  text-shadow:1px 1px 1px #000000;
+  background:#3c332f;
+  border-radius:5px;
+  position: relative;
+  box-shadow: 0px 1px 2px rgba(44,62,80,0.10);
+  margin:0 0 10px 0;
+  padding:0px 9px 0 23px;
+}
+
+ul.todo .draghandle:before {
+  position: absolute;
+  left: 1px;
+  top: 50%;
+  margin-top: -7px;
+  align-content: center;
+  content: "⁞";
+  justify-content: flex-start;
+  font-size:26px;
+  padding: 0 6px 0 8px;
+}
+
+ul.todo .textbox {
+  width: 100%;
+  min-width: 200px;
+}
+
+ul.todo li:last-of-type {
+  margin:0;
+}
+
+ul.todo li .buttons {
+  display: inline-flex;
+  flex-direction: row;
+  margin-left: 5px;
+}
+
+ul.todo li .buttons button{
+  width:104px;
+  height:26px;
+  margin: 5px;
+  /* position: absolute; */
+  cursor: pointer;
+
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  border: none;
+  background-color: rgba(255, 255, 255, 0)
+}
+
+ul.todo li .buttons button.remove {
+  background-image: url('../assets/abandon.png');
+  left: 0px;
+}
+
+ul.todo li .buttons button.complete {
+  background-image: url('../assets/complete.png');
+}
+
+ul.todo#completed{
+  position:relative;
+  padding: 60px 0 0 0;
+}
+
+ul.todo#completed li {
+  color:#797979;
+  background:#3c332f;
+}
+
+ul.todo#completed .buttons button.complete {
+  background-image: url('../assets/complete_grey.png');
+}
+
+ul.todo#completed .buttons button.remove {
+  background-image: url('../assets/abandon_grey.png');
+}
+
+ul.todo#completed:before {
+  content:'';
+  opacity:0.5;
+  width:150px;
+  height:1px;
+  background:#a6aaa9;
+  
+  position:absolute;
+  top:30px;
+  left:50%;
+
+  margin: 0 0 0 -75px;
+}
+
+ul.todo#todo:empty:after {
+  content: 'You don\'t have any active quests';
+  margin: 15px 0 0 0;
+}
+
+ul.todo#completed:empty:after { 
+  content: 'You have yet to complete any quests.';
+}
+
+ul.todo#todo:after,
+ul.todo#completed:after {
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.yes{
+  background-image: url('../assets/yes.png');
+  width:104px;
+  height:26px;
+  position: absolute;
+  cursor: pointer;
+  right:25%;
+  top:50%;
+
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  border: none;
+  background-color: rgba(255, 255, 255, 0)
+}
+
+.no{
+  background-image: url('../assets/no.png');
+  width:104px;
+  height:26px;
+  left:25%;
+  top:50%;
+  position: absolute;
+  cursor: pointer;
+
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  border: none;
+  background-color: rgba(255, 255, 255, 0)
+}
+
+.popupconfirm{
+  z-index: 13;
+  width: 500px;
+  height: 100px;
+  position:fixed; 
+  top: calc(20% - 50px); 
+  left: calc(50% - 250px);
+  padding-top: 20px;
+  text-align: center;
+  color:#ffc700;
+  line-height:2px;
+  text-shadow:1px 1px 1px #000000;
+
+  background-color: rgb(46, 46, 46);
+  border-style: ridge;
+  border-width: 5px;
+  border-color: #757575;
+}
+
+.bgBlock {
+  z-index: 12;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  background-color: #00000050;
+}
+
+#expdiv{
+  z-index: 20;
+  position: fixed;
+  top: 80%;
+  transform: translateY(-80%);
+  float: left;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none
+}
+
+#XP {
+    text-align: center;
+    white-space: nowrap;
+    color: #94008b;
+    text-shadow:1px 1px 1px #000000;
+    font-size: 48px;
+    margin-top: 20px;
+
+    
+    animation:XP 5s;
+    -webkit-animation:XP 5s;
+    animation-fill-mode: forwards;
+
+    /* animation-delay:3s;
+    -webkit-animation-delay:3s; Safari and Chrome */
+    -webkit-animation-fill-mode: forwards;
+  
+}
+
+@keyframes XP{
+  0% {opacity: 0.2} 
+  6% {opacity: 1}
+  40% {opacity: 1}
+  100% {opacity:0.2}
+}
+
+@-webkit-keyframes XP{
+  0% {opacity: 0.2} 
+  6% {opacity: 1}
+  40% {opacity: 1}
+  100% {opacity:0.2}
+}
+
+/* Media Queries */
+@media(max-width: 500px){
+  ul.todo li {
+    flex-direction: column;
+  }
+  ul.todo li .textbox {
+    text-align: center;
+  }
+}
+
+@media(hover: hover) and (pointer: fine) {
+  ul.todo#completed li .buttons button.remove:hover {
+    background-image: url('../assets/abandon_clicked.png');
+  }
+  ul.todo#completed li .buttons button.complete:hover {
+    background-image: url('../assets/complete_clicked.png');
+  }
+  ul.todo li .buttons button.complete:hover {
+    background-image: url('../assets/complete_clicked.png');
+  }
+  header button#addItem:hover {
+    background-image: url('../assets/accept_clicked.png');
+  }
+  header button#help:hover {
+    background-image: url('../assets/help_clicked.png');
+  }
+  .x:hover {
+    background-image: url('../assets/x_clicked.png');
+  }
+  ul.todo li .buttons button.remove:hover {
+    background-image: url('../assets/abandon_clicked.png');
+  }
+  .yes:hover{
+    background-image: url('../assets/yes_clicked.png');
+  }
+  .no:hover{
+    background-image: url('../assets/no_clicked.png');
+  }
+}
+
+/* on-click for mobile users */
+ul.todo#completed li .buttons button.remove:active {
+  background-image: url('../assets/abandon_clicked.png');
+}
+ul.todo#completed li .buttons button.complete:active {
+  background-image: url('../assets/complete_clicked.png');
+}
+ul.todo li .buttons button.complete:active {
+  background-image: url('../assets/complete_clicked.png');
+}
+header button#addItem:active {
+  background-image: url('../assets/accept_clicked.png');
+}
+header button#help:active {
+  background-image: url('../assets/help_clicked.png');
+}
+.x:active {
+  background-image: url('../assets/x_clicked.png');
+}
+ul.todo li .buttons button.remove:active {
+  background-image: url('../assets/abandon_clicked.png');
+}
+.yes:active{
+  background-image: url('../assets/yes_clicked.png');
+}
+.no:active{
+  background-image: url('../assets/no_clicked.png');
+}

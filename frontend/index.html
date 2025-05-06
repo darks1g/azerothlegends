@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <title>Azeroth Legends</title>
+  <link rel="stylesheet" href="/css/questlog.css">
+  <link rel="stylesheet" href="/css/index.css">
+
+  <script src="/js/buscar-personaje.js"></script>
 </head>
+<body class="bg-parchment font-fantasy text-dark">
+  <header class="container max-w-lg mx-auto">
+    <h1 class="title text-center">Azeroth Legends</h1>
+  </header>
 
-<body>
-  <form id="buscarForm">
-    <input type="text" name="nombre" placeholder="Nombre del personaje" required>
+  <form id="buscarForm" class="form-busqueda">
+  <!-- Región oculta -->
+  <select name="region" id="regionSelect" hidden>
+    <option value="eu" selected>EU</option>
+  </select>
 
-    <select name="region" id="regionSelect" required style="display: none;">
-      <option value="eu" selected>EU</option>
-      <option value="us">US</option>
-    </select>
-
-    <select name="version" required>
+  <div class="form-group">
+    <label for="version" class="label">Versión del juego</label>
+    <select name="version" id="version" class="select" required>
       <option value="retail">Retail</option>
       <option value="classic_era">Classic Era</option>
       <option value="classic">Cataclysm Classic</option>
     </select>
+  </div>
 
-    <select name="reino" id="reinoSelect" required>
-    </select>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="nombre" class="label">Nombre</label>
+      <input type="text" name="nombre" id="nombre" class="input" required>
+    </div>
 
-    <button type="submit">Buscar</button>
-  </form>
+    <div class="form-group">
+      <label for="reinoSelect" class="label">Reino</label>
+      <select name="reino" id="reinoSelect" class="select" required>
+        <!-- Se llena dinámicamente -->
+      </select>
+    </div>
+  </div>
 
-  <a href="/login">Iniciar sesión</a>
+  <button type="submit" class="button">Buscar</button>
+</form>
+  
+  
 
-  <pre id="resultado"></pre>
-
-  <script src="/js/buscar-personaje.js"></script>
 </body>
-
 </html>

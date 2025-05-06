@@ -1,0 +1,101 @@
+/* index.css - Estilos específicos para index.html */
+
+.title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px #5a3e1b;
+  }
+  
+  .panel-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .label {
+    font-weight: bold;
+    color: #5a3e1b;
+  }
+  
+  .input,
+  .select {
+    padding: 0.5rem;
+    border: 2px solid #8b5e3c;
+    border-radius: 8px;
+    background: #fdf5e6;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input:focus,
+  .select:focus {
+    border-color: #a76a45;
+    outline: none;
+  }
+  
+  .button {
+    padding: 0.6rem;
+    background-color: #8b5e3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #a76a45;
+  }
+  
+  .link {
+    font-weight: bold;
+    color: #8b5e3c;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  
+  pre#resultado {
+    background: rgba(255, 248, 220, 0.9);
+    border: 2px solid #8b5e3c;
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    max-height: 400px;
+  }
+  .form-busqueda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 180px;
+    max-width: 240px;
+  }
+  
+  .select, .input {
+    width: 100%;
+  }
+  
+  .button {
+    min-width: 150px;
+  }
+  
