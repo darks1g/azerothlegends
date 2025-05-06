@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Azeroth Legends</title>
+  <link rel="stylesheet" href="/css/cursor.css">
   <link rel="stylesheet" href="/css/questlog.css">
   <link rel="stylesheet" href="/css/index.css">
 </head>
@@ -23,11 +24,14 @@
     </div>
   
     <div class="header-right">
-        <a href="/perfil" class="perfil-button">
+        <div class="perfil-dropdown">
+          <button class="perfil-button" id="perfilToggle">
             <img src="/assets/profile-icon.png" alt="Perfil" class="perfil-img">
-        </a>
+          </button>
+          <div id="perfilMenuContainer"></div>
+        </div>
         <p>Cuenta</p>
-    </div>
+      </div>
   </header>
 
   <!-- Contenido principal -->
@@ -87,5 +91,6 @@
   <!-- Scripts -->
   <script src="/js/form.js"></script>
   <script src="/js/decoracion.js"></script>
+  <script src="/js/desplegable-perfil.js"></script>
 </body>
 </html>

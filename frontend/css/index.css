@@ -67,6 +67,10 @@ body {
   transition: background-color 0.3s;
 }
 
+.chat-button:hover {
+  background-color: #ffecc8;
+}
+
 /* Imagen de perfil */
 .perfil-button {
   display: block;
@@ -204,6 +208,42 @@ body {
 .chat-button .chat-icon {
   display: none;
 }
+
+.perfil-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.perfil-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: #fffbe6;
+  border: 2px solid #8b5e3c;
+  border-radius: 6px;
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  display: none;
+  z-index: 1001;
+  min-width: 160px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.perfil-menu li {
+  padding: 0.5rem 1rem;
+}
+
+.perfil-menu li a {
+  text-decoration: none;
+  color: #5a3e1b;
+  display: block;
+}
+
+.perfil-menu li:hover {
+  background-color: #ffecc8;
+}
+
 
 @media (max-width: 980px) {
   /* Ocultar imágenes decorativas a los lados */

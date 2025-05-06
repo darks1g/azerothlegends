@@ -19,6 +19,7 @@
 /home/fsanj/wowapp/azerothlegends/backend/src/main/java/com/wowapp/service/TalentoRetailService.java
 /home/fsanj/wowapp/azerothlegends/backend/src/main/java/com/wowapp/repository/ReinoRepository.java
 /home/fsanj/wowapp/azerothlegends/backend/src/main/java/com/wowapp/repository/EstadisticasPersonajeRepository.java
+/home/fsanj/wowapp/azerothlegends/backend/src/main/java/com/wowapp/controller/OAuthController.java
 /home/fsanj/wowapp/azerothlegends/backend/src/main/java/com/wowapp/model/Usuario.java
 /home/fsanj/wowapp/azerothlegends/backend/src/main/java/com/wowapp/service/EquipoPersonajeService.java
 /home/fsanj/wowapp/azerothlegends/backend/src/main/java/com/wowapp/config/SecurityConfig.java

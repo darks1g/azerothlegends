@@ -27,6 +27,7 @@ com/wowapp/model/Reino.class
 com/wowapp/repository/TalentoRetailRepository.class
 com/wowapp/WowappApplication.class
 com/wowapp/service/TalentoRetailService.class
+com/wowapp/controller/OAuthController.class
 com/wowapp/model/EquipoPersonaje.class
 com/wowapp/config/SecurityConfig.class
 com/wowapp/repository/EquipoPersonajeRepository.class
