@@ -1,54 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Azeroth Legends</title>
-    <link rel="stylesheet" href="/css/questlog.css">
-    <link rel="stylesheet" href="/css/index.css">
-
-    <script src="/js/buscar-personaje.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azeroth Legends</title>
+  <link rel="stylesheet" href="/css/questlog.css">
+  <link rel="stylesheet" href="/css/index.css">
 </head>
-
 <body class="bg-parchment font-fantasy text-dark">
-    <header class="container max-w-lg mx-auto">
-        <h1 class="title text-center">Azeroth Legends</h1>
-    </header>
 
-    <form id="buscarForm" class="form-busqueda">
-        <!-- Región oculta -->
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+        <button class="chat-button">
+            <span class="chat-text">Abrir chat global ⏷</span>
+            <span class="chat-icon" aria-hidden="true">🌍</span>
+        </button>
+    </div>
+  
+    <div class="header-center">
+      <h1 class="title">Azeroth Legends</h1>
+    </div>
+  
+    <div class="header-right">
+        <a href="/perfil" class="perfil-button">
+            <img src="/assets/profile-icon.png" alt="Perfil" class="perfil-img">
+        </a>
+        <p>Cuenta</p>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="main-layout">
+    <!-- Imagen decorativa izquierda -->
+    <aside class="character-image">
+        <img id="imagenPersonaje1" alt="Personaje Alianza">
+    </aside>
+
+    <!-- Buscador -->
+    <section class="busqueda">
+      <h2 class="subtitle">Buscar personaje</h2>
+
+      <form id="buscarForm" class="form-busqueda">
         <select name="region" id="regionSelect" hidden>
-            <option value="eu" selected>EU</option>
+          <option value="eu" selected>EU</option>
         </select>
 
         <div class="form-group">
-            <label for="version" class="label">Versión del juego</label>
-            <select name="version" id="version" class="select" required>
-                <option value="retail">Retail</option>
-                <option value="classic_era">Classic Era</option>
-                <option value="classic">Cataclysm Classic</option>
-            </select>
+          <label for="version" class="label">Versión del juego</label>
+          <select name="version" id="version" class="select" required>
+            <option value="retail">Retail</option>
+            <option value="classic_era">Classic Era</option>
+            <option value="classic">Cataclysm Classic</option>
+          </select>
         </div>
 
         <div class="form-row">
-            <div class="form-group">
-                <label for="nombre" class="label">Nombre</label>
-                <input type="text" name="nombre" id="nombre" class="input" required>
-            </div>
+          <div class="form-group">
+            <label for="nombre" class="label">Nombre</label>
+            <input type="text" name="nombre" id="nombre" class="input" required>
+          </div>
 
-            <div class="form-group">
-                <label for="reinoSelect" class="label">Reino</label>
-                <select name="reino" id="reinoSelect" class="select" required>
-                    <!-- Se llena dinámicamente -->
-                </select>
-            </div>
+          <div class="form-group">
+            <label for="reinoSelect" class="label">Reino</label>
+            <select name="reino" id="reinoSelect" class="select" required>
+              <!-- Se llena dinámicamente -->
+            </select>
+          </div>
         </div>
 
         <button type="submit" class="button">Buscar</button>
-    </form>
+      </form>
+    </section>
 
+    <!-- Imagen decorativa derecha -->
+    <aside class="character-image">
+        <img id="imagenPersonaje2" alt="Personaje Horda">
+    </aside>
+  </main>
 
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Azeroth Legends. Proyecto educativo.</p>
+  </footer>
 
+  <!-- Scripts -->
+  <script src="/js/form.js"></script>
+  <script src="/js/decoracion.js"></script>
 </body>
-
 </html>

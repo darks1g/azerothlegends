@@ -10,13 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const reinos = await res.json();
   
         reinoSelect.innerHTML = '<option value="" disabled selected="selected">Selecciona un reino</option>';
-        reinos.forEach(reino => {
+        reinos.sort((a, b) => a.nombre.localeCompare(b.nombre))
+        .forEach(reino => {
           const option = document.createElement('option');
           option.value = reino.slug;
           option.textContent = reino.nombre;
           option.dataset.version = reino.versionJuego;
           reinoSelect.appendChild(option);
         });
+
       } catch (err) {
         reinoSelect.innerHTML = '<option value="">Error al cargar</option>';
         console.error('Error cargando reinos:', err);
