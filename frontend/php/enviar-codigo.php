@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once __DIR__ . '/PHPMailer/Exception.php';
-require_once __DIR__ . '/PHPMailer/PHPMailer.php';
-require_once __DIR__ . '/PHPMailer/SMTP.php';
+require_once __DIR__ . '/PHPMailer/src/Exception.php';
+require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/PHPMailer/src/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -54,11 +54,17 @@ try {
 
     // Contenido
     $mail->isHTML(true);
+    $mail->CharSet = "UTF-8";
     $mail->Subject = 'Tu código de verificación';
     $mail->Body    = "<p>Tu código de verificación es:</p><h2 style='color: #8b5e3c;'>$codigo</h2><p>Este código expira en 5 minutos.</p>";
 
     $mail->send();
-    echo json_encode(['ok' => true]);
+
+    // Solo imprime JSON si es una petición directa al archivo
+    if (basename($_SERVER['SCRIPT_NAME']) === 'enviar-codigo.php') {
+        echo json_encode(['ok' => true]);
+    }
+
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(['error' => 'No se pudo enviar el correo. Detalles: ' . $mail->ErrorInfo]);

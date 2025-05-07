@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
         eyeIcon.src = isPasswordVisible ? '/assets/eye2.png' : '/assets/eye1.png';
     });
 
-    // Login con AJAX
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -26,14 +25,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ email, password })
             });
 
-            if (res.ok) {
-                sessionStorage.setItem('origenVerificacion', 'login'); // o 'registro'
-                window.location.href = '/verificacion.html';
-            } else {
-                const mensaje = await res.text();
-                errorField.textContent = mensaje || 'Error al iniciar sesión.';
+            let datos;
+            try {
+                datos = await res.json();
+            } catch {
+                errorField.textContent = 'Error al procesar la respuesta del servidor.';
                 errorField.style.display = 'block';
+                return;
             }
+
+            if (!res.ok) {
+                errorField.textContent = datos.error || 'Error al iniciar sesión.';
+                errorField.style.display = 'block';
+                return;
+            }
+
+            // Redirige a verificacion.php con POST (crea y envía un formulario)
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/verificacion.php';
+
+            const inputEmail = document.createElement('input');
+            inputEmail.type = 'hidden';
+            inputEmail.name = 'email';
+            inputEmail.value = datos.email;
+
+            const inputOrigen = document.createElement('input');
+            inputOrigen.type = 'hidden';
+            inputOrigen.name = 'origen';
+            inputOrigen.value = 'login';
+
+            form.appendChild(inputEmail);
+            form.appendChild(inputOrigen);
+            document.body.appendChild(form);
+            form.submit();
         } catch (err) {
             errorField.textContent = 'Error de conexión con el servidor.';
             errorField.style.display = 'block';

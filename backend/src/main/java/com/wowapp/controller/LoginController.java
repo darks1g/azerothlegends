@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -31,24 +32,23 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request, HttpSession session) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest request, HttpSession session) {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(request.email);
 
         if (usuarioOpt.isEmpty()) {
-            return ResponseEntity.status(401).body("Correo no registrado.");
+            return ResponseEntity.status(401).body(Map.of("error", "Correo no registrado."));
         }
 
         Usuario usuario = usuarioOpt.get();
 
         if (!passwordEncoder.matches(request.password, usuario.getPasswordHash())) {
-            return ResponseEntity.status(401).body("Contraseña incorrecta.");
+            return ResponseEntity.status(401).body(Map.of("error", "Contraseña incorrecta."));
         }
 
-        // Almacenar como usuario pendiente hasta verificar código
-        session.setAttribute("usuario_pendiente", usuario);
+        session.setAttribute("usuario", usuario);
         session.setAttribute("origen", "login");
 
-        return ResponseEntity.status(302).header("Location", "/verificacion.html").build();
+        return ResponseEntity.ok(Map.of("email", request.email));
     }
 
 }

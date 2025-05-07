@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
         const confirmar = document.getElementById('confirmar').value;
 
-        // Limpia mensajes anteriores
         errorField.style.display = 'none';
         errorField.textContent = '';
 
@@ -43,29 +42,49 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const respuesta = await fetch('/api/registro', {
+        const res = await fetch('/api/registro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                email,
-                nombre_usuario,
-                password,
-                confirmar
-            }),
+            body: JSON.stringify({ email, nombre_usuario, password, confirmar }),
             redirect: 'follow'
         });
 
-        if (respuesta.redirected) {
-            sessionStorage.setItem('origenVerificacion', 'registro');
-            window.location.href = respuesta.url;
-        } else {
-            const texto = await respuesta.text();
-            errorField.textContent = texto;
+        let datos;
+        try {
+            datos = await res.json();
+        } catch {
+            errorField.textContent = 'Error al procesar la respuesta del servidor.';
             errorField.style.display = 'block';
+            return;
         }
-        
+
+        if (!res.ok) {
+            errorField.textContent = datos.error || 'Error inesperado al registrar.';
+            errorField.style.display = 'block';
+            return;
+        }
+
+        // Redirige a verificacion.php con POST (crea y envía un formulario)
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/verificacion.php';
+
+        const inputEmail = document.createElement('input');
+        inputEmail.type = 'hidden';
+        inputEmail.name = 'email';
+        inputEmail.value = datos.email;
+
+        const inputOrigen = document.createElement('input');
+        inputOrigen.type = 'hidden';
+        inputOrigen.name = 'origen';
+        inputOrigen.value = 'registro';
+
+        form.appendChild(inputEmail);
+        form.appendChild(inputOrigen);
+        document.body.appendChild(form);
+        form.submit();
     });
 
     const passwordField = document.getElementById('password');
@@ -79,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     passwordField.addEventListener('input', () => {
         const val = passwordField.value;
-
         const validaciones = {
             length: /.{8,}/.test(val),
             mayus: /[A-Z]/.test(val),
@@ -103,17 +121,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.toggle-password').forEach(button => {
         button.addEventListener('click', () => {
-          const inputId = button.getAttribute('data-target');
-          const input = document.getElementById(inputId);
-          const img = button.querySelector('img');
-      
-          const isVisible = input.type === 'text';
-          input.type = isVisible ? 'password' : 'text';
-          img.src = isVisible ? '/assets/eye2.png' : '/assets/eye1.png';
-          img.alt = isVisible ? 'Mostrar contraseña' : 'Ocultar contraseña';
-        });
-      });
-      
-      
+            const inputId = button.getAttribute('data-target');
+            const input = document.getElementById(inputId);
+            const img = button.querySelector('img');
 
+            const isVisible = input.type === 'text';
+            input.type = isVisible ? 'password' : 'text';
+            img.src = isVisible ? '/assets/eye2.png' : '/assets/eye1.png';
+            img.alt = isVisible ? 'Mostrar contraseña' : 'Ocultar contraseña';
+        });
+    });
+
+    document.querySelectorAll('.toggle-password2').forEach(button => {
+        button.addEventListener('click', () => {
+            const input = document.getElementById('confirmar');
+            const img = button.querySelector('img');
+
+            const isVisible = input.type === 'text';
+            input.type = isVisible ? 'password' : 'text';
+            img.src = isVisible ? '/assets/eye2.png' : '/assets/eye1.png';
+            img.alt = isVisible ? 'Mostrar contraseña' : 'Ocultar contraseña';
+        });
+    });
 });

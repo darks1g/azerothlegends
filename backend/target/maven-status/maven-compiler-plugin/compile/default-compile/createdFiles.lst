@@ -29,6 +29,7 @@ com/wowapp/controller/PersonajeController.class
 com/wowapp/service/OAuthService.class
 com/wowapp/service/UsuarioService.class
 com/wowapp/model/EstadisticasPersonaje.class
+com/wowapp/controller/VerificacionController.class
 com/wowapp/controller/LoginController$LoginRequest.class
 com/wowapp/repository/EstadisticasPersonajeRepository.class
 com/wowapp/model/Reino.class

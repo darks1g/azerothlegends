@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.Map;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -40,17 +41,17 @@ public class RegistroController {
 
     // Endpoint para registrar un nuevo usuario
     @PostMapping("/registro")
-    public ResponseEntity<String> registrar(@RequestBody RegistroRequest request, HttpSession session) {
+    public ResponseEntity<Map<String, String>> registrar(@RequestBody RegistroRequest request, HttpSession session) {
         if (!request.password.equals(request.confirmar)) {
-            return ResponseEntity.badRequest().body("Las contraseñas no coinciden.");
+            return ResponseEntity.badRequest().body(Map.of("error", "Las contraseñas no coinciden."));
         }
 
         if (usuarioRepository.findByEmail(request.email).isPresent()) {
-            return ResponseEntity.badRequest().body("El correo ya está registrado.");
+            return ResponseEntity.badRequest().body(Map.of("error", "El correo ya está registrado."));
         }
 
         if (usuarioRepository.findByNombreUsuario(request.nombre_usuario).isPresent()) {
-            return ResponseEntity.badRequest().body("El usuario ya está registrado.");
+            return ResponseEntity.badRequest().body(Map.of("error", "El usuario ya está registrado."));
         }
 
         Usuario usuarioPendiente = new Usuario();
@@ -60,10 +61,9 @@ public class RegistroController {
         usuarioPendiente.setTipo("web");
         usuarioPendiente.setEsVerificado(false);
 
-        // Guarda en sesión como usuario pendiente
         session.setAttribute("usuario_pendiente", usuarioPendiente);
         session.setAttribute("origen", "registro");
 
-        return ResponseEntity.status(302).header("Location", "/verificacion.html").build();
+        return ResponseEntity.ok(Map.of("email", request.email));
     }
 }
