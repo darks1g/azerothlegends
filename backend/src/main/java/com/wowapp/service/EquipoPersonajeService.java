@@ -19,38 +19,40 @@ public class EquipoPersonajeService {
     @Transactional
     public void guardarEquipo(Personaje personaje, Map<String, Object> datos) {
         try {
+            // Elimina el equipo asociado al personaje antes de guardar el nuevo equipo
             equipoPersonajeRepository.deleteByPersonajeId(personaje.getId());
 
+            // Obtiene la lista de objetos equipados del mapa de datos
             List<Map<String, Object>> items = (List<Map<String, Object>>) datos.get("equipped_items");
             if (items == null) {
-                System.out.println("🚫 No se encontraron objetos equipados");
+                System.out.println("No se encontraron objetos equipados");
                 return;
             }
 
+            // Itera sobre cada objeto equipado y lo guarda en la base de datos
             for (Map<String, Object> itemData : items) {
                 EquipoPersonaje equipo = new EquipoPersonaje();
                 equipo.setPersonaje(personaje);
 
-                // SLOT
+                // Obtiene el tipo de slot del objeto y lo asigna
                 Map<String, Object> slot = (Map<String, Object>) itemData.get("slot");
                 if (slot != null) {
                     equipo.setSlot((String) slot.get("type"));
                 }
 
-                // ITEM ID
+                // Obtiene el ID del objeto y lo asigna
                 Map<String, Object> item = (Map<String, Object>) itemData.get("item");
                 if (item != null && item.get("id") instanceof Number) {
                     equipo.setItemId(((Number) item.get("id")).intValue());
                 }
 
-                // NOMBRE
+                // Obtiene el nombre del objeto y lo asigna
                 Object nombreItem = itemData.get("name");
                 if (nombreItem instanceof String) {
                     equipo.setNombreItem((String) nombreItem);
                 }
 
-
-                // ILVL
+                // Obtiene el nivel del objeto (ilvl) y lo asigna
                 Object levelObj = itemData.get("level");
                 if (levelObj instanceof Map) {
                     Map<String, Object> levelMap = (Map<String, Object>) levelObj;
@@ -61,15 +63,17 @@ public class EquipoPersonajeService {
                     equipo.setIlvl(((Number) levelObj).intValue());
                 }
 
-
+                // Guarda el objeto en la base de datos
                 equipoPersonajeRepository.save(equipo);
-                System.out.println("💾 Guardado equipo: " + equipo.getNombreItem() + " [" + equipo.getSlot() + "]");
+                System.out.println("Guardado equipo: " + equipo.getNombreItem() + " [" + equipo.getSlot() + "]");
             }
 
-            System.out.println("✅ Equipo guardado para: " + personaje.getNombre());
+            // Mensaje de confirmación al finalizar el guardado
+            System.out.println("Equipo guardado para: " + personaje.getNombre());
 
         } catch (Exception e) {
-            System.err.println("❌ Error guardando equipo: " + e.getMessage());
+            // Manejo de errores durante el proceso de guardado
+            System.err.println("Error guardando equipo: " + e.getMessage());
         }
     }
 }

@@ -13,73 +13,77 @@ public class EstadisticasService {
 
     private final EstadisticasPersonajeRepository EstadisticasPersonajeRepository;
 
+    // Constructor para inyectar el repositorio de estadísticas
     public EstadisticasService(EstadisticasPersonajeRepository EstadisticasPersonajeRepository) {
         this.EstadisticasPersonajeRepository = EstadisticasPersonajeRepository;
     }
 
+    // Método para guardar las estadísticas de un personaje en la base de datos
     public void guardarEstadisticas(Personaje personaje, Map<String, Object> datos) {
         try {
             EstadisticasPersonaje est = new EstadisticasPersonaje();
             est.setPersonaje(personaje);
-    
-            // Atributos primarios
+
+            // Asignar atributos primarios desde el mapa de datos
             est.setFuerza(obtenerEnteroDesdeSubmapa(datos, "strength", "effective"));
             est.setAgilidad(obtenerEnteroDesdeSubmapa(datos, "agility", "effective"));
             est.setIntelecto(obtenerEnteroDesdeSubmapa(datos, "intellect", "effective"));
             est.setAguante(obtenerEnteroDesdeSubmapa(datos, "stamina", "effective"));
-    
-            // Vida
+
+            // Asignar la vida si está presente en los datos
             if (datos.get("health") instanceof Number) {
                 est.setVida(((Number) datos.get("health")).intValue());
             }
-    
-            // Golpe crítico desde "melee_crit"
+
+            // Asignar el golpe crítico desde el submapa "melee_crit"
             est.setGolpeCritico(obtenerDecimalDesdeSubmapa(datos, "melee_crit", "value"));
-    
-            // Celeridad desde "melee_haste"
+
+            // Asignar la celeridad desde el submapa "melee_haste"
             est.setCeleridad(obtenerDecimalDesdeSubmapa(datos, "melee_haste", "value"));
-    
-            // Maestría funciona bien
+
+            // Asignar la maestría desde el submapa "mastery"
             est.setMaestria(obtenerDecimalDesdeSubmapa(datos, "mastery", "value"));
-    
-            // Versatilidad es un número directo
+
+            // Asignar la versatilidad directamente si está presente en los datos
             if (datos.get("versatility") instanceof Number) {
                 est.setVersatilidad(BigDecimal.valueOf(((Number) datos.get("versatility")).doubleValue()));
             }
-    
+
+            // Guardar las estadísticas en la base de datos
             EstadisticasPersonajeRepository.save(est);
             System.out.println("Estadísticas guardadas para: " + personaje.getNombre());
         } catch (Exception e) {
+            // Manejo de errores al guardar las estadísticas
             System.err.println("Error al guardar estadísticas: " + e.getMessage());
             e.printStackTrace();
         }
     }
-    
-    
 
+    // Método auxiliar para obtener un valor entero desde un submapa
     @SuppressWarnings("unchecked")
-private Integer obtenerEnteroDesdeSubmapa(Map<String, Object> datos, String clavePrincipal, String claveInterna) {
-    try {
-        Map<String, Object> submapa = (Map<String, Object>) datos.get(clavePrincipal);
-        if (submapa != null && submapa.get(claveInterna) instanceof Number) {
-            return ((Number) submapa.get(claveInterna)).intValue();
+    private Integer obtenerEnteroDesdeSubmapa(Map<String, Object> datos, String clavePrincipal, String claveInterna) {
+        try {
+            Map<String, Object> submapa = (Map<String, Object>) datos.get(clavePrincipal);
+            if (submapa != null && submapa.get(claveInterna) instanceof Number) {
+                return ((Number) submapa.get(claveInterna)).intValue();
+            }
+        } catch (ClassCastException ignored) {
         }
-    } catch (ClassCastException ignored) {}
-    return 0;
-}
+        return 0;
+    }
 
-@SuppressWarnings("unchecked")
-private BigDecimal obtenerDecimalDesdeSubmapa(Map<String, Object> datos, String clavePrincipal, String claveInterna) {
-    try {
-        Map<String, Object> submapa = (Map<String, Object>) datos.get(clavePrincipal);
-        if (submapa != null && submapa.get(claveInterna) instanceof Number) {
-            return BigDecimal.valueOf(((Number) submapa.get(claveInterna)).doubleValue());
+    // Método auxiliar para obtener un valor decimal desde un submapa
+    @SuppressWarnings("unchecked")
+    private BigDecimal obtenerDecimalDesdeSubmapa(Map<String, Object> datos, String clavePrincipal,
+            String claveInterna) {
+        try {
+            Map<String, Object> submapa = (Map<String, Object>) datos.get(clavePrincipal);
+            if (submapa != null && submapa.get(claveInterna) instanceof Number) {
+                return BigDecimal.valueOf(((Number) submapa.get(claveInterna)).doubleValue());
+            }
+        } catch (ClassCastException ignored) {
         }
-    } catch (ClassCastException ignored) {}
-    return BigDecimal.ZERO;
+        return BigDecimal.ZERO;
+    }
+
 }
-
-    
-}
-
-

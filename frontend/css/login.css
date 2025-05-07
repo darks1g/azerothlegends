@@ -1,178 +1,168 @@
 body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #2a2a2a;
-    /* fondo oscuro neutro */
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    min-height: 100vh; /* Asegura que el cuerpo ocupe al menos toda la altura de la ventana */
+    display: flex; /* Configura un contenedor flex */
+    flex-direction: column; /* Organiza los elementos en columna */
+    background-color: #2a2a2a; /* Color de fondo oscuro */
 }
 
 .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-size: cover;
-    border-bottom: 4px solid #8b5e3c;
-    z-index: 1000;
-    width: 100%;
-    position: relative;
+    display: flex; /* Contenedor flex para la cabecera */
+    flex-direction: row; /* Elementos organizados en fila */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    background-size: cover; /* Ajusta el tamaño del fondo para cubrir el área */
+    border-bottom: 4px solid #8b5e3c; /* Borde inferior de la cabecera */
+    z-index: 1000; /* Asegura que la cabecera esté por encima de otros elementos */
+    width: 100%; /* Ocupa todo el ancho */
+    position: relative; /* Posicionamiento relativo para ajustes internos */
 }
 
 .header-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    position: absolute; /* Posiciona el elemento de forma absoluta dentro de su contenedor */
+    left: 50%; /* Centra horizontalmente */
+    transform: translateX(-50%); /* Ajusta el centrado exacto */
 }
 
 .title {
-    font-size: 4rem;
-    font-weight: bold;
-    color: gold;
-    text-shadow: 1px 1px 2px #000;
-    margin: 0;
-
+    font-size: 4rem; /* Tamaño grande para el título */
+    font-weight: bold; /* Texto en negrita */
+    color: gold; /* Color dorado */
+    text-shadow: 1px 1px 2px #000; /* Sombra para el texto */
+    margin: 0; /* Sin margen */
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
 }
 
 a:hover {
-    scale: 1.1;
+    scale: 1.1; /* Aumenta ligeramente el tamaño al pasar el cursor */
 }
 
-
 .login-container {
-    max-width: 500px;
-    /* más ancho */
-
-    margin: 6rem auto 4rem auto;
-    /* más espacio arriba y abajo */
-    /* margin-top: 12rem; */
-    background-color: #fffbe6;
-    border: 3px solid #8b5e3c;
-    border-radius: 12px;
-    padding: 3rem;
-    /* más espacio interior */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    text-align: center;
+    max-width: 500px; /* Ancho máximo del contenedor */
+    margin: 6rem auto 4rem auto; /* Centrado con márgenes superior e inferior */
+    background-color: #fffbe6; /* Fondo claro */
+    border: 3px solid #8b5e3c; /* Borde con color marrón */
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 3rem; /* Espaciado interno */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra para el contenedor */
+    text-align: center; /* Centra el texto */
 }
 
 .login-container h1 {
-    font-size: 2rem;
-    color: #8b5e3c;
-    margin-bottom: 1rem;
+    font-size: 2rem; /* Tamaño del texto del encabezado */
+    color: #8b5e3c; /* Color marrón */
+    margin-bottom: 1rem; /* Espaciado inferior */
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    display: flex; /* Contenedor flex para el formulario */
+    flex-direction: column; /* Organiza los elementos en columna */
+    gap: 1rem; /* Espaciado entre los elementos */
 }
 
 .login-form input {
-    padding: 0.6rem;
-    border: 2px solid #8b5e3c;
-    border-radius: 6px;
-    font-size: 1rem;
-    background-color: #fdf5e6;
+    padding: 0.6rem; /* Espaciado interno */
+    border: 2px solid #8b5e3c; /* Borde con color marrón */
+    border-radius: 6px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño del texto */
+    background-color: #fdf5e6; /* Fondo claro */
 }
 
 .button {
-    background-color: #8b5e3c;
-    color: white;
-    font-weight: bold;
-    padding: 0.6rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    background-color: #8b5e3c; /* Fondo marrón */
+    color: white; /* Texto blanco */
+    font-weight: bold; /* Texto en negrita */
+    padding: 0.6rem; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 6px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
 }
 
 .button:hover {
-    background-color: #a76a45;
+    background-color: #a76a45; /* Cambia el color del fondo al pasar el cursor */
 }
 
 .error {
-    color: red;
-    margin-bottom: 1rem;
+    color: red; /* Texto en rojo */
+    margin-bottom: 1rem; /* Espaciado inferior */
 }
 
 .register-link {
-    margin-top: 1rem;
+    margin-top: 1rem; /* Espaciado superior */
 }
 
 .oauth-login {
-    margin-top: 2rem;
-  }
-  
-  .oauth-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    background-color: #009AE4;
-    color: white;
-    font-weight: bold;
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-    border: 2px solid #2c2c2c;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-  }
-  
-  .oauth-button:hover {
-    background-color: #0076e4;
-  }
-  
-  .oauth-icon {
-    width: 24px;
-    height: 24px;
-  }
+    margin-top: 2rem; /* Espaciado superior */
+}
 
-/* Footer */
+.oauth-button {
+    display: inline-flex; /* Contenedor flex en línea */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    gap: 0.6rem; /* Espaciado entre los elementos */
+    background-color: #009AE4; /* Fondo azul */
+    color: white; /* Texto blanco */
+    font-weight: bold; /* Texto en negrita */
+    padding: 0.6rem 1rem; /* Espaciado interno */
+    border-radius: 6px; /* Bordes redondeados */
+    text-decoration: none; /* Elimina el subrayado */
+    transition: background-color 0.2s ease; /* Transición suave para el color de fondo */
+    border: 2px solid #2c2c2c; /* Borde oscuro */
+    font-size: 1rem; /* Tamaño del texto */
+    transition: all 0.2s ease; /* Transición suave para todos los cambios */
+}
+
+.oauth-button:hover {
+    background-color: #0076e4; /* Cambia el color del fondo al pasar el cursor */
+}
+
+.oauth-icon {
+    width: 24px; /* Ancho del icono */
+    height: 24px; /* Altura del icono */
+}
+
 .footer {
-    text-align: center;
-    padding: 1rem;
-    background: rgba(255, 248, 220, 0.95);
-    border-top: 4px solid #8b5e3c;
-    font-size: 0.9rem;
-    color: #5a3e1b;
-    width: 100%;
-    margin-top: auto;
+    text-align: center; /* Centra el texto */
+    padding: 1rem; /* Espaciado interno */
+    background: rgba(255, 248, 220, 0.95); /* Fondo semitransparente */
+    border-top: 4px solid #8b5e3c; /* Borde superior */
+    font-size: 0.9rem; /* Tamaño del texto */
+    color: #5a3e1b; /* Color del texto */
+    width: 100%; /* Ocupa todo el ancho */
+    margin-top: auto; /* Empuja el pie de página hacia abajo */
 }
 
 @media (max-width: 600px) {
     .login-container {
-        margin: 1rem 1rem 1rem 1rem;
-        padding: 1rem 1rem;
-        max-width: 100%;
-        width: 90%;
+        margin: 1rem 1rem 1rem 1rem; /* Márgenes más pequeños en dispositivos pequeños */
+        padding: 1rem 1rem; /* Espaciado interno reducido */
+        max-width: 100%; /* Ocupa todo el ancho disponible */
+        width: 90%; /* Ancho del 90% */
     }
 
     .title {
-        font-size: 2.2rem;
-        text-align: center;
+        font-size: 2.2rem; /* Tamaño reducido del título */
+        text-align: center; /* Centra el texto */
     }
 
     .oauth-button {
-        width: 90%;
-        padding: 0.8rem;
-        font-size: 1rem;
+        width: 90%; /* Botón más ancho */
+        padding: 0.8rem; /* Espaciado interno mayor */
+        font-size: 1rem; /* Tamaño del texto */
     }
 
     .login-form input {
-        font-size: 1rem;
-        padding: 0.8rem;
+        font-size: 1rem; /* Tamaño del texto */
+        padding: 0.8rem; /* Espaciado interno mayor */
     }
 }
 
-/* Centrado vertical si se necesita en móviles grandes */
 @media (min-width: 601px) and (max-width: 900px) {
     .login-container {
-        max-width: 100%;
+        max-width: 100%; /* Ocupa todo el ancho disponible */
     }
 }

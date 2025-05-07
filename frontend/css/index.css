@@ -1,4 +1,4 @@
-/* Layout general */
+/* Estilo general del cuerpo de la página */
 body {
   margin: 0;
   padding: 0;
@@ -6,10 +6,10 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #2a2a2a; /* fondo oscuro neutro */
+  background-color: #2a2a2a;
 }
 
-/* Header */
+/* Estilo del encabezado */
 .header {
   display: flex;
   align-items: center;
@@ -23,7 +23,7 @@ body {
   width: 100%;
 }
 
-/* Columnas izquierda y derecha con ancho fijo */
+/* Columnas izquierda y derecha del encabezado con ancho fijo */
 .header-left,
 .header-right {
   flex: 0 0 auto;
@@ -33,21 +33,22 @@ body {
   padding: 0 1em 0 1em;
 }
 
+/* Estilo del texto en la sección derecha del encabezado */
 .header-right p {
   margin: 0;
   font-size: 1rem;
   color: #fff2d8;
-  margin-bottom: 4px; /* ajusta este valor según lo cerca que lo quieras */
+  margin-bottom: 4px;
 }
 
-/* Centro centrado absoluto */
+/* Centrar el contenido del encabezado */
 .header-center {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 
-/* Título */
+/* Estilo del título principal */
 .title {
   font-size: 4rem;
   font-weight: bold;
@@ -56,7 +57,7 @@ body {
   margin: 0;
 }
 
-/* Botón de chat */
+/* Estilo del botón de chat */
 .chat-button {
   font-weight: bold;
   padding: 0.5rem 1rem;
@@ -71,7 +72,7 @@ body {
   background-color: #ffecc8;
 }
 
-/* Imagen de perfil */
+/* Estilo del botón de perfil */
 .perfil-button {
   display: block;
   background: transparent;
@@ -84,6 +85,7 @@ body {
   scale: 1.1;
 }
 
+/* Estilo de la imagen de perfil */
 .perfil-img {
   width: 48px;
   height: 48px;
@@ -97,24 +99,22 @@ body {
   background-color: white;
 }
 
-
-
-/* Main layout */
+/* Diseño principal con tres columnas */
 .main-layout {
   display: grid;
-  grid-template-columns: 25vw 1fr 25vw; /* mismas columnas izquierda/derecha */
+  grid-template-columns: 25vw 1fr 25vw;
   align-items: start;
   flex-grow: 1;
   padding: 0;
   gap: 0;
 }
 
-/* Imágenes decorativas */
+/* Estilo de las imágenes decorativas */
 .character-image {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%; /* ocupa su columna completa */
+  width: 100%;
   height: 90vh;
   overflow: hidden;
 }
@@ -126,8 +126,7 @@ body {
   display: block;
 }
 
-
-/* Buscador */
+/* Estilo del buscador */
 .busqueda {
   text-align: center;
   padding: 2rem 1rem;
@@ -140,6 +139,7 @@ body {
   text-shadow: 1px 1px 1px #000000;
 }
 
+/* Estilo del formulario de búsqueda */
 .form-busqueda {
   display: flex;
   flex-direction: column;
@@ -147,6 +147,7 @@ body {
   gap: 1.5rem;
 }
 
+/* Fila del formulario */
 .form-row {
   display: flex;
   gap: 1rem;
@@ -154,6 +155,7 @@ body {
   justify-content: center;
 }
 
+/* Grupo de campos del formulario */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -162,12 +164,15 @@ body {
   max-width: 240px;
 }
 
+/* Estilo de las etiquetas */
 .label {
   color: #fff2d8;
   margin-bottom: 0.3rem;
 }
 
-.select, .input {
+/* Estilo de los campos de entrada y selección */
+.select,
+.input {
   width: 100%;
   padding: 0.4rem;
   border-radius: 6px;
@@ -177,6 +182,7 @@ body {
   font-size: 1rem;
 }
 
+/* Estilo de los botones */
 .button {
   min-width: 150px;
   font-size: 1rem;
@@ -193,7 +199,7 @@ body {
   background-color: #a76a45;
 }
 
-/* Footer */
+/* Estilo del pie de página */
 .footer {
   text-align: center;
   padding: 1rem;
@@ -205,10 +211,7 @@ body {
   margin-top: auto;
 }
 
-.chat-button .chat-icon {
-  display: none;
-}
-
+/* Estilo del menú desplegable del perfil */
 .perfil-dropdown {
   position: relative;
   display: inline-block;
@@ -227,7 +230,7 @@ body {
   display: none;
   z-index: 1001;
   min-width: 160px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .perfil-menu li {
@@ -244,29 +247,24 @@ body {
   background-color: #ffecc8;
 }
 
-
+/* Estilos responsivos para pantallas menores a 980px */
 @media (max-width: 980px) {
-  /* Ocultar imágenes decorativas a los lados */
   .header {
     width: 100%;
     padding: 15px;
   }
-  
-    .character-image {
-      display: none !important;
-    }
-  
-    .main-layout {
-      grid-template-columns: 1fr !important;
-    }
-  
-  
 
+  .character-image {
+    display: none !important;
+  }
+
+  .main-layout {
+    grid-template-columns: 1fr !important;
+  }
 }
 
+/* Estilos responsivos para pantallas menores a 768px */
 @media (max-width: 768px) {
-  /* Hacer que el header sea más compacto */
-
   .header {
     width: 100%;
     padding: 15px;
@@ -280,8 +278,6 @@ body {
     display: inline;
   }
 
-
-  /* Hacer que header-left y header-right estén en fila */
   .header-left,
   .header-right {
     flex-direction: row;
@@ -290,12 +286,10 @@ body {
     padding: 0 0 0 0;
   }
 
-  /* Ajustar la sección derecha para no hacer overflow */
   .header-right p {
-    display: none; /* Ocultar el texto "Cuenta" en móviles */
+    display: none;
   }
 
-  /* Centrar el título sin usar position absolute */
   .header-center {
     position: static;
     transform: none;
@@ -304,7 +298,6 @@ body {
     display: flex;
   }
 
-  /* Redimensionar imagen de perfil si hace falta */
   .perfil-img {
     width: 40px;
     height: 40px;
@@ -312,7 +305,7 @@ body {
 
   .busqueda {
     margin: 0 auto;
-    max-width: 320px; /* o el ancho que prefieras para móviles */
+    max-width: 320px;
   }
 
   .form-group {
@@ -335,18 +328,17 @@ body {
   }
 
   .input,
-.select {
-  box-sizing: border-box;
-}
+  .select {
+    box-sizing: border-box;
+  }
 
-.input,
-.select {
-  font-size: 16px;
-}
+  .input,
+  .select {
+    font-size: 16px;
+  }
 
-.button {
-  font-size: 16px;
-  padding: 0.6rem 1.2rem;
-}
-  
+  .button {
+    font-size: 16px;
+    padding: 0.6rem 1.2rem;
+  }
 }
