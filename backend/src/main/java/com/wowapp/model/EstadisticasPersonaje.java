@@ -9,26 +9,33 @@ import lombok.Data;
 @Table(name = "estadisticas_personaje")
 public class EstadisticasPersonaje {
 
+    // Identificador único de la entidad
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Atributos básicos de las estadísticas del personaje
     private Integer vida;
     private Integer fuerza;
     private Integer agilidad;
     private Integer intelecto;
     private Integer aguante;
 
+    // Golpe crítico del personaje, mapeado a una columna específica
     @Column(name = "golpe_critico")
     private BigDecimal golpeCritico;
 
+    // Otras estadísticas avanzadas del personaje
     private BigDecimal celeridad;
     private BigDecimal maestria;
     private BigDecimal versatilidad;
 
+    // Relación muchos-a-uno con la entidad Personaje
     @ManyToOne
     @JoinColumn(name = "personaje_id", nullable = false)
     private Personaje personaje;
+
+    // Métodos getter y setter para acceder y modificar los atributos
 
     public Long getId() {
         return id;
@@ -117,6 +124,4 @@ public class EstadisticasPersonaje {
     public void setVida(Integer vida) {
         this.vida = vida;
     }
-
-    
 }

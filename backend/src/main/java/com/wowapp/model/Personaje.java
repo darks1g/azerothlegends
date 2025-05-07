@@ -4,50 +4,48 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "personajes")
+@Table(name = "personajes") // Define que esta clase es una entidad y se mapea a la tabla "personajes"
 public class Personaje {
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id") // nombre de la columna en la tabla personajes
+    @ManyToOne // Relación muchos a uno con la entidad Usuario
+    @JoinColumn(name = "usuario_id") // Define la columna "usuario_id" como clave foránea
     private Usuario usuario;
 
-
-    @Id
+    @Id // Define el campo "id" como clave primaria
     private Long id;
 
-    private String nombre;
-    private String reino;
-    private String region;
-    private Integer nivel;
-    private String raza;
-    private String clase;
-    private String genero;
+    // Atributos de la entidad
+    private String nombre; // Nombre del personaje
+    private String reino; // Reino al que pertenece el personaje
+    private String region; // Región del personaje
+    private Integer nivel; // Nivel del personaje
+    private String raza; // Raza del personaje
+    private String clase; // Clase del personaje
+    private String genero; // Género del personaje
 
-    private String especializacion;
-    private Integer especializacionId;
-    private String heroe;
-    private Integer heroeId;
+    private String especializacion; // Especialización del personaje
+    private Integer especializacionId; // ID de la especialización
+    private String heroe; // Nombre del héroe asociado
+    private Integer heroeId; // ID del héroe asociado
 
+    @Enumerated(EnumType.STRING) // Define que el enum se almacenará como texto en la base de datos
+    @Column(name = "version_juego") // Nombre de la columna en la tabla
+    private VersionJuego versionJuego; // Versión del juego asociada al personaje
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "version_juego")
-    private VersionJuego versionJuego;
+    @Column(name = "fecha_actualizacion") // Nombre de la columna en la tabla
+    private LocalDateTime fechaActualizacion; // Fecha de la última actualización del personaje
 
-    @Column(name = "fecha_actualizacion")
-    private LocalDateTime fechaActualizacion;
-
-    // Getters y setters
-
+    // Enumeración para las versiones del juego
     public enum VersionJuego {
         retail,         // Shadowlands, Dragonflight...
         classic,        // Cataclysm Classic
         classic_era     // Classic Era y Hardcore
     }
-    
 
-    // Constructor vacío
+    // Constructor vacío necesario para JPA
     public Personaje() {}
 
+    // Métodos setters para asignar valores a los atributos
     public void setId(Long id) {
         this.id = id;
     }
@@ -88,6 +86,7 @@ public class Personaje {
         this.fechaActualizacion = fechaActualizacion;
     }
 
+    // Métodos getters para obtener los valores de los atributos
     public Long getId() {
         return id;
     }
@@ -167,6 +166,4 @@ public class Personaje {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    
 }

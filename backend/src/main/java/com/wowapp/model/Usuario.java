@@ -8,28 +8,31 @@ import java.util.List;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Genera automáticamente el ID único para cada usuario
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true, length = 100) // El correo electrónico debe ser único y no puede ser nulo
     private String email;
 
-    @Column(nullable = false)
-    private String tipo; // "web" o "battlenet"
+    @Column(nullable = false) // Define el tipo de usuario: "web" o "battlenet"
+    private String tipo;
 
-    private String nombreUsuario; // Solo para usuarios web (opcional para battlenet)
+    // Nombre de usuario, opcional para usuarios de tipo "battlenet"
+    private String nombreUsuario;
 
-    private String battletag; // Solo para usuarios battlenet
+    // Battletag, solo aplicable para usuarios de tipo "battlenet"
+    private String battletag;
 
-    // Para usuarios web, se puede guardar hash de contraseña
+    // Hash de la contraseña, solo para usuarios de tipo "web"
     private String passwordHash;
 
+    // Indica si el usuario ha sido verificado
     private Boolean esVerificado = false;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL) // Relación uno a muchos con la entidad Personaje
     private List<Personaje> personajes;
 
-    // Getters y setters
+    // Métodos getter y setter para acceder y modificar los atributos
 
     public Long getId() {
         return id;

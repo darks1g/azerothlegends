@@ -2,25 +2,26 @@ package com.wowapp.model;
 
 import jakarta.persistence.*;
 
+// Entidad que representa un talento clásico en la base de datos
 @Entity
 @Table(name = "talento_classic")
 public class TalentoClassic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // Identificador único del talento
 
-    private String nombre;
-    private Integer talentoId;
-    private Integer rango;
-    private Integer tier;
-    private Integer columna;
+    private String nombre; // Nombre del talento
+    private Integer talentoId; // Identificador del talento
+    private Integer rango; // Rango del talento
+    private Integer tier; // Nivel o tier del talento
+    private Integer columna; // Columna en la que se encuentra el talento
 
     @ManyToOne
     @JoinColumn(name = "personaje_id")
-    private Personaje personaje;
+    private Personaje personaje; // Relación con la entidad Personaje
 
-    // Getters y setters
+    // Métodos getter y setter para acceder y modificar los atributos
 
     public Long getId() {
         return id;

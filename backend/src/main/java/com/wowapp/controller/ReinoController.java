@@ -13,10 +13,12 @@ public class ReinoController {
 
     private final ReinoRepository reinoRepository;
 
+    // Constructor que inyecta el repositorio de reinos
     public ReinoController(ReinoRepository reinoRepository) {
         this.reinoRepository = reinoRepository;
     }
 
+    // Método que maneja solicitudes GET para obtener una lista de reinos según la región
     @GetMapping
     public List<Reino> obtenerReinosPorRegion(@RequestParam String region) {
         return reinoRepository.findByRegion(region);

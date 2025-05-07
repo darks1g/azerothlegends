@@ -4,25 +4,23 @@ import jakarta.persistence.*;
 import com.wowapp.model.Personaje.VersionJuego;
 
 @Entity
-@Table(name = "reinos")
+@Table(name = "reinos") // Indica que esta clase está mapeada a la tabla "reinos" en la base de datos
 public class Reino {
 
-    @Id
+    @Id // Marca este campo como la clave primaria de la tabla
     private Long id;
 
-    private String nombre;
+    private String nombre; // Nombre del reino
 
-    private String slug;
+    private String slug; // Identificador único del reino en formato de texto
 
-    private String region;
+    private String region; // Región a la que pertenece el reino
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "version_juego")
+    @Enumerated(EnumType.STRING) // Almacena el enumerado como una cadena en la base de datos
+    @Column(name = "version_juego") // Mapea este campo a la columna "version_juego" en la tabla
     private VersionJuego versionJuego;
 
-    
-
-    // Getters y Setters
+    // Métodos getter y setter para acceder y modificar los atributos
 
     public Long getId() {
         return id;

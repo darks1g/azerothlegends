@@ -36,6 +36,8 @@ out/
 ### VS Code ###
 .vscode/
 
-
 ### Log consola ###
 salida.log
+
+### Credenciales ###
+src/main/resources/application.properties
