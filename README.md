@@ -37,7 +37,7 @@ Este es un proyecto web desarrollado como parte del módulo de Desarrollo de Apl
 
 [ ] Visualización de personajes en la web (estático o 3D)
 
-[ ] Página de rankings (más populares, más buscados, etc.)
+[ ] Página con listado de personajes y filtrado de resultados
 
 [ ] Gestión de errores y mensajes amigables al usuario
 
