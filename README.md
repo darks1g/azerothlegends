@@ -22,3 +22,31 @@ Este es un proyecto web desarrollado como parte del módulo de Desarrollo de Apl
 1. Clona el repositorio:
    ```bash
    git clone https://github.com/darks1g/azerothlegends.git
+
+## ✅ TODO
+
+[x] Guardado de personajes de WoW desde la API oficial
+
+[x] Almacenamiento de estadísticas, talentos y equipo de personajes
+
+[x] Inicio de sesión con Battle.net mediante OAuth2
+
+[x] Sistema de usuarios (web y Battle.net) con verificación 2FA por email
+
+[ ] Página de detalle para cada personaje
+
+[ ] Sistema de "Me Gusta" para personajes
+
+[ ] Chat global anónimo
+
+[ ] Sistema de mensajería entre usuarios registrados
+
+[ ] Visualización de personajes en la web (estático o 3D)
+
+[ ] Página de rankings (más populares, más buscados, etc.)
+
+[ ] Gestión de errores y mensajes amigables al usuario
+
+[ ] ? Sección de administración (moderación de mensajes/reportes)
+
+[ ] Optimización del rendimiento (cacheo de respuestas API, paginación, etc.)
