@@ -1,4 +1,6 @@
 <?php
+require 'credenciales-mail.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -23,8 +25,8 @@ function enviarCodigoDeVerificacion($email) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'soporte.azerothlegends@gmail.com';
-        $mail->Password   = 'cfjz snlz djnm wohp'; // usa App Password, no tu clave de Gmail
+        $mail->Username   = $Username;
+        $mail->Password   = $Password;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
