@@ -37,9 +37,7 @@ out/
 .vscode/
 
 ### Log consola ###
-backend/*.log
+*.log
 
 ### Credenciales ###
 **/application.properties
-# Ignore sensitive credentials file
-frontend/php/credenciales-mail.php
