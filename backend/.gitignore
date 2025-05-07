@@ -37,7 +37,7 @@ out/
 .vscode/
 
 ### Log consola ###
-salida.log
+backend/salida.log
 
 ### Credenciales ###
 **/application.properties
