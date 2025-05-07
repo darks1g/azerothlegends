@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -18,22 +19,23 @@ public class VerificacionController {
     private UsuarioRepository usuarioRepository;
 
     @PostMapping("/verificar-codigo")
-    public ResponseEntity<Map<String, Object>> verificarCodigo(@RequestBody Map<String, String> datos, HttpSession session) {
+    public ResponseEntity<?> verificarCodigo(@RequestBody Map<String, String> datos, HttpSession session) {
+        String email = datos.get("email");
         String codigoIngresado = datos.get("codigo");
+        String origen = datos.get("origen");
 
+        // Recuperar la verificación PHP desde la sesión si existe
         Map<String, Object> verificacion = (Map<String, Object>) session.getAttribute("verificacion");
-        Usuario usuarioPendiente = (Usuario) session.getAttribute("usuario_pendiente");
-        String origen = (String) session.getAttribute("origen");
 
-        if (verificacion == null || usuarioPendiente == null || origen == null) {
+        if (verificacion == null) {
             return ResponseEntity.badRequest().body(Map.of("error", "Sesión de verificación inválida."));
         }
 
-        long expiracion = (long) verificacion.get("expira");
         String codigoCorrecto = String.valueOf(verificacion.get("codigo"));
-        String email = (String) verificacion.get("email");
+        String emailVerificado = (String) verificacion.get("email");
+        long expiracion = (long) verificacion.get("expira");
 
-        if (!email.equals(usuarioPendiente.getEmail())) {
+        if (!email.equals(emailVerificado)) {
             return ResponseEntity.status(403).body(Map.of("error", "El correo no coincide."));
         }
 
@@ -45,16 +47,27 @@ public class VerificacionController {
             return ResponseEntity.status(403).body(Map.of("error", "Código incorrecto."));
         }
 
-        // ✅ Verificación superada
         if (origen.equals("registro")) {
+            // Registro: obtener el usuario pendiente de la sesión
+            Usuario usuarioPendiente = (Usuario) session.getAttribute("usuario_pendiente");
+            if (usuarioPendiente == null) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Usuario pendiente no encontrado."));
+            }
             usuarioPendiente.setEsVerificado(true);
             usuarioRepository.save(usuarioPendiente);
+            session.setAttribute("usuario", usuarioPendiente);
+        } else {
+            // Login: buscar el usuario por email
+            Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+            if (usuarioOpt.isEmpty()) {
+                return ResponseEntity.status(404).body(Map.of("error", "Usuario no encontrado."));
+            }
+            session.setAttribute("usuario", usuarioOpt.get());
         }
 
-        session.setAttribute("usuario", usuarioPendiente);
-        session.removeAttribute("usuario_pendiente");
+        // Limpieza de sesión
         session.removeAttribute("verificacion");
-        session.removeAttribute("origen");
+        session.removeAttribute("usuario_pendiente");
 
         return ResponseEntity.ok(Map.of("success", true));
     }

@@ -1,36 +1,49 @@
 <?php
 session_start();
 
-if (!isset($_POST['email']) || empty($_POST['email'])) {
+require_once __DIR__ . '/php/funciones_envio.php';
+
+// Si es la primera vez, guarda datos en la sesión desde POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['origen'])) {
+    $email = $_POST['email'];
+    $origen = $_POST['origen'];
+
+    // Validar datos mínimos
+    if (empty($email)) {
+        header('Location: /index');
+        exit;
+    }
+
+    if ($origen === 'registro') {
+        if (!isset($_POST['nombre_usuario'], $_POST['password'])) {
+            header('Location: /index');
+            exit;
+        }
+
+        $_SESSION['usuario_pendiente'] = [
+            'email' => $email,
+            'nombre_usuario' => $_POST['nombre_usuario'],
+            'password_hash' => password_hash($_POST['password'], PASSWORD_BCRYPT),
+            'tipo' => 'web',
+            'es_verificado' => false
+        ];
+    } elseif ($origen === 'login') {
+        $_SESSION['usuario_pendiente'] = [ 'email' => $email ];
+    }
+
+    $_SESSION['origen'] = $origen;
+    $_SESSION['verificacion_email'] = $email;
+
+    // Enviar el código
+    enviarCodigoDeVerificacion($email);
+}
+
+// Si no hay sesión, redirige
+if (empty($_SESSION['usuario_pendiente']) || empty($_SESSION['verificacion_email']) || empty($_SESSION['origen'])) {
     header('Location: /index');
     exit;
 }
-
-require_once __DIR__ . '/php/funciones_envio.php';
-
-// Solo si es registro, crear usuario pendiente en la sesión PHP
-if ($_POST['origen'] === 'registro') {
-    if (!isset($_SESSION['usuario_pendiente'])) {
-        // Crear un usuario básico en sesión solo con email
-        $_SESSION['usuario_pendiente'] = [
-            'email' => $_POST['email']
-        ];
-    }
-} elseif ($_POST['origen'] === 'login') {
-    // Copiar el usuario desde Java a PHP no es posible directamente.
-    // Así que solo guardamos el email, y asumimos que Spring validó
-    $_SESSION['usuario_pendiente'] = [
-        'email' => $_POST['email']
-    ];
-}
-
-$_SESSION['origen'] = $_POST['origen'];
-$_SESSION['verificacion_email'] = $_POST['email'];
-
-// Enviar código
-enviarCodigoDeVerificacion($_POST['email']);
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 

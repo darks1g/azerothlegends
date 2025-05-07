@@ -1,5 +1,5 @@
 <?php
-require 'credenciales-mail.php';
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -9,6 +9,7 @@ require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
 require_once __DIR__ . '/PHPMailer/src/SMTP.php';
 
 function enviarCodigoDeVerificacion($email) {
+    require_once __DIR__ . '/credenciales.php';
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return;
     }

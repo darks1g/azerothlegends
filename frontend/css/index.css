@@ -1,7 +1,7 @@
 /* Estilo general del cuerpo de la página */
 body {
   margin: 0;
-  padding: 0;
+  padding: 0px;
   overflow-x: hidden;
   min-height: 100vh;
   display: flex;
@@ -55,6 +55,11 @@ body {
   color: gold;
   text-shadow: 1px 1px 2px #000;
   margin: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.title:hover {
+  scale: 1.1;
 }
 
 /* Estilo del botón de chat */

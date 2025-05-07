@@ -1,33 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('verificacionForm');
-  const errorField = document.getElementById('verificationError');
-
-  form.addEventListener('submit', async (e) => {
+    const form = document.getElementById('verificacionForm');
+    const errorField = document.getElementById('verificationError');
+  
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
+  
       const codigo = document.getElementById('codigo').value.trim();
-
+  
+      const formData = new FormData();
+      formData.append('codigo', codigo);
+  
       try {
-          const res = await fetch('/api/verificar-codigo', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ codigo })
-          });
-
-          if (res.redirected) {
-              window.location.href = res.url;
-              return;
-          }
-
-          const data = await res.json();
+        const res = await fetch('/php/verificar-codigo.php', {
+          method: 'POST',
+          body: formData,
+          credentials: 'same-origin'
+        });
+  
+        const data = await res.json();
+  
+        if (data.success) {
+          sessionStorage.removeItem('origenVerificacion');
+          window.location.href = '/';
+        } else {
           errorField.textContent = data.error || 'Código incorrecto.';
           errorField.style.display = 'block';
-
+        }
       } catch (err) {
-          errorField.textContent = 'Error al verificar el código.';
-          errorField.style.display = 'block';
+        errorField.textContent = 'Error al verificar el código.';
+        errorField.style.display = 'block';
       }
+    });
   });
-});
+  

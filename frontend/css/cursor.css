@@ -9,6 +9,7 @@ input,
 textarea,
 select,
 button>*,
-select>* {
+select>*,
+.title {
     cursor: url(https://cur.cursors-4u.net/games/gam-4/gam376.cur), auto !important;
 }

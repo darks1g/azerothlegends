@@ -71,18 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
         form.method = 'POST';
         form.action = '/verificacion.php';
 
-        const inputEmail = document.createElement('input');
-        inputEmail.type = 'hidden';
-        inputEmail.name = 'email';
-        inputEmail.value = datos.email;
+        const campos = { email, nombre_usuario, password };
+        for (const key in campos) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = campos[key];
+            form.appendChild(input);
+        }
 
         const inputOrigen = document.createElement('input');
         inputOrigen.type = 'hidden';
         inputOrigen.name = 'origen';
         inputOrigen.value = 'registro';
-
-        form.appendChild(inputEmail);
         form.appendChild(inputOrigen);
+
         document.body.appendChild(form);
         form.submit();
     });
