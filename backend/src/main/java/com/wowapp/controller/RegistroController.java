@@ -51,6 +51,11 @@ public class RegistroController {
             return ResponseEntity.badRequest().body("El correo ya está registrado.");
         }
 
+        // Verifica si el usuario ya está registrado
+        if (usuarioRepository.findByNombreUsuario(request.nombre_usuario).isPresent()) {
+            return ResponseEntity.badRequest().body("El usuario ya está registrado.");
+        }
+
         // Crea un nuevo usuario y establece sus propiedades
         Usuario usuario = new Usuario();
         usuario.setEmail(request.email);

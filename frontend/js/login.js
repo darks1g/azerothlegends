@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (res.ok) {
-                window.location.href = '/';
+                sessionStorage.setItem('origenVerificacion', 'login'); // o 'registro'
+                window.location.href = '/verificacion.html';
             } else {
                 const mensaje = await res.text();
                 errorField.textContent = mensaje || 'Error al iniciar sesión.';

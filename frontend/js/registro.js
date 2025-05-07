@@ -58,12 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (respuesta.redirected) {
+            sessionStorage.setItem('origenVerificacion', 'registro');
             window.location.href = respuesta.url;
         } else {
             const texto = await respuesta.text();
             errorField.textContent = texto;
             errorField.style.display = 'block';
         }
+        
     });
 
     const passwordField = document.getElementById('password');
