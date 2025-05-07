@@ -44,9 +44,11 @@ public class LoginController {
             return ResponseEntity.status(401).body("Contraseña incorrecta.");
         }
 
-        // Guardar el usuario en la sesión
-        session.setAttribute("usuario", usuario);
+        // Almacenar como usuario pendiente hasta verificar código
+        session.setAttribute("usuario_pendiente", usuario);
+        session.setAttribute("origen", "login");
 
-        return ResponseEntity.ok("Login correcto");
+        return ResponseEntity.status(302).header("Location", "/verificacion.html").build();
     }
+
 }

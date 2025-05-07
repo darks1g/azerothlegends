@@ -41,34 +41,29 @@ public class RegistroController {
     // Endpoint para registrar un nuevo usuario
     @PostMapping("/registro")
     public ResponseEntity<String> registrar(@RequestBody RegistroRequest request, HttpSession session) {
-        // Verifica si las contraseñas coinciden
         if (!request.password.equals(request.confirmar)) {
             return ResponseEntity.badRequest().body("Las contraseñas no coinciden.");
         }
 
-        // Verifica si el correo ya está registrado
         if (usuarioRepository.findByEmail(request.email).isPresent()) {
             return ResponseEntity.badRequest().body("El correo ya está registrado.");
         }
 
-        // Verifica si el usuario ya está registrado
         if (usuarioRepository.findByNombreUsuario(request.nombre_usuario).isPresent()) {
             return ResponseEntity.badRequest().body("El usuario ya está registrado.");
         }
 
-        // Crea un nuevo usuario y establece sus propiedades
-        Usuario usuario = new Usuario();
-        usuario.setEmail(request.email);
-        usuario.setNombreUsuario(request.nombre_usuario);
-        usuario.setPasswordHash(passwordEncoder.encode(request.password)); // Encripta la contraseña
-        usuario.setTipo("web"); // Tipo de usuario
-        usuario.setEsVerificado(false); // El usuario no está verificado inicialmente
+        Usuario usuarioPendiente = new Usuario();
+        usuarioPendiente.setEmail(request.email);
+        usuarioPendiente.setNombreUsuario(request.nombre_usuario);
+        usuarioPendiente.setPasswordHash(passwordEncoder.encode(request.password));
+        usuarioPendiente.setTipo("web");
+        usuarioPendiente.setEsVerificado(false);
 
-        // Guarda el usuario en la base de datos
-        usuarioRepository.save(usuario);
-         // Iniciar sesión automáticamente
-        session.setAttribute("usuario", usuario);
+        // Guarda en sesión como usuario pendiente
+        session.setAttribute("usuario_pendiente", usuarioPendiente);
+        session.setAttribute("origen", "registro");
 
-        return ResponseEntity.status(302).header("Location", "/").build();
+        return ResponseEntity.status(302).header("Location", "/verificacion.html").build();
     }
 }
