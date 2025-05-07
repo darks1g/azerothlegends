@@ -17,13 +17,7 @@ Este es un proyecto web desarrollado como parte del módulo de Desarrollo de Apl
 
 ---
 
-## 🛠️ Instalación y ejecución
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/darks1g/azerothlegends.git
-
-## ✅ TODO
+## ✅ TO-DO
 
 [x] Guardado de personajes de WoW desde las APIs oficiales
 
