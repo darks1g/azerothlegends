@@ -20,6 +20,7 @@
     </header>
 
     <div class="login-container">
+        <p id="registroError" class="error" style="display:none;"></p>
         <h1>Crear cuenta</h1>
         <form action="/procesar-registro" method="POST" class="login-form">
             <label for="email">Correo electrónico</label>
@@ -29,10 +30,28 @@
             <input type="text" name="nombre_usuario" id="nombre_usuario" required>
 
             <label for="password">Contraseña</label>
-            <input type="password" name="password" id="password" required>
+            <div class="password-wrapper">
+                <input type="password" id="password" required>
+                <button type="button" class="toggle-password" data-target="password">
+                    <img src="/assets/eye2.png" class="eye-icon" alt="Mostrar contraseña">
+                </button>
+            </div>
+            <ul id="passwordChecklist" class="password-checklist">
+                <li id="check-length">🔴 Al menos 8 caracteres</li>
+                <li id="check-mayus">🔴 Una letra mayúscula</li>
+                <li id="check-minus">🔴 Una letra minúscula</li>
+                <li id="check-num">🔴 Un número</li>
+                <li id="check-special">🔴 Un carácter especial</li>
+              </ul>
+              
 
             <label for="confirmar">Repetir contraseña</label>
-            <input type="password" name="confirmar" id="confirmar" required>
+            <div class="password-wrapper">
+                <input type="password" id="confirmar" required>
+                <button type="button" class="toggle-password" data-target="password">
+                    <img src="/assets/eye2.png" class="eye-icon" alt="Mostrar contraseña">
+                </button>
+            </div>
 
             <button type="submit" class="button">Registrarse</button>
         </form>
@@ -50,6 +69,7 @@
     <footer class="footer">
         <p>© 2025 Azeroth Legends. Proyecto educativo.</p>
     </footer>
+    <script src="/js/registro.js"></script>
 </body>
 
 </html>

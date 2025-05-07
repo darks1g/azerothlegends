@@ -17,18 +17,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    // Endpoint para registrar un nuevo usuario
-    @PostMapping("/registro")
-    public String registrar(@RequestBody Usuario usuario) {
-        // Verifica si ya existe un usuario con el mismo email
-        if (usuarioService.obtenerPorEmail(usuario.getEmail()).isPresent()) {
-            return "Ya existe un usuario con ese email.";
-        }
-        // Registra al usuario si no existe
-        usuarioService.registrar(usuario);
-        return "Registro exitoso.";
-    }
-
     // Endpoint para iniciar sesión
     @PostMapping("/login")
     public String login(@RequestBody Usuario usuario) {

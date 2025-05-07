@@ -8,11 +8,11 @@
 [[1;34mINFO[m] 
 [[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.3.1:resources[m [1m(default-resources)[m @ [36mwowapp-backend[0;1m ---[m
 [[1;34mINFO[m] Copying 1 resource from src/main/resources to target/classes
-[[1;34mINFO[m] Copying 0 resource from src/main/resources to target/classes
+[[1;34mINFO[m] Copying 1 resource from src/main/resources to target/classes
 [[1;34mINFO[m] 
 [[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.11.0:compile[m [1m(default-compile)[m @ [36mwowapp-backend[0;1m ---[m
 [[1;34mINFO[m] Changes detected - recompiling the module! :source
-[[1;34mINFO[m] Compiling 33 source files with javac [debug release 17] to target/classes
+[[1;34mINFO[m] Compiling 34 source files with javac [debug release 17] to target/classes
 [[1;34mINFO[m] Annotation processing is enabled because one or more processors were found
   on the class path. A future release of javac may disable annotation processing
   unless at least one processor is specified by name (-processor), or a search
@@ -43,40 +43,40 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.3)
 
-2025-05-07T02:04:59.286+02:00  INFO 132902 --- [  restartedMain] com.wowapp.WowappApplication             : Starting WowappApplication using Java 21.0.7 with PID 132902 (/home/fsanj/wowapp/azerothlegends/backend/target/classes started by root in /home/fsanj/wowapp/azerothlegends/backend)
-2025-05-07T02:04:59.288+02:00  INFO 132902 --- [  restartedMain] com.wowapp.WowappApplication             : No active profile set, falling back to 1 default profile: "default"
-2025-05-07T02:04:59.323+02:00  INFO 132902 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-05-07T02:04:59.324+02:00  INFO 132902 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-05-07T02:04:59.838+02:00  INFO 132902 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-05-07T02:04:59.889+02:00  INFO 132902 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 7 JPA repository interfaces.
-2025-05-07T02:05:00.341+02:00  INFO 132902 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-05-07T02:05:00.351+02:00  INFO 132902 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-05-07T02:05:00.351+02:00  INFO 132902 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-05-07T02:05:00.380+02:00  INFO 132902 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-05-07T02:05:00.381+02:00  INFO 132902 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1056 ms
-2025-05-07T02:05:00.512+02:00  INFO 132902 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-05-07T02:05:00.547+02:00  INFO 132902 --- [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-05-07T02:05:00.585+02:00  INFO 132902 --- [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-05-07T02:05:00.734+02:00  INFO 132902 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-05-07T02:05:00.753+02:00  INFO 132902 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-05-07T02:05:01.035+02:00  INFO 132902 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1fad262e
-2025-05-07T02:05:01.037+02:00  INFO 132902 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-05-07T02:05:01.072+02:00  WARN 132902 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-05-07T02:05:01.073+02:00  WARN 132902 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-05-07T02:05:01.867+02:00  INFO 132902 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-05-07T02:05:01.966+02:00  INFO 132902 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-⚠️ Intentando construir OAuthController...
-2025-05-07T02:05:02.424+02:00  WARN 132902 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-05-07T02:05:02.448+02:00  WARN 132902 --- [  restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+2025-05-07T09:36:30.902+02:00  INFO 139963 --- [  restartedMain] com.wowapp.WowappApplication             : Starting WowappApplication using Java 21.0.7 with PID 139963 (/home/fsanj/wowapp/azerothlegends/backend/target/classes started by root in /home/fsanj/wowapp/azerothlegends/backend)
+2025-05-07T09:36:30.904+02:00  INFO 139963 --- [  restartedMain] com.wowapp.WowappApplication             : No active profile set, falling back to 1 default profile: "default"
+2025-05-07T09:36:30.940+02:00  INFO 139963 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-05-07T09:36:30.941+02:00  INFO 139963 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-05-07T09:36:31.436+02:00  INFO 139963 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-07T09:36:31.484+02:00  INFO 139963 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 43 ms. Found 7 JPA repository interfaces.
+2025-05-07T09:36:31.927+02:00  INFO 139963 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-05-07T09:36:31.937+02:00  INFO 139963 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-05-07T09:36:31.938+02:00  INFO 139963 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-05-07T09:36:31.967+02:00  INFO 139963 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-07T09:36:31.967+02:00  INFO 139963 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1026 ms
+2025-05-07T09:36:32.098+02:00  INFO 139963 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-07T09:36:32.133+02:00  INFO 139963 --- [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-05-07T09:36:32.169+02:00  INFO 139963 --- [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-05-07T09:36:32.318+02:00  INFO 139963 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-07T09:36:32.336+02:00  INFO 139963 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-05-07T09:36:32.608+02:00  INFO 139963 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6da6f4aa
+2025-05-07T09:36:32.610+02:00  INFO 139963 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-05-07T09:36:32.645+02:00  WARN 139963 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-07T09:36:32.646+02:00  WARN 139963 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-05-07T09:36:33.402+02:00  INFO 139963 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-07T09:36:33.536+02:00  INFO 139963 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+Intentando construir OAuthController...
+2025-05-07T09:36:34.006+02:00  WARN 139963 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-07T09:36:34.029+02:00  WARN 139963 --- [  restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: a5706236-72f5-451c-a48c-24c1ebb8859b
+Using generated security password: fe56aeba-01f8-4f54-b357-e2571f832f1a
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-2025-05-07T02:05:02.648+02:00  INFO 132902 --- [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@14af154f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3b738092, org.springframework.security.web.context.SecurityContextHolderFilter@12d27981, org.springframework.security.web.header.HeaderWriterFilter@70bb7f36, org.springframework.web.filter.CorsFilter@5a151f16, org.springframework.security.web.authentication.logout.LogoutFilter@7cd44a03, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@368f0682, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@317fd20d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@31b0872e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@555ce1f7, org.springframework.security.web.access.ExceptionTranslationFilter@decfb52, org.springframework.security.web.access.intercept.AuthorizationFilter@29fe785a]
-2025-05-07T02:05:02.819+02:00  INFO 132902 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-05-07T02:05:02.842+02:00  INFO 132902 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
-2025-05-07T02:05:02.850+02:00  INFO 132902 --- [  restartedMain] com.wowapp.WowappApplication             : Started WowappApplication in 3.844 seconds (process running for 4.148)
+2025-05-07T09:36:34.220+02:00  INFO 139963 --- [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@433c1875, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4008f259, org.springframework.security.web.context.SecurityContextHolderFilter@2e5ea073, org.springframework.security.web.header.HeaderWriterFilter@2cdfb6b3, org.springframework.web.filter.CorsFilter@8fab37b, org.springframework.security.web.authentication.logout.LogoutFilter@3dcab46f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6cfaa2bf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5a233882, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@70560b53, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@27291473, org.springframework.security.web.access.ExceptionTranslationFilter@56c39429, org.springframework.security.web.access.intercept.AuthorizationFilter@1ee5e3da]
+2025-05-07T09:36:34.388+02:00  INFO 139963 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-05-07T09:36:34.411+02:00  INFO 139963 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2025-05-07T09:36:34.418+02:00  INFO 139963 --- [  restartedMain] com.wowapp.WowappApplication             : Started WowappApplication in 3.793 seconds (process running for 4.079)
 Poblando tabla de reinos al arrancar...
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
@@ -95,10 +95,7 @@ Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego f
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-2025-05-07T02:05:03.630+02:00  INFO 132902 --- [nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-05-07T02:05:03.630+02:00  INFO 132902 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-2025-05-07T02:05:03.631+02:00  INFO 132902 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
@@ -168,298 +165,287 @@ Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego f
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Reinos poblados: eu / retail
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Reinos poblados: eu / classic_era
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
+Reinos poblados: eu / classic
+2025-05-07T09:36:41.359+02:00  INFO 139963 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-07T09:36:41.359+02:00  INFO 139963 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-07T09:36:41.361+02:00  INFO 139963 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-✅ Reinos poblados: eu / retail
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-✅ Reinos poblados: eu / classic_era
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.id=?
-✅ Reinos poblados: eu / classic
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-🔍 Perfil devuelto por Blizzard: {sub=442249234, id=442249234, battletag=Dxrkig#2537}
-Hibernate: select u1_0.id,u1_0.battletag,u1_0.email,u1_0.es_verificado,u1_0.nombre_usuario,u1_0.password_hash,u1_0.tipo from usuarios u1_0 where u1_0.battletag=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
-Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
+Hibernate: select u1_0.id,u1_0.battletag,u1_0.email,u1_0.es_verificado,u1_0.nombre_usuario,u1_0.password_hash,u1_0.tipo from usuarios u1_0 where u1_0.email=?
+Hibernate: insert into usuarios (battletag,email,es_verificado,nombre_usuario,password_hash,tipo) values (?,?,?,?,?,?)
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?
 Hibernate: select r1_0.id,r1_0.nombre,r1_0.region,r1_0.slug,r1_0.version_juego from reinos r1_0 where r1_0.region=?

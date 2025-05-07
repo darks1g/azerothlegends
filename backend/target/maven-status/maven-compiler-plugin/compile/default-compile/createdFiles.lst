@@ -1,3 +1,4 @@
+com/wowapp/controller/RegistroController$RegistroRequest.class
 com/wowapp/model/BuscarPersonajeRequest.class
 com/wowapp/service/TalentoClassicService.class
 com/wowapp/service/EquipoPersonajeService.class
@@ -8,6 +9,7 @@ com/wowapp/controller/UsuarioController.class
 com/wowapp/repository/PersonajeRepository.class
 com/wowapp/StartupRunner.class
 com/wowapp/model/Usuario.class
+com/wowapp/controller/RegistroController.class
 com/wowapp/repository/ReinoRepository.class
 com/wowapp/controller/PerfilController.class
 com/wowapp/model/TalentoRetail.class
