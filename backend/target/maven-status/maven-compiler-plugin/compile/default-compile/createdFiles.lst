@@ -4,10 +4,12 @@ com/wowapp/service/EquipoPersonajeService.class
 com/wowapp/controller/AuthController.class
 com/wowapp/model/Personaje.class
 com/wowapp/model/TalentoClassic.class
+com/wowapp/controller/UsuarioController.class
 com/wowapp/repository/PersonajeRepository.class
 com/wowapp/StartupRunner.class
 com/wowapp/model/Usuario.class
 com/wowapp/repository/ReinoRepository.class
+com/wowapp/controller/PerfilController.class
 com/wowapp/model/TalentoRetail.class
 com/wowapp/config/CorsConfig.class
 com/wowapp/service/PersonajeService.class
@@ -20,6 +22,7 @@ com/wowapp/controller/ReinoController.class
 com/wowapp/service/ApiService.class
 com/wowapp/service/EstadisticasService.class
 com/wowapp/controller/PersonajeController.class
+com/wowapp/service/OAuthService.class
 com/wowapp/service/UsuarioService.class
 com/wowapp/model/EstadisticasPersonaje.class
 com/wowapp/repository/EstadisticasPersonajeRepository.class

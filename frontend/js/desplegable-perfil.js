@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/php/perfil-menu.php')
+  fetch('/api/perfil-menu')
       .then(res => res.text())
       .then(html => {
         document.getElementById('perfilMenuContainer').innerHTML = html;
