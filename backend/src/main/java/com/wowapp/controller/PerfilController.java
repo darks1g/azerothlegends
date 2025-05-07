@@ -29,7 +29,7 @@ public class PerfilController {
       <ul class="perfil-menu">
         <li><a href="/zona">Mi zona</a></li>
         <li><a href="/chats">Chats</a></li>
-        <li><a href="/logout">Cerrar sesión</a></li>
+        <li><a href="#" id="cerrarSesion">Cerrar sesión</a></li>
       </ul>
       """;
   }

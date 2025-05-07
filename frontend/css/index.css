@@ -68,6 +68,10 @@ body {
   transition: background-color 0.3s;
 }
 
+.chat-icon {
+  display: none;
+}
+
 .chat-button:hover {
   background-color: #ffecc8;
 }
