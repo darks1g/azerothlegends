@@ -25,7 +25,7 @@ Este es un proyecto web desarrollado como parte del módulo de Desarrollo de Apl
 
 ## ✅ TODO
 
-[x] Guardado de personajes de WoW desde la API oficial
+[x] Guardado de personajes de WoW desde las APIs oficiales
 
 [x] Almacenamiento de estadísticas, talentos y equipo de personajes
 
