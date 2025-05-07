@@ -40,4 +40,4 @@ out/
 salida.log
 
 ### Credenciales ###
-./src/main/resources/application.properties
+**/application.properties
