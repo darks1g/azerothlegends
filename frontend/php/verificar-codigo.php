@@ -115,4 +115,26 @@ unset($_SESSION['usuario_pendiente']);
 unset($_SESSION['verificacion']);
 unset($_SESSION['origen']);
 
+// Iniciar sesión en Java
+if ($origen === 'registro') {
+    $email = $usuarioPendiente['email'];
+    $password = $_SESSION['usuario_pendiente']['original_password'] ?? null;
+
+    if ($password) {
+        $ch = curl_init('http://localhost:8080/api/login');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            'email' => $email,
+            'password' => $password
+        ]));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, ''); // usa cookies actuales
+        curl_setopt($ch, CURLOPT_COOKIEJAR, '');  // guarda cookies nuevas
+        curl_exec($ch);
+        curl_close($ch);
+    }
+}
+
+
 echo json_encode(['success' => true]);
