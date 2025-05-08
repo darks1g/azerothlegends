@@ -25,7 +25,7 @@ Este es un proyecto web desarrollado como parte del módulo de Desarrollo de Apl
 
 [x] Inicio de sesión con Battle.net mediante OAuth2
 
-[ ] Sistema de usuarios (web y Battle.net) con verificación 2FA por email
+[x] Sistema de usuarios (web y Battle.net) con verificación 2FA por email
 
 [ ] Página de detalle para cada personaje
 
