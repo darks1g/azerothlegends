@@ -41,9 +41,8 @@ public class PersonajeService {
         personajeApi = personajeRepository.save(personajeApi);
 
         // Guarda estadísticas, talentos y equipo del personaje
-        apiService.obtenerYGuardarEstadisticas(personajeApi);
-        apiService.obtenerYGuardarTalentos(personajeApi);
-        apiService.obtenerYGuardarEquipo(personajeApi);
+        apiService.actualizarPersonaje(personajeApi);
+
         return personajeApi;
     }
 }

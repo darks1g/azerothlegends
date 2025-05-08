@@ -2,31 +2,36 @@ package com.wowapp.model;
 
 import jakarta.persistence.*;
 
-// Clase que representa la entidad "TalentoRetail" mapeada a la tabla "talento_retail" en la base de datos
 @Entity
 @Table(name = "talento_retail")
 public class TalentoRetail {
 
-    // Identificador único de la entidad, generado automáticamente
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Nombre del talento
     private String nombre;
-
-    // Identificador del talento
     private Integer talentoId;
-
-    // Rango del talento
     private Integer rango;
+    private Integer spellId;
+    private String icono;
+    private String tipo; // Puede ser: "class", "spec" o "hero"
 
-    // Relación muchos-a-uno con la entidad "Personaje"
-    @ManyToOne
-    @JoinColumn(name = "personaje_id") // Llave foránea que referencia a "personaje_id" en la tabla relacionada
+
+    @ManyToOne(optional = false) // ✅ Relación obligatoria
+    @JoinColumn(name = "personaje_id", nullable = false) // ✅ Clave foránea no puede ser nula
     private Personaje personaje;
 
-    // Métodos getter y setter para acceder y modificar los atributos
+    // Getters y setters
+
+    public String getTipo() {
+        return tipo;
+    }
+    
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
 
     public Long getId() {
         return id;
@@ -58,6 +63,22 @@ public class TalentoRetail {
 
     public void setRango(Integer rango) {
         this.rango = rango;
+    }
+
+    public Integer getSpellId() {
+        return spellId;
+    }
+
+    public void setSpellId(Integer spellId) {
+        this.spellId = spellId;
+    }
+
+    public String getIcono() {
+        return icono;
+    }
+
+    public void setIcono(String icono) {
+        this.icono = icono;
     }
 
     public Personaje getPersonaje() {

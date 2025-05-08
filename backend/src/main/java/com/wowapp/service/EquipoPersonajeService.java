@@ -16,6 +16,9 @@ public class EquipoPersonajeService {
     @Autowired
     private EquipoPersonajeRepository equipoPersonajeRepository;
 
+    @Autowired
+    private ApiService apiService;
+
     @Transactional
     public void guardarEquipo(Personaje personaje, Map<String, Object> datos) {
         try {
@@ -43,7 +46,12 @@ public class EquipoPersonajeService {
                 // Obtiene el ID del objeto y lo asigna
                 Map<String, Object> item = (Map<String, Object>) itemData.get("item");
                 if (item != null && item.get("id") instanceof Number) {
-                    equipo.setItemId(((Number) item.get("id")).intValue());
+                    Integer itemId = ((Number) item.get("id")).intValue();
+                    equipo.setItemId(itemId);
+
+                    // Obtener el ícono desde la API de media del ítem
+                    String icono = apiService.obtenerIconoItem(itemId);
+                    equipo.setIcono(icono);
                 }
 
                 // Obtiene el nombre del objeto y lo asigna
@@ -76,4 +84,5 @@ public class EquipoPersonajeService {
             System.err.println("Error guardando equipo: " + e.getMessage());
         }
     }
+    
 }

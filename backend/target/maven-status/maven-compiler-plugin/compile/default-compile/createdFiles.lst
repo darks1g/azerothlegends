@@ -1,7 +1,9 @@
 com/wowapp/controller/RegistroController$RegistroRequest.class
+com/wowapp/dto/TalentoDTO.class
 com/wowapp/model/BuscarPersonajeRequest.class
 com/wowapp/service/TalentoClassicService.class
 com/wowapp/service/EquipoPersonajeService.class
+com/wowapp/controller/DetallesPersonajeController$1.class
 com/wowapp/controller/AuthController.class
 com/wowapp/model/Personaje.class
 com/wowapp/model/TalentoClassic.class
@@ -34,9 +36,11 @@ com/wowapp/controller/LoginController$LoginRequest.class
 com/wowapp/repository/EstadisticasPersonajeRepository.class
 com/wowapp/model/Reino.class
 com/wowapp/repository/TalentoRetailRepository.class
+com/wowapp/dto/EstadisticaDTO.class
 com/wowapp/WowappApplication.class
 com/wowapp/service/TalentoRetailService.class
 com/wowapp/controller/OAuthController.class
 com/wowapp/model/EquipoPersonaje.class
+com/wowapp/controller/DetallesPersonajeController.class
 com/wowapp/config/SecurityConfig.class
 com/wowapp/repository/EquipoPersonajeRepository.class

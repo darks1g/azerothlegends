@@ -17,6 +17,10 @@ public class TalentoClassic {
     private Integer tier; // Nivel o tier del talento
     private Integer columna; // Columna en la que se encuentra el talento
 
+    private Integer spellId;
+    private String icono;
+
+
     @ManyToOne
     @JoinColumn(name = "personaje_id")
     private Personaje personaje; // Relación con la entidad Personaje
@@ -78,4 +82,22 @@ public class TalentoClassic {
     public void setPersonaje(Personaje personaje) {
         this.personaje = personaje;
     }
+    
+    public Integer getSpellId() {
+        return spellId;
+    }
+    
+    public String getIcono() {
+        return icono;
+    }
+
+    public void setSpellId(Integer spellId) {
+        this.spellId = spellId;
+    }
+    
+    public void setIcono(String icono) {
+        this.icono = icono;
+    }
+    
+    
 }

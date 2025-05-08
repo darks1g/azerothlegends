@@ -53,8 +53,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(data)
             });
 
-            const json = await res.json();
-            // Aquí se puede manejar la respuesta de la API
+            if (res.ok) {
+                // Redirige a la página de detalles del personaje
+                const nombre = data.nombre;
+                const reino = data.reino;
+                const region = data.region;
+                const version = data.version;
+            
+                window.location.href = `/detalles.html?nombre=${encodeURIComponent(nombre)}&reino=${encodeURIComponent(reino)}&region=${region}&version=${version}`;
+            } else {
+                alert("No se pudo encontrar el personaje.");
+            }
         } catch (err) {
             // Maneja errores en la petición
             console.error(err);

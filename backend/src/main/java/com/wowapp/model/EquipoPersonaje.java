@@ -61,4 +61,15 @@ public class EquipoPersonaje {
     public Personaje getPersonaje() { return personaje; }
     // Establece el personaje asociado al equipo
     public void setPersonaje(Personaje personaje) { this.personaje = personaje; }
+
+    @Column(name = "icono")
+    private String icono;
+
+    public String getIcono() {
+        return icono;
+    }
+
+    public void setIcono(String icono) {
+        this.icono = icono;
+    }
 }

@@ -21,6 +21,12 @@ public class EstadisticasPersonaje {
     private Integer intelecto;
     private Integer aguante;
 
+    private String nombre;
+    private Integer valor;
+
+    public String getNombre() { return nombre; }
+    public Integer getValor() { return valor; }
+
     // Golpe crítico del personaje, mapeado a una columna específica
     @Column(name = "golpe_critico")
     private BigDecimal golpeCritico;

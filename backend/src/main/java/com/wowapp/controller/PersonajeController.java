@@ -1,60 +1,107 @@
 package com.wowapp.controller;
 
-import com.wowapp.model.BuscarPersonajeRequest;
 import com.wowapp.model.Personaje;
 import com.wowapp.model.Personaje.VersionJuego;
+import com.wowapp.repository.PersonajeRepository;
+import com.wowapp.repository.EquipoPersonajeRepository;
 import com.wowapp.service.PersonajeService;
+import com.wowapp.service.EstadisticasService;
+import com.wowapp.service.TalentoRetailService;
+import com.wowapp.service.TalentoClassicService;
+import com.wowapp.dto.TalentoDTO;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/personajes")
 public class PersonajeController {
 
+    private final PersonajeRepository personajeRepository;
+    private final EquipoPersonajeRepository equipoPersonajeRepository;
+    private final EstadisticasService estadisticasService;
+    private final TalentoRetailService talentoRetailService;
+    private final TalentoClassicService talentoClassicService;
     private final PersonajeService personajeService;
 
-    // Constructor que inyecta el servicio de personajes
-    public PersonajeController(PersonajeService personajeService) {
+    public PersonajeController(
+        PersonajeRepository personajeRepository,
+        EquipoPersonajeRepository equipoPersonajeRepository,
+        EstadisticasService estadisticasService,
+        TalentoRetailService talentoRetailService,
+        TalentoClassicService talentoClassicService,
+        PersonajeService personajeService
+    ) {
+        this.personajeRepository = personajeRepository;
+        this.equipoPersonajeRepository = equipoPersonajeRepository;
+        this.estadisticasService = estadisticasService;
+        this.talentoRetailService = talentoRetailService;
+        this.talentoClassicService = talentoClassicService;
         this.personajeService = personajeService;
     }
 
-    // Endpoint para crear un personaje con datos predefinidos
-    @PostMapping("/crear")
-    public Personaje crearPersonaje() {
-        Personaje p = new Personaje();
-        p.setId(81026416L); // ID desde la API oficial
-        p.setNombre("Dedillos"); // Nombre del personaje
-        p.setReino("Golemagg"); // Reino al que pertenece
-        p.setRegion("eu"); // Región del personaje
-        p.setNivel(60); // Nivel del personaje
-        p.setRaza("Humano"); // Raza del personaje
-        p.setClase("Mago"); // Clase del personaje
-        p.setGenero("Masculino"); // Género del personaje
-        p.setVersionJuego(VersionJuego.classic); // Versión del juego
-        p.setFechaActualizacion(LocalDateTime.now()); // Fecha de última actualización
-
-        // Guarda el personaje en el servicio y lo retorna
-        return personajeService.guardarPersonaje(p);
-    }
-    
-    // Endpoint para buscar un personaje basado en los datos proporcionados
+    // Endpoint para buscar un personaje
     @PostMapping("/buscar")
     public ResponseEntity<Personaje> buscarPersonaje(@RequestBody Map<String, String> datos) {
-        String nombre = datos.get("nombre"); // Obtiene el nombre del personaje
-        String reino = datos.get("reino"); // Obtiene el reino del personaje
-        String region = datos.get("region"); // Obtiene la región del personaje
-        String versionStr = datos.get("version").toLowerCase(); // Obtiene la versión del juego en minúsculas
+        String nombre = datos.get("nombre");
+        String reino = datos.get("reino");
+        String region = datos.get("region");
+        String versionStr = datos.get("version").toLowerCase();
 
-        // Convierte la versión del juego a un valor del enum VersionJuego
         VersionJuego version = VersionJuego.valueOf(versionStr);
 
-        // Obtiene el personaje desde el servicio y lo guarda
         Personaje personaje = personajeService.obtenerYGuardarPersonaje(nombre, reino, region, version);
-        return ResponseEntity.ok(personaje); // Retorna el personaje en la respuesta
+        return ResponseEntity.ok(personaje);
     }
+
+    // Endpoint para obtener todos los detalles del personaje para el frontend
+    @GetMapping("/detalles")
+public ResponseEntity<?> obtenerDetallesPersonaje(
+        @RequestParam String nombre,
+        @RequestParam String reino,
+        @RequestParam String region,
+        @RequestParam VersionJuego version) {
+
+    Optional<Personaje> optPersonaje = personajeRepository.findByNombreAndReinoAndRegionAndVersionJuego(
+            nombre, reino, region, version);
+
+    if (optPersonaje.isEmpty()) {
+        return ResponseEntity.notFound().build();
+    }
+
+    Personaje personaje = optPersonaje.get();
+
+    var estadisticas = estadisticasService.obtenerEstadisticasParaVista(personaje);
+    var equipo = equipoPersonajeRepository.findByPersonajeId(personaje.getId());
+
+    Map<String, Object> json = new HashMap<>();
+    json.put("nombre", personaje.getNombre());
+    json.put("nivel", personaje.getNivel());
+    json.put("clase", personaje.getClase());
+    json.put("raza", personaje.getRaza());
+    json.put("genero", personaje.getGenero());
+    json.put("reino", personaje.getReino());
+    json.put("region", personaje.getRegion());
+    json.put("versionJuego", personaje.getVersionJuego());
+    json.put("estadisticas", estadisticas);
+    json.put("equipo", equipo);
+
+    if (version == VersionJuego.retail) {
+        List<TalentoDTO> talentos = talentoRetailService.obtenerTalentosParaVista(personaje);
+        json.put("talentosClase", talentos.stream().filter(t -> "class".equals(t.getTipo())).toList());
+        json.put("talentosSpec", talentos.stream().filter(t -> "spec".equals(t.getTipo())).toList());
+        json.put("talentosHero", talentos.stream().filter(t -> "hero".equals(t.getTipo())).toList());
+    } else {
+        List<TalentoDTO> talentos = talentoClassicService.obtenerTalentosParaVista(personaje);
+        json.put("talentos", talentos);
+    }
+
+    return ResponseEntity.ok(json);
+}
 
 }

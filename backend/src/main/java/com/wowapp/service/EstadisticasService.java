@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 import java.util.Map;
+import java.util.List;
+import java.util.stream.Stream;
+
+import com.wowapp.dto.TalentoDTO;
+import com.wowapp.dto.EstadisticaDTO;
 
 @Service
 public class EstadisticasService {
@@ -85,5 +90,23 @@ public class EstadisticasService {
         }
         return BigDecimal.ZERO;
     }
+
+    public List<EstadisticaDTO> obtenerEstadisticasParaVista(Personaje personaje) {
+        return EstadisticasPersonajeRepository.findByPersonajeId(personaje.getId())
+            .stream()
+            .flatMap(e -> Stream.of(
+                new EstadisticaDTO("Fuerza", e.getFuerza()),
+                new EstadisticaDTO("Agilidad", e.getAgilidad()),
+                new EstadisticaDTO("Intelecto", e.getIntelecto()),
+                new EstadisticaDTO("Aguante", e.getAguante()),
+                new EstadisticaDTO("Vida", e.getVida()),
+                new EstadisticaDTO("Golpe Crítico", e.getGolpeCritico().intValue()),
+                new EstadisticaDTO("Celeridad", e.getCeleridad().intValue()),
+                new EstadisticaDTO("Maestría", e.getMaestria().intValue()),
+                new EstadisticaDTO("Versatilidad", e.getVersatilidad().intValue())
+            ))
+            .toList();
+    }
+    
 
 }
