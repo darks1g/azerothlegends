@@ -27,6 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['orig
             'tipo' => 'web',
             'es_verificado' => false
         ];
+        
+        $_SESSION['usuario_pendiente_password_plain'] = $_POST['password'];
     } elseif ($origen === 'login') {
         $_SESSION['usuario_pendiente'] = [ 'email' => $email ];
     }
