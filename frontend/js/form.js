@@ -65,8 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const region = data.region;
                 const version = data.version;
 
-                loading.style.display = 'hidden';
-                botonBuscar.disabled = false;
                 window.location.href = `/detalles.html?nombre=${encodeURIComponent(nombre)}&reino=${encodeURIComponent(reino)}&region=${region}&version=${version}`;
             } else {
                 alert("No se pudo encontrar el personaje.");
@@ -74,6 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             // Maneja errores en la petición
             console.error(err);
+        } finally {
+            loading.style.display = 'hidden';
+            botonBuscar.disabled = false;
         }
     });
 });

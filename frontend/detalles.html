@@ -2,49 +2,51 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Detalles de Personaje</title>
-    
-    <link rel="stylesheet" href="/css/cursor.css" />
-    <link rel="stylesheet" href="/css/index.css" />
-    <link rel="stylesheet" href="/css/detalles.css" />
-    <link rel="stylesheet" href="/css/questlog.css" />
-    <script>const whTooltips = { colorLinks: true, iconizeLinks: true, renameLinks: true };</script>
-    <script src="https://wow.zamimg.com/js/tooltips.js"></script>
-    <script src="/js/detalles.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalles de Personaje</title>
+
+  <link rel="stylesheet" href="/css/cursor.css" />
+  <link rel="stylesheet" href="/css/index.css" />
+  <link rel="stylesheet" href="/css/detalles.css" />
+  <link rel="stylesheet" href="/css/questlog.css" />
+  <script>const whTooltips = { colorLinks: true, iconizeLinks: true, renameLinks: true };</script>
+  <script src="https://wow.zamimg.com/js/tooltips.js"></script>
+  <script src="/js/detalles.js" defer></script>
 </head>
 
 <body>
-      <!-- Header -->
+  <!-- Header -->
   <header class="header">
     <div class="header-left">
-        <button class="chat-button">
-            <span class="chat-text">Abrir chat global ⏷</span>
-            <span class="chat-icon">🌍</span>
-        </button>
+      <button class="chat-button">
+        <span class="chat-text">Abrir chat global ⏷</span>
+        <span class="chat-icon">🌍</span>
+      </button>
     </div>
-  
+
     <div class="header-center">
-      <a href="/index"><h1 class="title">Azeroth Legends</h1></a>
+      <a href="/index">
+        <h1 class="title">Azeroth Legends</h1>
+      </a>
     </div>
-  
+
     <div class="header-right">
-        <div class="perfil-dropdown">
-          <button class="perfil-button" id="perfilToggle">
-            <img src="/assets/profile-icon.png" alt="Perfil" class="perfil-img">
-          </button>
-          <div id="perfilMenuContainer"></div>
-        </div>
-        <p>Cuenta</p>
+      <div class="perfil-dropdown">
+        <button class="perfil-button" id="perfilToggle">
+          <img src="/assets/profile-icon.png" alt="Perfil" class="perfil-img">
+        </button>
+        <div id="perfilMenuContainer"></div>
       </div>
+      <p>Cuenta</p>
+    </div>
   </header>
-      
+
   <h1 id="nombrePersonaje" class="text-3xl font-bold mb-2 text-yellow-400"></h1>
-<p id="infoBasica" class="text-gray-300 mb-4"></p>
+  <p id="infoBasica" class="text-gray-300 mb-4"></p>
   <main class="personaje-container">
     <div id="equipamientoIzquierdo" class="equipo-col"></div>
-  
+
     <div class="personaje-centro">
       <div class="render-box">
         <canvas id="renderCanvas" width="300" height="300"></canvas>
@@ -55,27 +57,27 @@
         <div id="estadisticas" class="stats-grid"></div>
       </div>
     </div>
-  
+
     <div id="equipamientoDerecho" class="equipo-col"></div>
   </main>
-  
-  
-    <section class="talentos">
-      <h2>Talentos</h2>
-      <fieldset>
-        <legend>Talentos clase</legend>
-        <div id="talentosClase" class="talento-grid"></div>
-      </fieldset>
-      <fieldset>
-        <legend>Talentos especialización</legend>
-        <div id="talentosSpec" class="talento-grid"></div>
-      </fieldset>
-      <fieldset>
-        <legend>Talentos heroe</legend>
-        <div id="talentosHero" class="talento-grid"></div>
-      </fieldset>
-    </section>
-  </body>
-  
+
+
+  <section class="talentos">
+    <h2>Talentos</h2>
+    <fieldset>
+      <legend>Talentos clase</legend>
+      <div id="talentosClase" class="talento-grid"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Talentos especialización</legend>
+      <div id="talentosSpec" class="talento-grid"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Talentos heroe</legend>
+      <div id="talentosHero" class="talento-grid"></div>
+    </fieldset>
+  </section>
+</body>
+
 
 </html>
