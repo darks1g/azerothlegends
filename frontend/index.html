@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,37 +9,38 @@
   <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/questlog.css">
 </head>
+
 <body class="bg-parchment font-fantasy text-dark">
 
   <!-- Header -->
   <header class="header">
     <div class="header-left">
-        <button class="chat-button">
-            <span class="chat-text">Abrir chat global ⏷</span>
-            <span class="chat-icon">🌍</span>
-        </button>
+      <button class="chat-button">
+        <span class="chat-text">Abrir chat global ⏷</span>
+        <span class="chat-icon">🌍</span>
+      </button>
     </div>
-  
+
     <div class="header-center">
       <h1 class="title">Azeroth Legends</h1>
     </div>
-  
+
     <div class="header-right">
-        <div class="perfil-dropdown">
-          <button class="perfil-button" id="perfilToggle">
-            <img src="/assets/profile-icon.png" alt="Perfil" class="perfil-img">
-          </button>
-          <div id="perfilMenuContainer"></div>
-        </div>
-        <p>Cuenta</p>
+      <div class="perfil-dropdown">
+        <button class="perfil-button" id="perfilToggle">
+          <img src="/assets/profile-icon.png" alt="Perfil" class="perfil-img">
+        </button>
+        <div id="perfilMenuContainer"></div>
       </div>
+      <p>Cuenta</p>
+    </div>
   </header>
 
   <!-- Contenido principal -->
   <main class="main-layout">
     <!-- Imagen decorativa izquierda -->
     <aside class="character-image">
-        <img id="imagenPersonaje1" alt="Personaje Alianza">
+      <img id="imagenPersonaje1" alt="Personaje Alianza">
     </aside>
 
     <!-- Buscador -->
@@ -73,19 +75,23 @@
           </div>
         </div>
 
-        <button type="submit" class="button">Buscar</button>
+        <button type="submit" class="button" id="botonBuscar">Buscar</button>
+        <div id="loader" class="loader-overlay">
+          <div class="loader" id="loader-anim" style="display: none;"></div>
+        </div>
       </form>
     </section>
 
     <!-- Imagen decorativa derecha -->
     <aside class="character-image">
-        <img id="imagenPersonaje2" alt="Personaje Horda">
+      <img id="imagenPersonaje2" alt="Personaje Horda">
     </aside>
   </main>
 
   <!-- Footer -->
   <footer class="footer">
     <p>© 2025 Azeroth Legends. Proyecto educativo.</p>
+    <p>Félix San José Hernán</p>
   </footer>
 
   <!-- Scripts -->
@@ -93,4 +99,5 @@
   <script src="/js/decoracion.js"></script>
   <script src="/js/desplegable-perfil.js"></script>
 </body>
+
 </html>

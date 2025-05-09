@@ -27,22 +27,23 @@ public class PersonajeService {
 
     // Obtiene un personaje desde el repositorio o la API y lo guarda
     public Personaje obtenerYGuardarPersonaje(String nombre, String reino, String region, VersionJuego version) {
-        // Busca si el personaje ya existe en el repositorio
         Optional<Personaje> existente = personajeRepository.findByNombreAndReinoAndRegionAndVersionJuego(
                 nombre, reino, region, version);
 
-        // Si el personaje ya existe, lo retorna
         if (existente.isPresent()) {
-            return existente.get();
+            Personaje personaje = existente.get();
+            System.out.println("🔍 Personaje encontrado en la base de datos: " + personaje.getNombre());
+
+            apiService.actualizarPersonaje(personaje); // ← actualiza si hace falta
+            return personaje;
         }
 
         // Si no existe, lo obtiene desde la API
+        System.out.println("🆕 Personaje no encontrado, consultando a la API...");
         Personaje personajeApi = apiService.obtenerPersonajeDesdeAPI(nombre, reino, region, version);
         personajeApi = personajeRepository.save(personajeApi);
 
-        // Guarda estadísticas, talentos y equipo del personaje
         apiService.actualizarPersonaje(personajeApi);
-
         return personajeApi;
     }
 }

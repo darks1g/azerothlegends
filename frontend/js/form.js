@@ -45,6 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(e.target); // Obtiene los datos del formulario
         const data = Object.fromEntries(formData.entries()); // Convierte los datos a un objeto
 
+        const loading = document.getElementById('loader-anim');
+        loading.style.display = 'block';
+        const botonBuscar = document.getElementById('botonBuscar');
+        botonBuscar.disabled = true;
+
         try {
             // Realiza una petición POST a la API para buscar personajes
             const res = await fetch('/api/personajes/buscar', {
@@ -59,7 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const reino = data.reino;
                 const region = data.region;
                 const version = data.version;
-            
+
+                loading.style.display = 'hidden';
+                botonBuscar.disabled = false;
                 window.location.href = `/detalles.html?nombre=${encodeURIComponent(nombre)}&reino=${encodeURIComponent(reino)}&region=${region}&version=${version}`;
             } else {
                 alert("No se pudo encontrar el personaje.");

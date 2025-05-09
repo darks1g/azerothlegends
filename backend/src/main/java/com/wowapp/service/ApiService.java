@@ -308,19 +308,20 @@ public class ApiService {
 
     public String obtenerIconoItem(int itemId) {
         String url = String.format(
-            "https://%s.api.blizzard.com/data/wow/media/item/%d?namespace=static-%s&locale=es_ES",
-            "eu", itemId, "eu" // Usa el region aquí si lo deseas dinámico
+                "https://%s.api.blizzard.com/data/wow/media/item/%d?namespace=static-%s&locale=es_ES",
+                "eu", itemId, "eu" // Usa el region aquí si lo deseas dinámico
         );
-    
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + obtenerToken());
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-    
+
         try {
             ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Map.class);
             Map<String, Object> jsonMap = response.getBody();
-            if (jsonMap == null) return null;
-    
+            if (jsonMap == null)
+                return null;
+
             List<Map<String, Object>> assets = (List<Map<String, Object>>) jsonMap.get("assets");
             for (Map<String, Object> asset : assets) {
                 if ("icon".equals(asset.get("key"))) {
@@ -328,49 +329,50 @@ public class ApiService {
                     return iconUrl.substring(iconUrl.lastIndexOf("/") + 1, iconUrl.lastIndexOf("."));
                 }
             }
-    
+
         } catch (Exception e) {
             System.err.println("No se pudo obtener icono para itemId=" + itemId + ": " + e.getMessage());
         }
-    
+
         return null;
     }
-    
+
     public boolean necesitaActualizacion(Personaje personaje) {
         return personaje.getFechaActualizacion() == null ||
-               personaje.getFechaActualizacion().isBefore(LocalDateTime.now().minusMinutes(5));
+                personaje.getFechaActualizacion().isBefore(LocalDateTime.now().minusMinutes(5));
     }
 
     public void actualizarPersonaje(Personaje personaje) {
         if (!necesitaActualizacion(personaje)) {
-            System.out.println("El personaje " + personaje.getNombre() + " no necesita actualización.");
+            System.out.println("⏱️ Personaje " + personaje.getNombre() + " no necesita actualización.");
             return;
         }
-    
+
         try {
+            System.out.println("🔄 Actualizando personaje " + personaje.getNombre() + "...");
+
             obtenerYGuardarEstadisticas(personaje);
             obtenerYGuardarEquipo(personaje);
             obtenerYGuardarTalentos(personaje);
-    
+
             personaje.setFechaActualizacion(LocalDateTime.now());
             personajeRepository.save(personaje);
-    
-            System.out.println("Actualización completa para " + personaje.getNombre());
+
+            System.out.println("✅ Actualización completa para " + personaje.getNombre());
         } catch (Exception e) {
-            System.err.println("Error al actualizar el personaje " + personaje.getNombre() + ": " + e.getMessage());
+            System.err.println("❌ Error al actualizar el personaje " + personaje.getNombre() + ": " + e.getMessage());
         }
     }
-    
+
     public String obtenerIconoDeSpell(int spellId) {
         String url = String.format(
-            "https://eu.api.blizzard.com/data/wow/media/spell/%d?namespace=static-eu&locale=es_ES",
-            spellId
-        );
-    
+                "https://eu.api.blizzard.com/data/wow/media/spell/%d?namespace=static-eu&locale=es_ES",
+                spellId);
+
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + obtenerToken());
         HttpEntity<Void> request = new HttpEntity<>(headers);
-    
+
         try {
             ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, request, Map.class);
             Map<String, Object> datos = response.getBody();
@@ -378,15 +380,15 @@ public class ApiService {
             for (Map<String, Object> asset : assets) {
                 if ("icon".equals(asset.get("key"))) {
                     String urlIcono = asset.get("value").toString();
-                    return urlIcono.substring(urlIcono.lastIndexOf("/") + 1, urlIcono.lastIndexOf(".")); // solo el nombre
+                    return urlIcono.substring(urlIcono.lastIndexOf("/") + 1, urlIcono.lastIndexOf(".")); // solo el
+                                                                                                         // nombre
                 }
             }
         } catch (Exception e) {
             System.err.println("Error obteniendo ícono del spellId=" + spellId + ": " + e.getMessage());
         }
-    
+
         return null;
     }
-    
 
 }
