@@ -1,8 +1,22 @@
+
+body:not(header) {
+  color: white;
+}
+
+#nombrePersonaje {
+  font-size: 3rem;
+}
+
+
+.talento-item {
+  text-align: center;
+}
+
+
 .personaje-container {
     display: flex
 ;
     gap: 20px;
-    margin-top: 140px;
     padding: 20px;
     align-items: center;
     justify-content: space-evenly;
