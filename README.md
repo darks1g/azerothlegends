@@ -1,3 +1,5 @@
+# No continuado
+
 # 🌐 Azeroth Legends
 
 Este es un proyecto web desarrollado como parte del módulo de Desarrollo de Aplicaciones Web. Está centrado en mostrar información de personajes de World of Warcraft usando las APIs oficiales de Blizzard y comunicación entre usuarios.
@@ -27,7 +29,7 @@ Este es un proyecto web desarrollado como parte del módulo de Desarrollo de Apl
 
 [x] Sistema de usuarios (web y Battle.net) con verificación 2FA por email
 
-[ ] Página de detalle para cada personaje
+[x] Página de detalle para cada personaje
 
 [ ] Sistema de "Me Gusta" para personajes
 
@@ -35,7 +37,7 @@ Este es un proyecto web desarrollado como parte del módulo de Desarrollo de Apl
 
 [ ] Sistema de mensajería entre usuarios registrados
 
-[ ] Visualización de personajes en la web (estático o 3D)
+[x] Visualización de personajes en la web (estático o 3D)
 
 [ ] Página con listado de personajes y filtrado de resultados
 
