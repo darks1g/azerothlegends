@@ -1,0 +1,298 @@
+diff --git a/README_ARRANQUE.md b/README_ARRANQUE.md
+new file mode 100644
+index 0000000..f9cc5f0
+--- /dev/null
++++ b/README_ARRANQUE.md
+@@ -0,0 +1,26 @@
++# Arranque rápido (modo local)
++
++Requisitos: Java 17 o superior. No hace falta MySQL, PHP ni Apache.
++
++1. Define tus credenciales de Blizzard (https://develop.battle.net/access/clients):
++
++   Linux / macOS:
++       export BLIZZARD_CLIENT_ID=tu_client_id
++       export BLIZZARD_CLIENT_SECRET=tu_client_secret
++
++   Windows (PowerShell):
++       $env:BLIZZARD_CLIENT_ID="tu_client_id"
++       $env:BLIZZARD_CLIENT_SECRET="tu_client_secret"
++
++2. Arranca desde la carpeta backend/:
++
++       cd backend
++       ./gradlew bootRun        (Windows: gradlew.bat bootRun)
++
++3. Abre http://localhost:8080 y busca un personaje.
++
++Notas:
++- La base de datos H2 se crea sola en backend/data/.
++- En el primer arranque se descargan los reinos de Blizzard (tarda unos segundos).
++- El login con Battle.net y el 2FA por correo (PHP) no funcionan en este modo.
++- Para MySQL: SPRING_PROFILES_ACTIVE=prod con DB_URL, DB_USER y DB_PASSWORD.
+diff --git a/backend/.gitignore b/backend/.gitignore
+index 98ab28f..98348eb 100644
+--- a/backend/.gitignore
++++ b/backend/.gitignore
+@@ -39,5 +39,8 @@ out/
+ ### Log consola ###
+ *.log
+ 
+-### Credenciales ###
+-**/application.properties
+\ No newline at end of file
++### Credenciales y datos locales ###
++.env
++application-local.properties
++data/
++target/
+\ No newline at end of file
+diff --git a/backend/build.gradle b/backend/build.gradle
+index 5dce373..9dd2000 100644
+--- a/backend/build.gradle
++++ b/backend/build.gradle
+@@ -22,6 +22,7 @@ dependencies {
+ 	implementation 'org.springframework.boot:spring-boot-starter-security'
+ 	implementation 'org.springframework.boot:spring-boot-starter-web'
+ 	runtimeOnly 'com.mysql:mysql-connector-j'
++	runtimeOnly 'com.h2database:h2'
+ 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+ 	testImplementation 'org.springframework.security:spring-security-test'
+ 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+diff --git a/backend/pom.xml b/backend/pom.xml
+deleted file mode 100644
+index aebc2a6..0000000
+--- a/backend/pom.xml
++++ /dev/null
+@@ -1,107 +0,0 @@
+-<project xmlns="http://maven.apache.org/POM/4.0.0"
+-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+-
+-    <modelVersion>4.0.0</modelVersion>
+-
+-    <!-- Información básica del proyecto -->
+-    <groupId>com.wowapp</groupId>
+-    <artifactId>wowapp-backend</artifactId>
+-    <version>0.0.1-SNAPSHOT</version>
+-    <name>wowapp-backend</name>
+-    <description>Proyecto backend para WoW</description>
+-    <packaging>jar</packaging>
+-
+-    <!-- Configuración del proyecto padre -->
+-    <parent>
+-        <groupId>org.springframework.boot</groupId>
+-        <artifactId>spring-boot-starter-parent</artifactId>
+-        <version>3.2.3</version>
+-        <relativePath/> 
+-    </parent>
+-
+-    <!-- Propiedades del proyecto -->
+-    <properties>
+-        <java.version>17</java.version>
+-    </properties>
+-
+-    <!-- Dependencias del proyecto -->
+-    <dependencies>
+-        <!-- Dependencia para aplicaciones web -->
+-        <dependency>
+-            <groupId>org.springframework.boot</groupId>
+-            <artifactId>spring-boot-starter-web</artifactId>
+-        </dependency>
+-
+-        <!-- Dependencia para JPA -->
+-        <dependency>
+-            <groupId>org.springframework.boot</groupId>
+-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+-        </dependency>
+-
+-        <!-- Conector para MySQL -->
+-        <dependency>
+-            <groupId>com.mysql</groupId>
+-            <artifactId>mysql-connector-j</artifactId>
+-        </dependency>
+-
+-        <!-- Dependencia para validaciones -->
+-        <dependency>
+-            <groupId>org.springframework.boot</groupId>
+-            <artifactId>spring-boot-starter-validation</artifactId>
+-        </dependency>
+-
+-        <!-- Dependencias para pruebas -->
+-        <dependency>
+-            <groupId>org.springframework.boot</groupId>
+-            <artifactId>spring-boot-starter-test</artifactId>
+-            <scope>test</scope>
+-        </dependency>
+-
+-        <!-- Herramientas de desarrollo -->
+-        <dependency>
+-            <groupId>org.springframework.boot</groupId>
+-            <artifactId>spring-boot-devtools</artifactId>
+-            <scope>runtime</scope>
+-            <optional>true</optional>
+-        </dependency>
+-
+-        <!-- API de persistencia de Jakarta -->
+-        <dependency>
+-            <groupId>jakarta.persistence</groupId>
+-            <artifactId>jakarta.persistence-api</artifactId>
+-            <version>3.1.0</version>
+-        </dependency>
+-
+-        <!-- Lombok para reducir código boilerplate -->
+-        <dependency>
+-            <groupId>org.projectlombok</groupId>
+-            <artifactId>lombok</artifactId>
+-            <version>1.18.30</version>
+-            <scope>provided</scope>
+-        </dependency>
+-
+-        <!-- Dependencias para seguridad -->
+-        <dependency>
+-            <groupId>org.springframework.security</groupId>
+-            <artifactId>spring-security-crypto</artifactId>
+-            <version>6.2.1</version>
+-        </dependency>
+-        <dependency>
+-            <groupId>org.springframework.boot</groupId>
+-            <artifactId>spring-boot-starter-security</artifactId>
+-        </dependency>
+-    </dependencies>
+-
+-    <!-- Configuración de plugins -->
+-    <build>
+-        <plugins>
+-            <plugin>
+-                <groupId>org.springframework.boot</groupId>
+-                <artifactId>spring-boot-maven-plugin</artifactId>
+-            </plugin>
+-        </plugins>
+-    </build>
+-
+-</project>
+diff --git a/backend/settings.gradle b/backend/settings.gradle
+index 0a383dd..a29c54d 100644
+--- a/backend/settings.gradle
++++ b/backend/settings.gradle
+@@ -1 +1 @@
+-rootProject.name = 'demo'
++rootProject.name = 'wowapp-backend'
+diff --git a/backend/src/main/java/com/wowapp/config/SecurityConfig.java b/backend/src/main/java/com/wowapp/config/SecurityConfig.java
+index 6191fc1..1887445 100644
+--- a/backend/src/main/java/com/wowapp/config/SecurityConfig.java
++++ b/backend/src/main/java/com/wowapp/config/SecurityConfig.java
+@@ -17,8 +17,9 @@ public class SecurityConfig {
+             .authorizeHttpRequests(auth -> auth
+                 // Permite el acceso sin autenticación a las rutas especificadas
+                 .requestMatchers(
+-                    "/", "/index.html", "/login.html", "/registro.html",
+-                    "/css/**", "/js/**", "/api/**", "/oauth/**", "/api/perfil-menu"
++                    "/", "/index", "/login", "/registro", "/*.html",
++                    "/css/**", "/js/**", "/assets/**", "/wow-model-viewer/**",
++                    "/api/**", "/oauth/**"
+                 ).permitAll()
+                 // Requiere autenticación para cualquier otra solicitud
+                 .anyRequest().authenticated()
+diff --git a/backend/src/main/java/com/wowapp/config/WebConfig.java b/backend/src/main/java/com/wowapp/config/WebConfig.java
+new file mode 100644
+index 0000000..51cbc7a
+--- /dev/null
++++ b/backend/src/main/java/com/wowapp/config/WebConfig.java
+@@ -0,0 +1,17 @@
++package com.wowapp.config;
++
++import org.springframework.context.annotation.Configuration;
++import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
++import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
++
++// Sustituye las reglas de reescritura del .htaccess: /index -> index.html, etc.
++@Configuration
++public class WebConfig implements WebMvcConfigurer {
++    @Override
++    public void addViewControllers(ViewControllerRegistry registry) {
++        registry.addViewController("/").setViewName("forward:/index.html");
++        registry.addViewController("/index").setViewName("forward:/index.html");
++        registry.addViewController("/login").setViewName("forward:/login.html");
++        registry.addViewController("/registro").setViewName("forward:/registro.html");
++    }
++}
+diff --git a/backend/src/main/java/com/wowapp/service/ApiService.java b/backend/src/main/java/com/wowapp/service/ApiService.java
+index e934265..3007612 100644
+--- a/backend/src/main/java/com/wowapp/service/ApiService.java
++++ b/backend/src/main/java/com/wowapp/service/ApiService.java
+@@ -147,7 +147,13 @@ public class ApiService {
+ 
+             for (Map<String, Object> reinoData : reinos) {
+                 Reino r = new Reino();
+-                r.setId(((Number) reinoData.get("id")).longValue());
++                // Los IDs de reino se repiten entre versiones del juego: se separan por rangos
++                long offset = switch (version) {
++                    case retail -> 0L;
++                    case classic_era -> 1_000_000L;
++                    case classic -> 2_000_000L;
++                };
++                r.setId(offset + ((Number) reinoData.get("id")).longValue());
+                 r.setNombre((String) reinoData.get("name"));
+                 r.setSlug((String) reinoData.get("slug"));
+                 r.setRegion(region);
+diff --git a/backend/src/main/resources/application-dev.properties b/backend/src/main/resources/application-dev.properties
+new file mode 100644
+index 0000000..a25bbaa
+--- /dev/null
++++ b/backend/src/main/resources/application-dev.properties
+@@ -0,0 +1,7 @@
++# Base de datos H2 en fichero (se crea sola en backend/data/)
++spring.datasource.url=jdbc:h2:file:./data/azeroth;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
++spring.datasource.username=sa
++spring.datasource.password=
++
++# Sirve el frontend directamente desde ../frontend (el backend se ejecuta desde la carpeta backend/)
++spring.web.resources.static-locations=file:../frontend/,classpath:/static/
+diff --git a/backend/src/main/resources/application-prod.properties b/backend/src/main/resources/application-prod.properties
+new file mode 100644
+index 0000000..dd2193d
+--- /dev/null
++++ b/backend/src/main/resources/application-prod.properties
+@@ -0,0 +1,4 @@
++# MySQL: datos por variables de entorno
++spring.datasource.url=${DB_URL}
++spring.datasource.username=${DB_USER}
++spring.datasource.password=${DB_PASSWORD}
+diff --git a/backend/src/main/resources/application.properties b/backend/src/main/resources/application.properties
+new file mode 100644
+index 0000000..c0eafe3
+--- /dev/null
++++ b/backend/src/main/resources/application.properties
+@@ -0,0 +1,11 @@
++# Perfil por defecto: dev (H2 local, sin instalar nada). Para MySQL: SPRING_PROFILES_ACTIVE=prod
++spring.profiles.active=${SPRING_PROFILES_ACTIVE:dev}
++
++# Credenciales de Blizzard: SIEMPRE por variables de entorno, nunca en el repo
++blizzard.client-id=${BLIZZARD_CLIENT_ID}
++blizzard.client-secret=${BLIZZARD_CLIENT_SECRET}
++blizzard.region=${BLIZZARD_REGION:eu}
++blizzard.redirect-uri=${BLIZZARD_REDIRECT_URI:http://localhost:8080/oauth/callback}
++
++spring.jpa.hibernate.ddl-auto=update
++spring.jpa.show-sql=false
+diff --git a/backend/src/main/resources/dummy_application.properties b/backend/src/main/resources/dummy_application.properties
+deleted file mode 100644
+index 56cfb97..0000000
+--- a/backend/src/main/resources/dummy_application.properties
++++ /dev/null
+@@ -1,12 +0,0 @@
+-spring.datasource.url=jdbc:mysql://192.168.X.XXX:3306/xxxxxx
+-spring.datasource.username=xxxxxx
+-spring.datasource.password=xxxxxx
+-spring.jpa.hibernate.ddl-auto=update
+-spring.jpa.show-sql=true
+-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+-
+-# Blizzard API
+-blizzard.client-id=xxxxxx
+-blizzard.client-secret=xxxxxx
+-blizzard.region=xx
+-blizzard.redirect-uri=http://xxxxx.sytes.net/oauth/callback
+\ No newline at end of file

@@ -147,8 +147,14 @@ public class ApiService {
 
             for (Map<String, Object> reinoData : reinos) {
                 Reino r = new Reino();
-                r.setId(((Number) reinoData.get("id")).longValue());
-                r.setNombre((String) reinoData.get("name"));
+                // Los IDs de reino se repiten entre versiones del juego: se separan por rangos
+                long offset = switch (version) {
+                    case retail -> 0L;
+                    case classic_era -> 1_000_000L;
+                    case classic -> 2_000_000L;
+                };
+                r.setId(offset + ((Number) reinoData.get("id")).longValue());
+                r.setNombre(reinoData.get("name") instanceof String nombreReino ? nombreReino : (String) reinoData.get("slug")); // si falta el nombre, se usa el slug
                 r.setSlug((String) reinoData.get("slug"));
                 r.setRegion(region);
                 r.setVersionJuego(version);

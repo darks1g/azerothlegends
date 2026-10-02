@@ -17,8 +17,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // Permite el acceso sin autenticación a las rutas especificadas
                 .requestMatchers(
-                    "/", "/index.html", "/login.html", "/registro.html",
-                    "/css/**", "/js/**", "/api/**", "/oauth/**", "/api/perfil-menu"
+                    "/", "/index", "/login", "/registro", "/*.html",
+                    "/css/**", "/js/**", "/assets/**", "/wow-model-viewer/**",
+                    "/api/**", "/oauth/**"
                 ).permitAll()
                 // Requiere autenticación para cualquier otra solicitud
                 .anyRequest().authenticated()

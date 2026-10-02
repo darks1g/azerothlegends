@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
             reinoSelect.innerHTML = '<option value="" disabled selected="selected">Selecciona un reino</option>';
 
             // Ordena los reinos alfabéticamente y los agrega al select
-            reinos.sort((a, b) => a.nombre.localeCompare(b.nombre))
+            reinos.sort((a, b) => (a.nombre || a.slug || '').localeCompare(b.nombre || b.slug || ''))
                 .forEach(reino => {
                     const option = document.createElement('option');
                     option.value = reino.slug;
-                    option.textContent = reino.nombre;
+                    option.textContent = reino.nombre || reino.slug;
                     option.dataset.version = reino.versionJuego;
                     reinoSelect.appendChild(option);
                 });

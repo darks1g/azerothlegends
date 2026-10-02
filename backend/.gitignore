@@ -39,5 +39,8 @@ out/
 ### Log consola ###
 *.log
 
-### Credenciales ###
-**/application.properties
+### Credenciales y datos locales ###
+.env
+application-local.properties
+data/
+target/
