@@ -1,0 +1,179 @@
+diff --git a/frontend/css/detalles.css b/frontend/css/detalles.css
+index 042b484..86de014 100644
+--- a/frontend/css/detalles.css
++++ b/frontend/css/detalles.css
+@@ -111,4 +111,59 @@ body:not(header) {
+     display: block;
+     margin: 0 auto;
+   }
+-  
+\ No newline at end of file
++  
++
++/* ---- Equipo en la ficha ---- */
++.item-slot {
++  display: flex;
++  align-items: center;
++  gap: 8px;
++  background-color: #222;
++  border: 1px solid #444;
++  border-radius: 6px;
++  padding: 4px;
++  min-height: 44px;
++}
++
++.item-slot img {
++  width: 40px;
++  height: 40px;
++  border-radius: 4px;
++  flex-shrink: 0;
++}
++
++.item-info {
++  display: flex;
++  flex-direction: column;
++  min-width: 0;
++  line-height: 1.2;
++}
++
++.item-nombre {
++  font-size: 12px;
++  color: #fff;
++  overflow: hidden;
++  text-overflow: ellipsis;
++  white-space: nowrap;
++}
++
++.item-slot-nombre,
++.item-ilvl {
++  font-size: 11px;
++  color: #aaa;
++}
++
++.item-vacio {
++  opacity: 0.4;
++}
++
++.talento-item small {
++  display: block;
++  font-size: 11px;
++  color: #ddd;
++}
++
++.sin-datos {
++  color: #888;
++  font-size: 13px;
++}
+diff --git a/frontend/js/detalles.js b/frontend/js/detalles.js
+index dc3449d..82562f9 100644
+--- a/frontend/js/detalles.js
++++ b/frontend/js/detalles.js
+@@ -25,9 +25,107 @@ document.addEventListener('DOMContentLoaded', async () => {
+         }
+ 
+         const data = await res.json();
+-        //renderPersonaje(data);
++        renderPersonaje(data);
+     } catch (err) {
+         console.error('Error cargando personaje:', err);
+         document.body.innerHTML = `<p>Error al cargar personaje: ${err.message}</p>`;
+     }
+ });
++
++
++// ---- Pintado de la ficha del personaje ----
++
++const SLOTS_IZQUIERDA = ['HEAD', 'NECK', 'SHOULDER', 'BACK', 'CHEST', 'SHIRT', 'TABARD', 'WRIST', 'MAIN_HAND'];
++const SLOTS_DERECHA = ['HANDS', 'WAIST', 'LEGS', 'FEET', 'FINGER_1', 'FINGER_2', 'TRINKET_1', 'TRINKET_2', 'OFF_HAND', 'RANGED'];
++const NOMBRE_SLOT = {
++    HEAD: 'Cabeza', NECK: 'Cuello', SHOULDER: 'Hombros', BACK: 'Espalda', CHEST: 'Pecho',
++    SHIRT: 'Camisa', TABARD: 'Tabardo', WRIST: 'Muñecas', HANDS: 'Manos', WAIST: 'Cintura',
++    LEGS: 'Piernas', FEET: 'Pies', FINGER_1: 'Anillo 1', FINGER_2: 'Anillo 2',
++    TRINKET_1: 'Abalorio 1', TRINKET_2: 'Abalorio 2', MAIN_HAND: 'Mano derecha',
++    OFF_HAND: 'Mano izquierda', RANGED: 'A distancia'
++};
++const ICONO_URL = 'https://wow.zamimg.com/images/wow/icons/large/';
++
++function esc(texto) {
++    const d = document.createElement('div');
++    d.textContent = texto == null ? '' : String(texto);
++    return d.innerHTML;
++}
++
++function htmlIcono(icono, titulo) {
++    const nombre = icono || 'inv_misc_questionmark';
++    return `<img src="${ICONO_URL}${encodeURIComponent(nombre)}.jpg" alt="${esc(titulo)}" title="${esc(titulo)}"
++        onerror="this.onerror=null;this.src='${ICONO_URL}inv_misc_questionmark.jpg'">`;
++}
++
++function htmlItem(item, slot) {
++    if (!item) {
++        return `<div class="item-slot item-vacio"><span class="item-slot-nombre">${esc(NOMBRE_SLOT[slot] || slot)}</span></div>`;
++    }
++    const ilvl = item.ilvl ? `<span class="item-ilvl">iLvl ${esc(item.ilvl)}</span>` : '';
++    return `<div class="item-slot" title="${esc(item.nombreItem)}">
++        ${htmlIcono(item.icono, item.nombreItem)}
++        <div class="item-info">
++            <span class="item-nombre">${esc(item.nombreItem)}</span>
++            <span class="item-slot-nombre">${esc(NOMBRE_SLOT[slot] || slot)}</span>
++            ${ilvl}
++        </div>
++    </div>`;
++}
++
++function pintarEquipo(equipo) {
++    const porSlot = {};
++    (equipo || []).forEach(i => { porSlot[i.slot] = i; });
++
++    const izq = document.getElementById('equipamientoIzquierdo');
++    const der = document.getElementById('equipamientoDerecho');
++
++    izq.innerHTML = SLOTS_IZQUIERDA
++        .filter(s => porSlot[s] || !['MAIN_HAND'].includes(s))
++        .map(s => htmlItem(porSlot[s], s)).join('');
++
++    // Los slots de la derecha que no tengan objeto no se muestran (RANGED, OFF_HAND...)
++    const extra = Object.keys(porSlot).filter(s => !SLOTS_IZQUIERDA.includes(s) && !SLOTS_DERECHA.includes(s));
++    der.innerHTML = [...SLOTS_DERECHA, ...extra]
++        .filter(s => porSlot[s] || !['OFF_HAND', 'RANGED'].includes(s))
++        .map(s => htmlItem(porSlot[s], s)).join('');
++}
++
++function pintarTalentos(contenedorId, lista) {
++    const cont = document.getElementById(contenedorId);
++    if (!cont) return;
++    if (!lista || lista.length === 0) {
++        cont.innerHTML = '<p class="sin-datos">Sin datos</p>';
++        return;
++    }
++    cont.innerHTML = lista.map(t => `
++        <div class="talento-item">
++            ${htmlIcono(t.icono, t.nombre)}
++            <small>${esc(t.nombre)}</small>
++        </div>`).join('');
++}
++
++function renderPersonaje(data) {
++    document.title = `${data.nombre} - Azeroth Legends`;
++    document.getElementById('nombrePersonaje').textContent = data.nombre;
++    document.getElementById('infoBasica').textContent =
++        `Nivel ${data.nivel} ${data.raza || ''} ${data.clase || ''} · ${data.reino} (${String(data.region).toUpperCase()}) · ${data.versionJuego}`;
++
++    pintarEquipo(data.equipo);
++
++    const stats = document.getElementById('estadisticas');
++    stats.innerHTML = (data.estadisticas && data.estadisticas.length)
++        ? data.estadisticas.map(e => `<div><strong>${esc(e.nombre)}</strong>: ${esc(e.valor)}</div>`).join('')
++        : '<p class="sin-datos">Sin estadísticas</p>';
++
++    if (data.versionJuego === 'retail') {
++        pintarTalentos('talentosClase', data.talentosClase);
++        pintarTalentos('talentosSpec', data.talentosSpec);
++        pintarTalentos('talentosHero', data.talentosHero);
++    } else {
++        // Classic: una sola lista de talentos
++        pintarTalentos('talentosClase', data.talentos);
++        document.getElementById('talentosSpec').closest('fieldset').style.display = 'none';
++        document.getElementById('talentosHero').closest('fieldset').style.display = 'none';
++    }
++}

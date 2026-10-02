@@ -24,17 +24,36 @@ public class EstadisticasService {
 
         EstadisticasPersonaje e = new EstadisticasPersonaje();
         e.setPersonaje(personaje);
-        e.setFuerza(toInteger(datos.get("strength")));
-        e.setAgilidad(toInteger(datos.get("agility")));
-        e.setIntelecto(toInteger(datos.get("intellect")));
-        e.setAguante(toInteger(datos.get("stamina")));
+        // Blizzard manda los atributos como {base, effective} y los porcentajes como {rating, value}
+        e.setFuerza(toInteger(sub(datos.get("strength"), "effective")));
+        e.setAgilidad(toInteger(sub(datos.get("agility"), "effective")));
+        e.setIntelecto(toInteger(sub(datos.get("intellect"), "effective")));
+        e.setAguante(toInteger(sub(datos.get("stamina"), "effective")));
         e.setVida(toInteger(datos.get("health")));
-        e.setGolpeCritico(toBigDecimal(datos.get("crit")));
-        e.setCeleridad(toBigDecimal(datos.get("haste")));
-        e.setMaestria(toBigDecimal(datos.get("mastery")));
-        e.setVersatilidad(toBigDecimal(datos.get("versatility")));
+        e.setGolpeCritico(toBigDecimal(maximo(datos, "melee_crit", "spell_crit", "ranged_crit")));
+        e.setCeleridad(toBigDecimal(maximo(datos, "melee_haste", "spell_haste", "ranged_haste")));
+        e.setMaestria(toBigDecimal(sub(datos.get("mastery"), "value")));
+        // "versatility" es la puntuación (306); el porcentaje (6 %) está en este otro campo
+        e.setVersatilidad(toBigDecimal(datos.get("versatility_damage_done_bonus")));
 
         estadisticasPersonajeRepository.save(e);
+    }
+
+    // Si el valor es un objeto devuelve su campo; si es un número suelto, lo devuelve tal cual
+    private Object sub(Object valor, String clave) {
+        return valor instanceof Map<?, ?> m ? m.get(clave) : valor;
+    }
+
+    // De varias estadísticas equivalentes (cuerpo a cuerpo, hechizo, distancia) toma la más alta
+    private Object maximo(Map<String, Object> datos, String... claves) {
+        double mejor = -1;
+        for (String clave : claves) {
+            Object v = sub(datos.get(clave), "value");
+            if (v instanceof Number n && n.doubleValue() > mejor) {
+                mejor = n.doubleValue();
+            }
+        }
+        return mejor < 0 ? null : mejor;
     }
 
     private BigDecimal toBigDecimal(Object valor) {
@@ -60,10 +79,10 @@ public class EstadisticasService {
             new EstadisticaDTO("Intelecto", e.getIntelecto().intValue()),
             new EstadisticaDTO("Aguante", e.getAguante().intValue()),
             new EstadisticaDTO("Vida", e.getVida().intValue()),
-            new EstadisticaDTO("Golpe Crítico", e.getGolpeCritico().intValue()),
-            new EstadisticaDTO("Celeridad", e.getCeleridad().intValue()),
-            new EstadisticaDTO("Maestría", e.getMaestria().intValue()),
-            new EstadisticaDTO("Versatilidad", e.getVersatilidad().intValue())
+            new EstadisticaDTO("Golpe Crítico", e.getGolpeCritico().setScale(0, java.math.RoundingMode.HALF_UP).intValue()),
+            new EstadisticaDTO("Celeridad", e.getCeleridad().setScale(0, java.math.RoundingMode.HALF_UP).intValue()),
+            new EstadisticaDTO("Maestría", e.getMaestria().setScale(0, java.math.RoundingMode.HALF_UP).intValue()),
+            new EstadisticaDTO("Versatilidad", e.getVersatilidad().setScale(0, java.math.RoundingMode.HALF_UP).intValue())
         ))
         .toList();
 }

@@ -112,3 +112,58 @@ body:not(header) {
     margin: 0 auto;
   }
   
+
+/* ---- Equipo en la ficha ---- */
+.item-slot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 4px;
+  min-height: 44px;
+}
+
+.item-slot img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.item-nombre {
+  font-size: 12px;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-slot-nombre,
+.item-ilvl {
+  font-size: 11px;
+  color: #aaa;
+}
+
+.item-vacio {
+  opacity: 0.4;
+}
+
+.talento-item small {
+  display: block;
+  font-size: 11px;
+  color: #ddd;
+}
+
+.sin-datos {
+  color: #888;
+  font-size: 13px;
+}
