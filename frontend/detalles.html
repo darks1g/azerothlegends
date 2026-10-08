@@ -4,14 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1a1a1a" />
   <title>Detalles de Personaje</title>
 
   <link rel="stylesheet" href="/css/cursor.css" />
   <link rel="stylesheet" href="/css/index.css" />
   <link rel="stylesheet" href="/css/detalles.css" />
   <link rel="stylesheet" href="/css/questlog.css" />
-  <script>const whTooltips = { colorLinks: true, iconizeLinks: true, renameLinks: true };</script>
+  <link rel="stylesheet" href="/css/animaciones.css" />
+  <script>const whTooltips = { colorLinks: false, iconizeLinks: false, renameLinks: false };</script>
   <script src="https://wow.zamimg.com/js/tooltips.js"></script>
+  <script src="/js/comun.js" defer></script>
   <script src="/js/detalles.js" defer></script>
   
   <script src="/js/desplegable-perfil.js"></script>
@@ -25,6 +28,7 @@
         <span class="chat-text">Abrir chat global ⏷</span>
         <span class="chat-icon">🌍</span>
       </button>
+      <a href="/personajes" class="nav-link">Personajes</a>
     </div>
 
     <div class="header-center">
@@ -44,41 +48,59 @@
     </div>
   </header>
 
-  <h1 id="nombrePersonaje" class="text-3xl font-bold mb-2 text-yellow-400"></h1>
-  <p id="infoBasica" class="text-gray-300 mb-4"></p>
-  <main class="personaje-container">
-    <div id="equipamientoIzquierdo" class="equipo-col"></div>
+  <div id="estado" class="estado" role="status">Cargando personaje…</div>
 
-    <div class="personaje-centro">
-      <div class="render-box">
-        <canvas id="renderCanvas" width="300" height="300"></canvas>
-        <p class="render-label">Render 3D del personaje</p>
-      </div>
-      <div class="estadisticas-box">
-        <h2>Estadísticas</h2>
-        <div id="estadisticas" class="stats-grid"></div>
-      </div>
+  <!-- Esqueleto de carga -->
+  <div id="esqueleto" class="esqueleto" aria-hidden="true">
+    <div class="sk sk-imagen"></div>
+    <div class="sk-col">
+      <div class="sk sk-titulo"></div>
+      <div class="sk sk-linea"></div>
+      <div class="sk sk-linea corta"></div>
+      <div class="sk sk-bloque"></div>
     </div>
+  </div>
 
-    <div id="equipamientoDerecho" class="equipo-col"></div>
-  </main>
+  <div id="ficha" hidden>
+    <!-- Cabecera: imagen, nombre, datos y estadísticas -->
+    <section class="hero">
+      <div class="hero-imagen" id="renderBox" hidden>
+        <img id="imagenPersonaje" alt="Imagen del personaje">
+      </div>
 
+      <div class="hero-info">
+        <h1 id="nombrePersonaje"></h1>
+        <p id="subtitulo" class="hero-subtitulo"></p>
+        <div id="chips" class="chips"></div>
 
-  <section class="talentos">
-    <h2>Talentos</h2>
-    <fieldset>
-      <legend>Talentos clase</legend>
-      <div id="talentosClase" class="talento-grid"></div>
-    </fieldset>
-    <fieldset>
-      <legend>Talentos especialización</legend>
-      <div id="talentosSpec" class="talento-grid"></div>
-    </fieldset>
-    <fieldset>
-      <legend>Talentos heroe</legend>
-      <div id="talentosHero" class="talento-grid"></div>
-    </fieldset>
-  </section>
+        <div class="acciones-personaje" id="acciones">
+          <button type="button" id="botonActualizar" class="boton-secundario">⟳ Actualizar datos</button>
+          <button type="button" id="botonCompartir" class="boton-secundario">🔗 Copiar enlace</button>
+          <span id="textoActualizado" class="texto-actualizado"></span>
+        </div>
+
+        <div id="estadisticas" class="stats-tiles"></div>
+      </div>
+    </section>
+
+    <!-- Equipo -->
+    <section class="panel">
+      <h2 class="panel-titulo">Equipo <span id="ilvlMedio" class="ilvl-medio"></span></h2>
+      <div class="equipo-grid">
+        <div id="equipamientoIzquierdo" class="equipo-col"></div>
+        <div id="equipamientoDerecho" class="equipo-col"></div>
+      </div>
+    </section>
+
+    <!-- Talentos -->
+    <section class="panel" id="seccionTalentos">
+      <h2 class="panel-titulo">Talentos</h2>
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div id="panelTalentos" class="talento-panel" role="tabpanel"></div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" role="status" hidden></div>
 </body>
 
 

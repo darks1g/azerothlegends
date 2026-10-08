@@ -1,0 +1,67 @@
+/* Animaciones y microinteracciones compartidas por todas las páginas */
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes brillo {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.85; transform: scale(1.06); }
+}
+
+@keyframes destello {
+  from { background-position: -400px 0; }
+  to   { background-position: 400px 0; }
+}
+
+/* Página principal: buscador y personajes decorativos */
+.busqueda {
+  animation: aparecer 0.6s ease both;
+}
+
+.character-image img {
+  animation: flotar 7s ease-in-out infinite;
+}
+
+#imagenPersonaje2 {
+  animation-delay: -3.5s;
+}
+
+/* Botones y enlaces del header */
+.button,
+.boton-secundario,
+.nav-link,
+.chat-button {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.button:hover,
+.boton-secundario:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.6);
+}
+
+.button:active,
+.boton-secundario:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.input:focus,
+.select:focus {
+  outline: 2px solid #c9a227;
+  outline-offset: 1px;
+}
+
+/* Quien prefiere menos movimiento no ve animaciones */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

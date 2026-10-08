@@ -1,79 +1,118 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('buscarForm');
     const regionSelect = document.getElementById('regionSelect');
-    const versionSelect = document.querySelector('select[name="version"]');
+    const versionSelect = document.getElementById('version');
     const reinoSelect = document.getElementById('reinoSelect');
+    const botonBuscar = document.getElementById('botonBuscar');
+    const loading = document.getElementById('loader-anim');
+    const mensaje = document.getElementById('mensajeError');
 
-    // Función para cargar los reinos según la región seleccionada
-    async function cargarReinos(region) {
+    function mostrarError(texto) {
+        mensaje.textContent = texto || '';
+        mensaje.hidden = !texto;
+    }
+
+    // Recuerda la última versión y reino elegidos (si el navegador lo permite)
+    function recordar(clave, valor) {
+        try { localStorage.setItem(clave, valor); } catch (e) { /* sin almacenamiento: se ignora */ }
+    }
+    function recuperar(clave) {
+        try { return localStorage.getItem(clave); } catch (e) { return null; }
+    }
+
+    // Carga los reinos de la región y la versión de juego elegidas
+    async function cargarReinos(reinoPreferido) {
+        const region = regionSelect.value;
+        const version = versionSelect.value;
+
+        reinoSelect.disabled = true;
+        reinoSelect.innerHTML = '<option value="" disabled selected>Cargando reinos…</option>';
+
         try {
-            // Realiza una petición a la API para obtener los reinos de la región
-            const res = await fetch(`/api/reinos?region=${region}`);
+            const res = await fetch(`/api/reinos?region=${encodeURIComponent(region)}&version=${encodeURIComponent(version)}`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const reinos = await res.json();
 
-            // Limpia las opciones actuales y agrega una opción por defecto
-            reinoSelect.innerHTML = '<option value="" disabled selected="selected">Selecciona un reino</option>';
+            reinos.sort((a, b) => (a.nombre || a.slug || '').localeCompare(b.nombre || b.slug || '', 'es'));
 
-            // Ordena los reinos alfabéticamente y los agrega al select
-            reinos.sort((a, b) => (a.nombre || a.slug || '').localeCompare(b.nombre || b.slug || ''))
-                .forEach(reino => {
-                    const option = document.createElement('option');
-                    option.value = reino.slug;
-                    option.textContent = reino.nombre || reino.slug;
-                    option.dataset.version = reino.versionJuego;
-                    reinoSelect.appendChild(option);
-                });
+            if (reinos.length === 0) {
+                reinoSelect.innerHTML = '<option value="" disabled selected>No hay reinos disponibles</option>';
+                return;
+            }
 
+            reinoSelect.innerHTML = '<option value="" disabled selected>Selecciona un reino</option>';
+            reinos.forEach(reino => {
+                const option = document.createElement('option');
+                option.value = reino.slug;
+                option.textContent = reino.nombre || reino.slug;
+                reinoSelect.appendChild(option);
+            });
+
+            if (reinoPreferido && reinos.some(r => r.slug === reinoPreferido)) {
+                reinoSelect.value = reinoPreferido;
+            }
         } catch (err) {
-            // Muestra un mensaje de error en caso de fallo al cargar los reinos
-            reinoSelect.innerHTML = '<option value="">Error al cargar</option>';
             console.error('Error cargando reinos:', err);
+            reinoSelect.innerHTML = '<option value="" disabled selected>Error al cargar los reinos</option>';
+        } finally {
+            reinoSelect.disabled = false;
         }
     }
 
-    // Evento para cargar los reinos cuando se selecciona una región
-    regionSelect.addEventListener('change', () => {
-        const region = regionSelect.value;
-        if (region) cargarReinos(region);
+    // Restaurar la última selección
+    const versionGuardada = recuperar('al_version');
+    if (versionGuardada && [...versionSelect.options].some(o => o.value === versionGuardada)) {
+        versionSelect.value = versionGuardada;
+    }
+    cargarReinos(recuperar('al_reino'));
+
+    versionSelect.addEventListener('change', () => {
+        recordar('al_version', versionSelect.value);
+        mostrarError('');
+        cargarReinos();
     });
 
-    // Carga inicial de los reinos al cargar la página
-    cargarReinos(regionSelect.value);
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        mostrarError('');
 
-    // Maneja el envío del formulario de búsqueda
-    document.getElementById('buscarForm').addEventListener('submit', async (e) => {
-        e.preventDefault(); // Previene el comportamiento por defecto del formulario
-        const formData = new FormData(e.target); // Obtiene los datos del formulario
-        const data = Object.fromEntries(formData.entries()); // Convierte los datos a un objeto
+        const data = Object.fromEntries(new FormData(form).entries());
+        if (!data.reino) {
+            mostrarError('Selecciona un reino.');
+            return;
+        }
 
-        const loading = document.getElementById('loader-anim');
         loading.style.display = 'block';
-        const botonBuscar = document.getElementById('botonBuscar');
         botonBuscar.disabled = true;
 
         try {
-            // Realiza una petición POST a la API para buscar personajes
             const res = await fetch('/api/personajes/buscar', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
 
-            if (res.ok) {
-                // Redirige a la página de detalles del personaje
-                const nombre = data.nombre;
-                const reino = data.reino;
-                const region = data.region;
-                const version = data.version;
+            let cuerpo = {};
+            try { cuerpo = await res.json(); } catch (e) { /* respuesta sin JSON */ }
 
-                window.location.href = `/detalles.html?nombre=${encodeURIComponent(nombre)}&reino=${encodeURIComponent(reino)}&region=${region}&version=${version}`;
+            if (res.ok) {
+                recordar('al_version', data.version);
+                recordar('al_reino', data.reino);
+                // Se usa el nombre oficial que devuelve el servidor (con su mayúscula correcta)
+                window.location.href = urlFicha({
+                    nombre: cuerpo.nombre || data.nombre,
+                    reino: data.reino,
+                    region: data.region,
+                    version: data.version
+                });
             } else {
-                alert("No se pudo encontrar el personaje.");
+                mostrarError(cuerpo.error || 'No se pudo buscar el personaje. Inténtalo de nuevo.');
             }
         } catch (err) {
-            // Maneja errores en la petición
             console.error(err);
+            mostrarError('No se pudo conectar con el servidor. Comprueba que está en marcha.');
         } finally {
-            loading.style.display = 'hidden';
+            loading.style.display = 'none';
             botonBuscar.disabled = false;
         }
     });

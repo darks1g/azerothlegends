@@ -30,7 +30,6 @@ public class TalentoRetailService {
     @Transactional
     public void guardarTalentos(Personaje personaje, Map<String, Object> datos) {
         try {
-            System.out.println("→ JSON recibido en guardarTalentos (Retail): " + datos);
             talentoRetailRepository.deleteByPersonajeId(personaje.getId());
 
             List<Map<String, Object>> specializations = (List<Map<String, Object>>) datos.get("specializations");
@@ -39,7 +38,17 @@ public class TalentoRetailService {
                 return;
             }
 
+            // Solo se guardan los talentos de la especialización activa (la API devuelve todas)
+            Integer idActiva = null;
+            if (datos.get("active_specialization") instanceof Map<?, ?> activa && activa.get("id") instanceof Number n) {
+                idActiva = n.intValue();
+            }
+
             for (Map<String, Object> spec : specializations) {
+                if (idActiva != null && spec.get("specialization") instanceof Map<?, ?> info
+                        && info.get("id") instanceof Number idSpec && idSpec.intValue() != idActiva) {
+                    continue;
+                }
                 List<Map<String, Object>> loadouts = (List<Map<String, Object>>) spec.get("loadouts");
                 if (loadouts == null)
                     continue;
@@ -92,8 +101,6 @@ public class TalentoRetailService {
         if (talentos == null || talentos.isEmpty())
             return;
 
-        System.out.println("→ Procesando " + talentos.size() + " talentos [" + tipo + "]");
-
         for (Map<String, Object> talentoData : talentos) {
             try {
                 TalentoRetail talento = new TalentoRetail();
@@ -116,7 +123,7 @@ public class TalentoRetailService {
                     if (spell != null && spell.get("id") != null) {
                         int spellId = ((Number) spell.get("id")).intValue();
                         talento.setSpellId(spellId);
-                        talento.setIcono(apiService.obtenerIconoDeSpell(spellId));
+                        talento.setIcono(apiService.obtenerIconoDeSpell(spellId, personaje.getVersionJuego()));
                     }
                 }
 
@@ -129,7 +136,6 @@ public class TalentoRetailService {
                 }
 
                 talentoRetailRepository.save(talento);
-                System.out.println("✅ Talento [" + tipo + "] guardado: " + talento.getNombre());
 
             } catch (Exception e) {
                 System.err.println("❌ Error guardando talento [" + tipo + "]: " + e.getMessage());

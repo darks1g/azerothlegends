@@ -1,0 +1,97 @@
+body {
+  color: #eee;
+}
+
+.listado {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.listado-titulo {
+  font-size: 2rem;
+  margin-bottom: 4px;
+}
+
+.listado-ayuda {
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.listado-ayuda a {
+  color: #4db8ff;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filtros .input {
+  flex: 1 1 200px;
+}
+
+.resultados {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.card-personaje {
+  --clase: #888;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid #444;
+  border-left: 4px solid var(--clase);
+  border-radius: 8px;
+  background-color: #222;
+  color: #ddd;
+  text-decoration: none;
+  animation: aparecer 0.4s ease both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.card-personaje:hover {
+  transform: translateY(-3px);
+  background-color: #2c2c2c;
+  box-shadow: 0 10px 22px -10px var(--clase);
+}
+
+.card-nombre {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--clase);
+}
+
+.card-linea {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+.card-etiqueta {
+  align-self: flex-start;
+  margin-top: 6px;
+  padding: 1px 8px;
+  border: 1px solid #666;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+.paginacion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.paginacion button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}

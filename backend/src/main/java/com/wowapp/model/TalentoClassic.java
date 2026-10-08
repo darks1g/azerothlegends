@@ -20,6 +20,9 @@ public class TalentoClassic {
     private Integer spellId;
     private String icono;
 
+    // Árbol o especialización a la que pertenece el talento
+    private String arbol;
+
 
     @ManyToOne
     @JoinColumn(name = "personaje_id")
@@ -100,4 +103,12 @@ public class TalentoClassic {
     }
     
     
+
+    public String getArbol() {
+        return arbol;
+    }
+
+    public void setArbol(String arbol) {
+        this.arbol = arbol;
+    }
 }

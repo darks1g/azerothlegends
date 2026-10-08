@@ -1,7 +1,7 @@
 package com.wowapp.controller;
 
-import com.wowapp.model.Reino;
 import com.wowapp.model.Personaje.VersionJuego;
+import com.wowapp.model.Reino;
 import com.wowapp.repository.ReinoRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +18,13 @@ public class ReinoController {
         this.reinoRepository = reinoRepository;
     }
 
-    // Método que maneja solicitudes GET para obtener una lista de reinos según la región
+    // Lista los reinos de una región; si se indica la versión del juego, solo los de esa versión
     @GetMapping
-    public List<Reino> obtenerReinosPorRegion(@RequestParam String region) {
+    public List<Reino> obtenerReinosPorRegion(@RequestParam String region,
+            @RequestParam(required = false) VersionJuego version) {
+        if (version != null) {
+            return reinoRepository.findByRegionAndVersionJuegoOrderByNombreAsc(region, version);
+        }
         return reinoRepository.findByRegion(region);
     }
-
 }

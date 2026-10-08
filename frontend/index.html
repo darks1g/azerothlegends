@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/cursor.css">
   <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/questlog.css">
+  <link rel="stylesheet" href="/css/animaciones.css">
 </head>
 
 <body class="bg-parchment font-fantasy text-dark">
@@ -19,6 +20,7 @@
         <span class="chat-text">Abrir chat global ⏷</span>
         <span class="chat-icon">🌍</span>
       </button>
+      <a href="/personajes" class="nav-link">Personajes</a>
     </div>
 
     <div class="header-center">
@@ -57,7 +59,7 @@
           <select name="version" id="version" class="select" required>
             <option value="retail">Retail</option>
             <option value="classic_era">Classic Era</option>
-            <option value="classic">Cataclysm Classic</option>
+            <option value="classic">Classic Progresión (Mists of Pandaria)</option>
           </select>
         </div>
 
@@ -74,6 +76,8 @@
             </select>
           </div>
         </div>
+
+        <p id="mensajeError" class="mensaje-error" role="alert" hidden></p>
 
         <button type="submit" class="button" id="botonBuscar">Buscar</button>
         <div id="loader" class="loader-overlay">
@@ -95,6 +99,7 @@
   </footer>
 
   <!-- Scripts -->
+  <script src="/js/comun.js"></script>
   <script src="/js/form.js"></script>
   <script src="/js/decoracion.js"></script>
   <script src="/js/desplegable-perfil.js"></script>

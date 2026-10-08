@@ -1,169 +1,490 @@
+/* ==========================================================================
+   Ficha de personaje
+   --clase = color de la clase del personaje (lo fija detalles.js)
+   ========================================================================== */
 
-body:not(header) {
-  color: white;
+:root {
+  --clase: #c9a227;
+}
+
+body {
+  color: #fff;
+  position: relative;
+}
+
+/* Resplandor del color de la clase detrás de toda la ficha */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 45% at 25% 0%, color-mix(in srgb, var(--clase) 22%, transparent), transparent 70%),
+    radial-gradient(50% 35% at 90% 30%, color-mix(in srgb, var(--clase) 10%, transparent), transparent 70%);
+  transition: background 0.6s ease;
+}
+
+#ficha {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 20px 56px;
+}
+
+/* ---------- Estado de carga / error ---------- */
+.estado {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 14px 18px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background-color: rgba(34, 34, 34, 0.9);
+  color: #ddd;
+}
+
+.estado-error {
+  border-color: #b33a3a;
+  background-color: rgba(179, 58, 58, 0.18);
+}
+
+.estado a {
+  color: #4db8ff;
+  margin-left: 6px;
+}
+
+/* ---------- Esqueleto de carga ---------- */
+.esqueleto {
+  display: flex;
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+.sk {
+  border-radius: 10px;
+  background: linear-gradient(90deg, #262626 0%, #343434 50%, #262626 100%);
+  background-size: 800px 100%;
+  animation: destello 1.4s linear infinite;
+}
+
+.sk-imagen { width: 340px; height: 340px; flex-shrink: 0; }
+.sk-col { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.sk-titulo { height: 48px; width: 55%; }
+.sk-linea { height: 18px; width: 80%; }
+.sk-linea.corta { width: 45%; }
+.sk-bloque { height: 150px; margin-top: 10px; }
+
+/* ---------- Cabecera (hero) ---------- */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 20px 0 8px;
+}
+
+.hero-imagen {
+  position: relative;
+  flex: 0 0 min(42%, 460px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+}
+
+/* Halo de color detrás del personaje */
+.hero-imagen::before {
+  content: "";
+  position: absolute;
+  inset: 8% 4%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--clase) 45%, transparent), transparent 75%);
+  filter: blur(14px);
+  animation: brillo 6s ease-in-out infinite;
+}
+
+.hero-imagen img {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-height: 480px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.7));
+  animation: flotar 7s ease-in-out infinite;
+}
+
+.hero-info {
+  flex: 1;
+  min-width: 0;
 }
 
 #nombrePersonaje {
-  font-size: 3rem;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  line-height: 1.05;
+  color: var(--clase);
+  text-shadow: 0 0 28px color-mix(in srgb, var(--clase) 55%, transparent), 0 2px 0 rgba(0, 0, 0, 0.5);
+  animation: aparecer 0.5s ease both;
 }
 
-
-.talento-item {
-  text-align: center;
+.hero-subtitulo {
+  margin: 6px 0 12px;
+  font-size: 1.15rem;
+  color: #ddd;
+  animation: aparecer 0.5s 0.05s ease both;
 }
 
-
-.personaje-container {
-    display: flex
-;
-    gap: 20px;
-    padding: 20px;
-    align-items: center;
-    justify-content: space-evenly;
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
 }
-  
-  .equipo-col {
-    width: 180px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .personaje-centro {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    max-width: 600px;
-  }
-  
-  .render-box {
-    width: 300px;
-    height: 300px;
-    background-color: #1a1a1a;
-    border: 2px solid #555;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  
-  .render-box canvas {
-    width: 90%;
-    height: 90%;
-    background-color: #2a2a2a;
-  }
-  
-  .render-label {
-    position: absolute;
-    bottom: 5px;
-    font-size: 12px;
-    color: #ccc;
-  }
-  
-  .estadisticas-box {
-    background-color: #222;
-    padding: 10px;
-    border: 1px solid #444;
-    border-radius: 6px;
-    width: 100%;
-  }
-  
-  .estadisticas-box h2 {
-    margin-bottom: 10px;
-    color: #4db8ff;
-    font-size: 18px;
-  }
-  
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 10px;
-    font-size: 14px;
-    color: #eee;
-  }
-  
-  .talentos {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
-    background-color: #1f1f1f;
-    border: 1px solid #444;
-    border-radius: 8px;
-  }
-  
-  .talentos h2 {
-    color: #c084fc;
-    margin-bottom: 10px;
-  }
-  
-  .talento-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  
-  .talento-grid img {
-    width: 48px;
-    height: 48px;
-    display: block;
-    margin: 0 auto;
-  }
-  
 
-/* ---- Equipo en la ficha ---- */
+.chip {
+  padding: 3px 12px;
+  border: 1px solid #555;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.06);
+  font-size: 0.85rem;
+  color: #ddd;
+  animation: aparecer 0.5s ease both;
+  animation-delay: calc(var(--i, 0) * 60ms + 100ms);
+}
+
+.chip-clase   { border-color: var(--clase); color: var(--clase); }
+.chip-retail  { border-color: #c9a227; color: #f0cf65; }
+.chip-classic { border-color: #38bdf8; color: #7dd3fc; }
+.chip-classic_era { border-color: #b08968; color: #d6b08c; }
+
+.acciones-personaje {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.boton-secundario {
+  padding: 6px 12px;
+  border: 1px solid #666;
+  border-radius: 6px;
+  background-color: #2a2a2a;
+  color: #eee;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.boton-secundario:hover:not(:disabled) {
+  background-color: #3a3a3a;
+  border-color: var(--clase);
+}
+
+.boton-secundario:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.texto-actualizado {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+/* ---------- Estadísticas ---------- */
+.stats-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 14px;
+  border: 1px solid #3a3a3a;
+  border-left: 4px solid var(--c, #888);
+  border-radius: 8px;
+  background-color: rgba(30, 30, 30, 0.85);
+  animation: aparecer 0.45s ease both;
+  animation-delay: calc(var(--i, 0) * 45ms + 150ms);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.stat:hover {
+  transform: translateY(-2px);
+  border-color: var(--c);
+}
+
+.stat-valor {
+  font-size: 1.45rem;
+  font-weight: bold;
+  color: var(--c, #fff);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-nombre {
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+/* ---------- Paneles ---------- */
+.panel {
+  margin-top: 28px;
+  padding: 18px 20px 22px;
+  border: 1px solid #3a3a3a;
+  border-radius: 12px;
+  background-color: rgba(26, 26, 26, 0.88);
+  animation: aparecer 0.5s ease both;
+}
+
+.panel-titulo {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 14px;
+  font-size: 1.5rem;
+  color: var(--clase);
+}
+
+.ilvl-medio {
+  font-size: 0.95rem;
+  color: #f0cf65;
+}
+
+/* ---------- Equipo ---------- */
+.equipo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 24px;
+}
+
+.equipo-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .item-slot {
+  --q: #666;
+  --qt: var(--q);
   display: flex;
   align-items: center;
-  gap: 8px;
-  background-color: #222;
-  border: 1px solid #444;
+  gap: 10px;
+  min-height: 48px;
+  padding: 4px 8px 4px 4px;
+  border: 1px solid #3a3a3a;
+  border-left: 4px solid var(--q);
   border-radius: 6px;
-  padding: 4px;
-  min-height: 44px;
+  background-color: rgba(34, 34, 34, 0.9);
+  animation: aparecer 0.4s ease both;
+  animation-delay: calc(var(--i, 0) * 35ms);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+a.item-slot {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.item-slot:hover {
+  transform: translateX(3px);
+  background-color: #2c2c2c;
+  box-shadow: 0 6px 18px -8px var(--q), inset 0 0 0 1px color-mix(in srgb, var(--q) 40%, transparent);
 }
 
 .item-slot img {
   width: 40px;
   height: 40px;
-  border-radius: 4px;
   flex-shrink: 0;
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--q) 70%, #000);
 }
 
 .item-info {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .item-nombre {
-  font-size: 12px;
-  color: #fff;
+  font-size: 0.9rem;
+  color: var(--qt);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.item-slot-nombre,
-.item-ilvl {
-  font-size: 11px;
-  color: #aaa;
+.item-slot-nombre {
+  font-size: 0.75rem;
+  color: #999;
 }
 
 .item-vacio {
-  opacity: 0.4;
+  opacity: 0.35;
+}
+
+.q-poor      { --q: #9d9d9d; }
+.q-common    { --q: #ffffff; }
+.q-uncommon  { --q: #1eff00; }
+.q-rare      { --q: #0070dd; --qt: #4a9bf0; }
+.q-epic      { --q: #a335ee; --qt: #c46cf5; }
+.q-legendary { --q: #ff8000; }
+.q-artifact  { --q: #e6cc80; }
+.q-heirloom  { --q: #00ccff; }
+
+/* ---------- Talentos ---------- */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.tab {
+  padding: 8px 16px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: #aaa;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.tab:hover {
+  color: #fff;
+}
+
+.tab[aria-selected="true"] {
+  color: var(--clase);
+  border-bottom-color: var(--clase);
+}
+
+.talento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: 14px 8px;
+}
+
+.talento-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  animation: aparecer 0.35s ease both;
+  animation-delay: calc(var(--i, 0) * 12ms);
+}
+
+a.talento-item {
+  text-decoration: none;
+  color: inherit;
 }
 
 .talento-item small {
+  font-size: 0.72rem;
+  line-height: 1.15;
+  color: #ccc;
+}
+
+.talento-icono {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.talento-icono img {
+  width: 48px;
+  height: 48px;
   display: block;
+  border-radius: 8px;
+  border: 1px solid #555;
+}
+
+a.talento-item:hover .talento-icono {
+  transform: scale(1.14);
+  filter: drop-shadow(0 0 8px var(--clase));
+}
+
+.talento-rango {
+  position: absolute;
+  right: -4px;
+  bottom: -3px;
+  min-width: 17px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background-color: #000;
+  border: 1px solid #888;
   font-size: 11px;
-  color: #ddd;
+  line-height: 16px;
+  text-align: center;
+}
+
+.talento-panel {
+  min-height: 80px;
 }
 
 .sin-datos {
   color: #888;
-  font-size: 13px;
+  font-size: 0.9rem;
+}
+
+/* ---------- Aviso emergente ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  padding: 10px 18px;
+  border: 1px solid var(--clase);
+  border-radius: 8px;
+  background-color: #1d1d1d;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  animation: aparecer 0.25s ease both;
+  z-index: 50;
+}
+
+/* ---------- Pantallas pequeñas ---------- */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .hero-imagen {
+    flex-basis: auto;
+    min-height: 260px;
+  }
+
+  .hero-imagen img {
+    max-height: 340px;
+  }
+
+  .hero-info {
+    text-align: center;
+  }
+
+  .chips,
+  .acciones-personaje {
+    justify-content: center;
+  }
+
+  .equipo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .esqueleto {
+    flex-direction: column;
+  }
+
+  .sk-imagen {
+    width: 100%;
+    height: 240px;
+  }
 }

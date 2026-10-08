@@ -379,3 +379,31 @@ a[href] {
     padding: 0.6rem 1.2rem;
   }
 }
+
+
+/* ---- Enlace de navegación del header y mensajes de error ---- */
+.nav-link {
+  margin-left: 12px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.mensaje-error {
+  margin: 8px 0;
+  padding: 8px 12px;
+  border: 1px solid #b33a3a;
+  border-radius: 6px;
+  background-color: rgba(179, 58, 58, 0.15);
+  color: #8a1f1f;
+  font-size: 0.9rem;
+}
+
+[hidden] {
+  display: none !important;
+}

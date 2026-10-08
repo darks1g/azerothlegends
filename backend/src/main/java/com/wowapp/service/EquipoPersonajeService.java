@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class EquipoPersonajeService {
@@ -50,8 +51,18 @@ public class EquipoPersonajeService {
                     equipo.setItemId(itemId);
 
                     // Obtener el ícono desde la API de media del ítem
-                    String icono = apiService.obtenerIconoItem(itemId);
+                    String icono = apiService.obtenerIconoItem(itemId, personaje.getVersionJuego());
                     equipo.setIcono(icono);
+                }
+
+                // Calidad (color) del objeto
+                if (itemData.get("quality") instanceof Map<?, ?> calidad && calidad.get("type") instanceof String tipo) {
+                    equipo.setCalidad(tipo);
+                }
+
+                // Bonus del objeto (necesarios para el tooltip exacto de Wowhead)
+                if (itemData.get("bonus_list") instanceof List<?> bonus && !bonus.isEmpty()) {
+                    equipo.setBonus(bonus.stream().map(String::valueOf).collect(Collectors.joining(":")));
                 }
 
                 // Obtiene el nombre del objeto y lo asigna

@@ -35,6 +35,10 @@ public class Personaje {
     @Column(name = "fecha_actualizacion") // Nombre de la columna en la tabla
     private LocalDateTime fechaActualizacion; // Fecha de la última actualización del personaje
 
+    // Imagen (render) del personaje que devuelve Blizzard
+    @Column(name = "imagen_url", length = 500)
+    private String imagenUrl;
+
     // Enumeración para las versiones del juego
     public enum VersionJuego {
         retail,         // Shadowlands, Dragonflight...
@@ -165,5 +169,13 @@ public class Personaje {
     
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
 }

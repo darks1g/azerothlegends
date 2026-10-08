@@ -65,11 +65,33 @@ public class EquipoPersonaje {
     @Column(name = "icono")
     private String icono;
 
+    // Calidad del objeto: POOR, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, ARTIFACT, HEIRLOOM
+    private String calidad;
+
+    // Lista de "bonus" del objeto (separados por ":"), para que Wowhead muestre el tooltip exacto
+    private String bonus;
+
     public String getIcono() {
         return icono;
     }
 
     public void setIcono(String icono) {
         this.icono = icono;
+    }
+
+    public String getCalidad() {
+        return calidad;
+    }
+
+    public void setCalidad(String calidad) {
+        this.calidad = calidad;
+    }
+
+    public String getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(String bonus) {
+        this.bonus = bonus;
     }
 }

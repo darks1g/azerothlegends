@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personajes - Azeroth Legends</title>
+
+  <link rel="stylesheet" href="/css/cursor.css" />
+  <link rel="stylesheet" href="/css/index.css" />
+  <link rel="stylesheet" href="/css/detalles.css" />
+  <link rel="stylesheet" href="/css/questlog.css" />
+  <link rel="stylesheet" href="/css/animaciones.css" />
+  <link rel="stylesheet" href="/css/personajes.css" />
+  <script src="/js/comun.js" defer></script>
+  <script src="/js/personajes.js" defer></script>
+  <script src="/js/desplegable-perfil.js"></script>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-left">
+      <button class="chat-button">
+        <span class="chat-text">Abrir chat global ⏷</span>
+        <span class="chat-icon">🌍</span>
+      </button>
+      <a href="/personajes" class="nav-link">Personajes</a>
+    </div>
+
+    <div class="header-center">
+      <a href="/index">
+        <h1 class="title">Azeroth Legends</h1>
+      </a>
+    </div>
+
+    <div class="header-right">
+      <div class="perfil-dropdown">
+        <button class="perfil-button" id="perfilToggle">
+          <img src="/assets/profile-icon.png" alt="Perfil" class="perfil-img">
+        </button>
+        <div id="perfilMenuContainer"></div>
+      </div>
+      <p>Cuenta</p>
+    </div>
+  </header>
+
+  <main class="listado">
+    <h2 class="listado-titulo">Personajes guardados</h2>
+    <p class="listado-ayuda">Aquí aparecen los personajes que se han buscado. Para añadir uno nuevo,
+      <a href="/index">búscalo desde la página principal</a>.</p>
+
+    <form id="filtros" class="filtros">
+      <input type="search" id="filtroNombre" class="input" placeholder="Nombre…" autocomplete="off">
+
+      <select id="filtroClase" class="select">
+        <option value="">Todas las clases</option>
+        <option>Caballero de la Muerte</option>
+        <option>Cazador</option>
+        <option>Cazador de demonios</option>
+        <option>Chamán</option>
+        <option>Druida</option>
+        <option>Evocador</option>
+        <option>Guerrero</option>
+        <option>Mago</option>
+        <option>Monje</option>
+        <option>Paladín</option>
+        <option>Pícaro</option>
+        <option>Sacerdote</option>
+        <option>Brujo</option>
+      </select>
+
+      <select id="filtroVersion" class="select">
+        <option value="">Todas las versiones</option>
+        <option value="retail">Retail</option>
+        <option value="classic_era">Classic Era</option>
+        <option value="classic">Classic Progresión</option>
+      </select>
+
+      <button type="submit" class="button">Filtrar</button>
+    </form>
+
+    <div id="estado" class="estado" role="status" hidden></div>
+    <div id="resultados" class="resultados"></div>
+
+    <nav id="paginacion" class="paginacion" hidden>
+      <button type="button" id="anterior" class="boton-secundario">← Anterior</button>
+      <span id="infoPagina"></span>
+      <button type="button" id="siguiente" class="boton-secundario">Siguiente →</button>
+    </nav>
+  </main>
+</body>
+
+</html>

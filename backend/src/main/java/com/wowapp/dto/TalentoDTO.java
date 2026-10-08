@@ -46,4 +46,14 @@ public class TalentoDTO {
     public String getWowheadUrl() {
         return wowheadUrl;
     }
+
+    private Integer rango;
+
+    public Integer getRango() {
+        return rango;
+    }
+
+    public void setRango(Integer rango) {
+        this.rango = rango;
+    }
 }

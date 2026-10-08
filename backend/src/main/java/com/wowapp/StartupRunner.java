@@ -1,30 +1,36 @@
 package com.wowapp;
 
 import com.wowapp.model.Personaje.VersionJuego;
+import com.wowapp.repository.ReinoRepository;
 import com.wowapp.service.ApiService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import com.wowapp.model.Personaje.VersionJuego;
-import com.wowapp.model.Reino;
-import com.wowapp.repository.ReinoRepository;
 
 @Component
 public class StartupRunner implements CommandLineRunner {
 
-    private final ApiService apiService;
+    private static final Logger log = LoggerFactory.getLogger(StartupRunner.class);
 
-    // Constructor que inyecta el servicio ApiService
-    public StartupRunner(ApiService apiService) {
+    private final ApiService apiService;
+    private final ReinoRepository reinoRepository;
+
+    public StartupRunner(ApiService apiService, ReinoRepository reinoRepository) {
         this.apiService = apiService;
+        this.reinoRepository = reinoRepository;
     }
 
     @Override
     public void run(String... args) {
-        // Método que se ejecuta al iniciar la aplicación
-        System.out.println("Poblando tabla de reinos al arrancar...");
-        // Poblar la tabla de reinos con datos de la API para diferentes versiones del juego
-        apiService.poblarReinosDesdeAPI("eu", VersionJuego.retail);
-        apiService.poblarReinosDesdeAPI("eu", VersionJuego.classic_era);
-        apiService.poblarReinosDesdeAPI("eu", VersionJuego.classic);
+        // Los reinos casi nunca cambian: solo se descargan si todavía no están en la base de datos
+        for (VersionJuego version : VersionJuego.values()) {
+            if (reinoRepository.existsByRegionAndVersionJuego("eu", version)) {
+                log.info("Reinos de eu / {} ya en la base de datos.", version);
+            } else {
+                log.info("Descargando reinos de eu / {}...", version);
+                apiService.poblarReinosDesdeAPI("eu", version);
+            }
+        }
     }
 }
