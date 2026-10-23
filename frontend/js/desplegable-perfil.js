@@ -4,11 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(res => res.text())
       .then(html => {
         // Inserta el contenido del menú en el contenedor correspondiente
-        document.getElementById('perfilMenuContainer').innerHTML = html;
+        const container = document.getElementById('perfilMenuContainer');
+        container.innerHTML = html;
+        const menu = container.querySelector('.perfil-menu');
+        if (menu && !menu.querySelector('a[href="/personajes"]')) {
+          const item = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = '/personajes';
+          link.textContent = 'Personajes Recientes';
+          item.appendChild(link);
+          menu.prepend(item);
+        }
   
         // Obtiene los elementos necesarios para el funcionamiento del menú desplegable
         const toggle = document.getElementById('perfilToggle');
-        const menu = document.querySelector('.perfil-menu');
   
         // Mostrar/Ocultar el menú
         toggle?.addEventListener('click', (e) => {

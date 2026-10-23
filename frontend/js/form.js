@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let reinosDisponibles = [];
     let sugerenciasActuales = [];
     let sugerenciaActiva = -1;
+    document.body.appendChild(reinoSuggestions);
 
     function mostrarError(texto) {
         mensaje.textContent = texto || '';
@@ -40,6 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
         reinoSearch.setAttribute('aria-expanded', 'false');
         reinoSearch.removeAttribute('aria-activedescendant');
         sugerenciaActiva = -1;
+    }
+
+    function posicionarSugerencias() {
+        if (reinoSuggestions.hidden) return;
+
+        const campo = reinoSearch.getBoundingClientRect();
+        const margen = 8;
+        const espacioAbajo = window.innerHeight - campo.bottom - margen;
+        const espacioArriba = campo.top - margen;
+        const abrirArriba = espacioAbajo < 220 && espacioArriba > espacioAbajo;
+        const espacioDisponible = Math.max(120, Math.min(480, abrirArriba ? espacioArriba : espacioAbajo));
+
+        reinoSuggestions.style.left = `${Math.max(margen, campo.left)}px`;
+        reinoSuggestions.style.width = `${Math.min(campo.width, window.innerWidth - margen * 2)}px`;
+        reinoSuggestions.style.maxHeight = `${espacioDisponible}px`;
+        reinoSuggestions.style.top = abrirArriba
+            ? `${Math.max(margen, campo.top - Math.min(reinoSuggestions.scrollHeight, espacioDisponible) - 6)}px`
+            : `${campo.bottom + 6}px`;
     }
 
     function seleccionarReino(reino) {
@@ -114,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             : `${reinosDisponibles.length} reinos disponibles. Escribe para filtrar.`;
         reinoSuggestions.hidden = false;
         reinoSearch.setAttribute('aria-expanded', 'true');
+        posicionarSugerencias();
     }
 
     function activarSugerencia(indice) {
@@ -126,7 +146,13 @@ document.addEventListener('DOMContentLoaded', () => {
             opcion.setAttribute('aria-selected', String(activa));
             if (activa) {
                 reinoSearch.setAttribute('aria-activedescendant', opcion.id);
-                opcion.scrollIntoView({ block: 'nearest' });
+                const opcionArriba = opcion.offsetTop;
+                const opcionAbajo = opcionArriba + opcion.offsetHeight;
+                if (opcionArriba < reinoSuggestions.scrollTop) {
+                    reinoSuggestions.scrollTop = opcionArriba;
+                } else if (opcionAbajo > reinoSuggestions.scrollTop + reinoSuggestions.clientHeight) {
+                    reinoSuggestions.scrollTop = opcionAbajo - reinoSuggestions.clientHeight;
+                }
             }
         });
     }
@@ -206,6 +232,9 @@ document.addEventListener('DOMContentLoaded', () => {
             cerrarSugerencias();
         }
     });
+
+    window.addEventListener('resize', posicionarSugerencias);
+    window.addEventListener('scroll', posicionarSugerencias, true);
 
     // Restaurar la última selección
     const versionGuardada = recuperar('al_version');

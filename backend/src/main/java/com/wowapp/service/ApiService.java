@@ -7,6 +7,8 @@ import com.wowapp.model.Reino;
 import com.wowapp.repository.PersonajeRepository;
 import com.wowapp.repository.ReinoRepository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,8 @@ public class ApiService {
     private long refrescoMinutos;
 
     private final RestTemplate restTemplate = crearRestTemplate();
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private String token;
     private Instant tokenExpira = Instant.EPOCH;
@@ -243,8 +247,12 @@ public class ApiService {
         p.setRegion(region);
         p.setNivel(datos.get("level") instanceof Number n ? n.intValue() : null);
 
-        if (datos.get("character_class") instanceof Map<?, ?> m && m.get("name") != null)
+        if (datos.get("character_class") instanceof Map<?, ?> m && m.get("name") != null) {
             p.setClase(m.get("name").toString());
+            if (m.get("id") instanceof Number id) {
+                p.setClaseId(id.intValue());
+            }
+        }
 
         if (datos.get("race") instanceof Map<?, ?> m && m.get("name") != null)
             p.setRaza(m.get("name").toString());
@@ -354,6 +362,43 @@ public class ApiService {
         }
     }
 
+    public void obtenerYGuardarPersonalizacion(Personaje personaje) {
+        try {
+            Map<String, Object> datos = obtenerPerfil(personaje, "appearance");
+            if (datos == null || !(datos.get("customizations") instanceof List<?> personalizaciones)) {
+                log.warn("Blizzard no devolvió personalizaciones de apariencia para {}", personaje.getNombre());
+                return;
+            }
+            List<Map<String, Integer>> opciones = convertirPersonalizaciones(personalizaciones);
+            personaje.setPersonalizacionJson(objectMapper.writeValueAsString(opciones));
+            if (datos.get("playable_class") instanceof Map<?, ?> clase
+                    && clase.get("id") instanceof Number id) {
+                personaje.setClaseId(id.intValue());
+            }
+        } catch (JsonProcessingException e) {
+            log.warn("No se pudieron guardar las personalizaciones de {}: {}",
+                    personaje.getNombre(), e.getMessage());
+        } catch (Exception e) {
+            log.warn("No se pudo obtener la apariencia de {}: {}", personaje.getNombre(), e.getMessage());
+        }
+    }
+
+    static List<Map<String, Integer>> convertirPersonalizaciones(List<?> personalizaciones) {
+        List<Map<String, Integer>> opciones = new ArrayList<>();
+        for (Object personalizacion : personalizaciones) {
+            if (personalizacion instanceof Map<?, ?> entrada
+                    && entrada.get("option") instanceof Map<?, ?> opcion
+                    && opcion.get("id") instanceof Number optionId
+                    && entrada.get("choice") instanceof Map<?, ?> eleccion
+                    && eleccion.get("id") instanceof Number choiceId) {
+                opciones.add(Map.of(
+                        "optionId", optionId.intValue(),
+                        "choiceId", choiceId.intValue()));
+            }
+        }
+        return opciones;
+    }
+
     // Imagen del personaje (render). Si Blizzard no la tiene, simplemente no se muestra.
     public void obtenerYGuardarImagen(Personaje personaje) {
         try {
@@ -361,27 +406,51 @@ public class ApiService {
             if (datos == null || !(datos.get("assets") instanceof List<?> assets)) {
                 return;
             }
-            String completa = null;
-            String recuadro = null;
-            String avatar = null;
-            for (Object o : assets) {
-                if (o instanceof Map<?, ?> a && a.get("key") instanceof String clave
-                        && a.get("value") instanceof String valor) {
-                    switch (clave) {
-                        case "main-raw" -> completa = valor;
-                        case "inset" -> recuadro = valor;
-                        case "avatar" -> avatar = valor;
-                        default -> { }
-                    }
-                }
-            }
-            String url = completa != null ? completa : (recuadro != null ? recuadro : avatar);
+            String url = seleccionarImagen(assets);
+            List<String> claves = assets.stream()
+                    .filter(Map.class::isInstance)
+                    .map(Map.class::cast)
+                    .map(asset -> asset.get("key"))
+                    .filter(String.class::isInstance)
+                    .map(String.class::cast)
+                    .toList();
+            String claveSeleccionada = assets.stream()
+                    .filter(Map.class::isInstance)
+                    .map(Map.class::cast)
+                    .filter(asset -> url != null && url.equals(asset.get("value")))
+                    .map(asset -> asset.get("key"))
+                    .filter(String.class::isInstance)
+                    .map(String.class::cast)
+                    .findFirst()
+                    .orElse("ninguna");
+            log.info("Recursos de imagen para {} ({}): {}; seleccionado: {}",
+                    personaje.getNombre(), personaje.getVersionJuego(), claves, claveSeleccionada);
             if (url != null) {
                 personaje.setImagenUrl(url);
             }
         } catch (Exception e) {
             log.info("Sin imagen para {}: {}", personaje.getNombre(), e.getMessage());
         }
+    }
+
+    static String seleccionarImagen(List<?> assets) {
+        String mainRaw = null;
+        String main = null;
+        String inset = null;
+        String avatar = null;
+        for (Object o : assets) {
+            if (o instanceof Map<?, ?> a && a.get("key") instanceof String clave
+                    && a.get("value") instanceof String valor) {
+                switch (clave) {
+                    case "main-raw" -> mainRaw = valor;
+                    case "main" -> main = valor;
+                    case "inset" -> inset = valor;
+                    case "avatar" -> avatar = valor;
+                    default -> { }
+                }
+            }
+        }
+        return mainRaw != null ? mainRaw : (main != null ? main : (inset != null ? inset : avatar));
     }
 
     public boolean necesitaActualizacion(Personaje personaje) {
@@ -391,6 +460,10 @@ public class ApiService {
 
     public void actualizarPersonaje(Personaje personaje) {
         if (!necesitaActualizacion(personaje)) {
+            if (personaje.getPersonalizacionJson() == null) {
+                obtenerYGuardarPersonalizacion(personaje);
+                personajeRepository.save(personaje);
+            }
             log.info("{} se actualizó hace poco; se omite la llamada a Blizzard.", personaje.getNombre());
             return;
         }
@@ -399,6 +472,7 @@ public class ApiService {
         try {
             obtenerYGuardarEstadisticas(personaje);
             obtenerYGuardarEquipo(personaje);
+            obtenerYGuardarPersonalizacion(personaje);
             obtenerYGuardarTalentos(personaje);
             obtenerYGuardarImagen(personaje);
 

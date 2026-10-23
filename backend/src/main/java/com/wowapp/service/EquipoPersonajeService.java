@@ -55,6 +55,12 @@ public class EquipoPersonajeService {
                     equipo.setIcono(icono);
                 }
 
+                if (itemData.get("transmog") instanceof Map<?, ?> transmog
+                        && transmog.get("item_modified_appearance_id") instanceof Number appearanceId
+                        && appearanceId.intValue() > 0) {
+                    equipo.setTransmogAppearanceId(appearanceId.intValue());
+                }
+
                 // Calidad (color) del objeto
                 if (itemData.get("quality") instanceof Map<?, ?> calidad && calidad.get("type") instanceof String tipo) {
                     equipo.setCalidad(tipo);

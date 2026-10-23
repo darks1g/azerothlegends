@@ -61,11 +61,6 @@ body {
   letter-spacing: 0.14em;
 }
 
-.header-right p {
-  color: #cbb991;
-  letter-spacing: 0.04em;
-}
-
 .chat-button,
 .nav-link {
   color: #dfcca5;
@@ -96,10 +91,16 @@ body {
 }
 
 .perfil-button {
-  padding: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 4px 10px 4px 5px;
   border: 2px solid #87653a;
   border-radius: 3px;
   background: #342416;
+  color: #dfcca5;
+  font: inherit;
+  cursor: pointer;
   box-shadow: 0 1px 3px #140e08;
 }
 
@@ -109,7 +110,16 @@ body {
 }
 
 .perfil-img {
+  display: block;
+  width: 34px;
+  height: 34px;
   border-radius: 2px;
+  object-fit: cover;
+}
+
+.perfil-label {
+  color: #dfcca5;
+  font-size: 0.84rem;
 }
 
 .perfil-menu {
@@ -235,12 +245,9 @@ body {
 }
 
 .realm-suggestions {
-  position: absolute;
-  top: calc(100% + 0.35rem);
-  right: 0;
-  left: 0;
+  position: fixed;
   z-index: 30;
-  max-height: min(55vh, 480px);
+  box-sizing: border-box;
   overflow-y: auto;
   overscroll-behavior: contain;
   border: 2px solid #795936;
@@ -704,7 +711,6 @@ a.item-slot:hover {
     display: inline;
   }
 
-  .header-right p,
   .brand-subtitle {
     display: none;
   }

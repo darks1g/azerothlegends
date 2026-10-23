@@ -337,12 +337,9 @@ a[href] {
 }
 
 .realm-suggestions {
-  position: absolute;
-  top: calc(100% + 0.35rem);
-  right: 0;
-  left: 0;
+  position: fixed;
   z-index: 15;
-  max-height: min(55vh, 480px);
+  box-sizing: border-box;
   overflow-y: auto;
   border: 1px solid #806a3e;
   border-radius: 2px;

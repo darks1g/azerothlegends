@@ -26,6 +26,11 @@ public class PersonajeService {
         return personajeRepository.save(personaje);
     }
 
+    public Personaje actualizarImagen(Personaje personaje) {
+        apiService.obtenerYGuardarImagen(personaje);
+        return personajeRepository.save(personaje);
+    }
+
     // Devuelve el personaje de la base de datos (refrescándolo si hace falta) o lo descarga de Blizzard
     public Personaje obtenerYGuardarPersonaje(String nombre, String reino, String region, VersionJuego version) {
         Optional<Personaje> existente = personajeRepository

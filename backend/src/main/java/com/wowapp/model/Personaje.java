@@ -21,7 +21,11 @@ public class Personaje {
     private Integer nivel; // Nivel del personaje
     private String raza; // Raza del personaje
     private String clase; // Clase del personaje
+    @Column(name = "clase_id")
+    private Integer claseId;
     private String genero; // Género del personaje
+    @Column(name = "personalizacion_json", columnDefinition = "TEXT")
+    private String personalizacionJson;
 
     private String especializacion; // Especialización del personaje
     private Integer especializacionId; // ID de la especialización
@@ -77,9 +81,25 @@ public class Personaje {
     public void setClase(String clase) {
         this.clase = clase;
     }
+
+    public Integer getClaseId() {
+        return claseId;
+    }
+
+    public void setClaseId(Integer claseId) {
+        this.claseId = claseId;
+    }
     
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public String getPersonalizacionJson() {
+        return personalizacionJson;
+    }
+
+    public void setPersonalizacionJson(String personalizacionJson) {
+        this.personalizacionJson = personalizacionJson;
     }
     
     public void setVersionJuego(VersionJuego versionJuego) {

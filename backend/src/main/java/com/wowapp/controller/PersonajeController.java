@@ -1,5 +1,8 @@
 package com.wowapp.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wowapp.dto.TalentoDTO;
 import com.wowapp.exception.ApiException;
 import com.wowapp.model.EquipoPersonaje;
@@ -38,6 +41,7 @@ public class PersonajeController {
     private final TalentoClassicService talentoClassicService;
     private final PersonajeService personajeService;
     private final PersonajeListadoService personajeListadoService;
+    private final ObjectMapper objectMapper;
 
     public PersonajeController(
         PersonajeListadoRepository personajeListadoRepository,
@@ -46,7 +50,8 @@ public class PersonajeController {
         TalentoRetailService talentoRetailService,
         TalentoClassicService talentoClassicService,
         PersonajeService personajeService,
-        PersonajeListadoService personajeListadoService
+        PersonajeListadoService personajeListadoService,
+        ObjectMapper objectMapper
     ) {
         this.personajeListadoRepository = personajeListadoRepository;
         this.equipoPersonajeRepository = equipoPersonajeRepository;
@@ -55,6 +60,7 @@ public class PersonajeController {
         this.talentoClassicService = talentoClassicService;
         this.personajeService = personajeService;
         this.personajeListadoService = personajeListadoService;
+        this.objectMapper = objectMapper;
     }
 
     // Busca un personaje (en la base de datos o en Blizzard) y devuelve sus datos básicos
@@ -82,14 +88,20 @@ public class PersonajeController {
             @RequestParam String reino,
             @RequestParam String region,
             @RequestParam String version,
+            @RequestParam(defaultValue = "false") boolean actualizarImagen,
             HttpSession session) {
 
         VersionJuego versionJuego = parsearVersion(version);
         Personaje personaje = personajeService.obtenerYGuardarPersonaje(nombre, reino, region, versionJuego);
+        if (actualizarImagen) {
+            personaje = personajeService.actualizarImagen(personaje);
+        }
         personajeListadoService.registrarBusqueda(personaje, session);
 
         Map<String, Object> json = new LinkedHashMap<>(resumen(personaje));
         json.put("genero", personaje.getGenero());
+        json.put("claseId", personaje.getClaseId());
+        json.put("personalizacion", personalizacionParaVista(personaje));
         json.put("especializacion", personaje.getEspecializacion());
         json.put("heroe", personaje.getHeroe());
         // La imagen se sirve desde nuestro servidor (recortada); el "v" evita usar una copia antigua del navegador
@@ -194,6 +206,7 @@ public class PersonajeController {
             Map<String, Object> m = new LinkedHashMap<>();
             m.put("slot", e.getSlot());
             m.put("itemId", e.getItemId());
+            m.put("transmogAppearanceId", e.getTransmogAppearanceId());
             m.put("nombreItem", e.getNombreItem());
             m.put("ilvl", e.getIlvl());
             m.put("icono", e.getIcono());
@@ -202,5 +215,17 @@ public class PersonajeController {
             equipo.add(m);
         }
         return equipo;
+    }
+
+    private List<Map<String, Integer>> personalizacionParaVista(Personaje personaje) {
+        if (personaje.getPersonalizacionJson() == null || personaje.getPersonalizacionJson().isBlank()) {
+            return List.of();
+        }
+        try {
+            return objectMapper.readValue(personaje.getPersonalizacionJson(),
+                    new TypeReference<List<Map<String, Integer>>>() {});
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("La personalización guardada del personaje no es válida.", e);
+        }
     }
 }

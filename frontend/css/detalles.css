@@ -83,17 +83,15 @@ body::before {
   padding: 20px 0 8px;
 }
 
-.hero-imagen {
+.hero-visual {
   position: relative;
-  flex: 0 0 min(42%, 460px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 340px;
+  width: min(100%, 460px);
+  flex: none;
+  min-width: 0;
+  margin: 0 auto 12px;
 }
 
-/* Halo de color detrás del personaje */
-.hero-imagen::before {
+.hero-visual::before {
   content: "";
   position: absolute;
   inset: 8% 4%;
@@ -101,6 +99,65 @@ body::before {
   background: radial-gradient(closest-side, color-mix(in srgb, var(--clase) 45%, transparent), transparent 75%);
   filter: blur(14px);
   animation: brillo 6s ease-in-out infinite;
+}
+
+.hero-modelo {
+  position: relative;
+  width: 100%;
+  height: min(54vh, 500px);
+  min-height: 360px;
+  overflow: hidden;
+  border: 1px solid rgba(194, 158, 91, 0.5);
+  background: rgba(24, 24, 24, 0.9);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.hero-modelo canvas {
+  display: block;
+  max-width: 100%;
+}
+
+.estado-modelo {
+  min-height: 1.5em;
+  margin: 6px 0 0;
+  color: #cdbb96;
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.estado-modelo.error {
+  color: #e49a83;
+}
+
+.estado-modelo.loading::before {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  margin-right: 0.45em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  content: "";
+  vertical-align: -0.08em;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .estado-modelo.loading::before {
+    animation-duration: 2.5s;
+  }
+}
+
+.hero-imagen {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
 }
 
 .hero-imagen img {
@@ -458,8 +515,16 @@ a.talento-item:hover .talento-icono {
   }
 
   .hero-imagen {
-    flex-basis: auto;
     min-height: 260px;
+  }
+
+  .hero-visual {
+    width: min(100%, 460px);
+  }
+
+  .hero-modelo {
+    height: min(52vh, 430px);
+    min-height: 300px;
   }
 
   .hero-imagen img {

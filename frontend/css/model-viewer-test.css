@@ -1,0 +1,104 @@
+:root {
+  color-scheme: dark;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #eadbb8;
+  background: #21170f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(112, 76, 36, 0.35), transparent 55%),
+    #21170f;
+}
+
+.test-page {
+  width: min(920px, calc(100% - 2rem));
+  margin: 2rem auto;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  border: 1px solid #80623c;
+  background: rgba(54, 38, 22, 0.94);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+}
+
+.back-link {
+  color: #ddc17f;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+  color: #dfc27f;
+}
+
+.intro {
+  max-width: 70ch;
+  line-height: 1.6;
+  color: #c7b58f;
+}
+
+label,
+select,
+button {
+  margin: 0 0.5rem 0.5rem 0;
+  font: inherit;
+}
+
+select,
+button {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #8c7045;
+  color: #eadbb8;
+  background: #302115;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+#viewerStatus {
+  min-height: 1.5em;
+  color: #ddc17f;
+}
+
+#viewerStatus.error {
+  color: #ee8b7c;
+}
+
+#model3d {
+  width: 100%;
+  height: min(68vh, 560px);
+  min-height: 360px;
+  overflow: hidden;
+  border: 1px solid #80623c;
+  background: #181818;
+}
+
+#model3d canvas {
+  display: block;
+  max-width: 100%;
+}
+
+@media (max-width: 560px) {
+  .test-page {
+    margin: 1rem auto;
+  }
+
+  label {
+    display: block;
+  }
+
+  #model3d {
+    height: 55vh;
+    min-height: 300px;
+  }
+}

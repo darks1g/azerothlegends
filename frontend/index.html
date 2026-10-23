@@ -21,7 +21,6 @@
         <span class="chat-text">Abrir chat global ⏷</span>
         <span class="chat-icon">🌍</span>
       </button>
-      <a href="/personajes" class="nav-link">Personajes</a>
     </div>
 
     <div class="header-center">
@@ -32,11 +31,11 @@
     <div class="header-right">
       <div class="perfil-dropdown">
         <button class="perfil-button" id="perfilToggle">
-          <img src="/assets/profile-icon.png" alt="Perfil" class="perfil-img">
+          <img src="/assets/profile-icon.png" alt="" class="perfil-img">
+          <span class="perfil-label">Cuenta</span>
         </button>
         <div id="perfilMenuContainer"></div>
       </div>
-      <p>Cuenta</p>
     </div>
   </header>
 
@@ -67,22 +66,20 @@
           </select>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="nombre" class="label">Nombre</label>
-            <input type="text" name="nombre" id="nombre" class="input" required>
+        <div class="form-group">
+          <label for="reinoSearch" class="label">Reino</label>
+          <div class="realm-picker">
+            <input type="hidden" name="reino" id="reinoSelect">
+            <input type="search" id="reinoSearch" class="input" placeholder="Busca por nombre..." autocomplete="off"
+              aria-autocomplete="list" aria-controls="reinoSuggestions" aria-expanded="false" required>
+            <div id="reinoSuggestions" class="realm-suggestions" role="listbox" hidden></div>
+            <p id="reinoStatus" class="realm-status" aria-live="polite">Escribe para ver sugerencias de reinos.</p>
           </div>
+        </div>
 
-          <div class="form-group">
-            <label for="reinoSearch" class="label">Reino</label>
-            <div class="realm-picker">
-              <input type="hidden" name="reino" id="reinoSelect">
-              <input type="search" id="reinoSearch" class="input" placeholder="Busca por nombre..." autocomplete="off"
-                aria-autocomplete="list" aria-controls="reinoSuggestions" aria-expanded="false" required>
-              <div id="reinoSuggestions" class="realm-suggestions" role="listbox" hidden></div>
-              <p id="reinoStatus" class="realm-status" aria-live="polite">Escribe para ver sugerencias de reinos.</p>
-            </div>
-          </div>
+        <div class="form-group">
+          <label for="nombre" class="label">Nombre</label>
+          <input type="text" name="nombre" id="nombre" class="input" required>
         </div>
 
         <p id="mensajeError" class="mensaje-error" role="alert" hidden></p>

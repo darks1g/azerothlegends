@@ -18,6 +18,7 @@ public class PerfilController {
     if (usuario == null) {
       return """
         <ul class="perfil-menu">
+          <li><a href="/personajes">Personajes Recientes</a></li>
           <li><a href="/login">Iniciar sesión</a></li>
           <li><a href="/registro">Registrarse</a></li>
         </ul>
@@ -27,6 +28,7 @@ public class PerfilController {
     // Si hay un usuario en la sesión, muestra opciones relacionadas con su perfil
     return """
       <ul class="perfil-menu">
+        <li><a href="/personajes">Personajes Recientes</a></li>
         <li><a href="/zona">Mi zona</a></li>
         <li><a href="/chats">Chats</a></li>
         <li><a href="#" id="cerrarSesion">Cerrar sesión</a></li>

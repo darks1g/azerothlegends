@@ -18,6 +18,9 @@ public class EquipoPersonaje {
     // Identificador del ítem (puede ser un ID único del ítem en el sistema)
     private Integer itemId;
 
+    @Column(name = "transmog_appearance_id")
+    private Integer transmogAppearanceId;
+
     // Nombre del ítem equipado
     private String nombreItem;
 
@@ -46,6 +49,11 @@ public class EquipoPersonaje {
     public Integer getItemId() { return itemId; }
     // Establece el ID del ítem
     public void setItemId(Integer itemId) { this.itemId = itemId; }
+
+    public Integer getTransmogAppearanceId() { return transmogAppearanceId; }
+    public void setTransmogAppearanceId(Integer transmogAppearanceId) {
+        this.transmogAppearanceId = transmogAppearanceId;
+    }
 
     // Obtiene el nombre del ítem
     public String getNombreItem() { return nombreItem; }

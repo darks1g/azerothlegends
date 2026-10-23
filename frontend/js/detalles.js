@@ -276,16 +276,6 @@ function pintarCabecera(data) {
 
     document.getElementById('textoActualizado').textContent = textoHace(data.actualizado);
 
-    const caja = document.getElementById('renderBox');
-    const imagen = document.getElementById('imagenPersonaje');
-    if (data.imagen) {
-        // La imagen ya llega recortada desde el servidor
-        imagen.onerror = () => { caja.hidden = true; };
-        imagen.src = data.imagen;
-        caja.hidden = false;
-    } else {
-        caja.hidden = true;
-    }
 }
 
 function renderPersonaje(data) {
@@ -297,6 +287,7 @@ function renderPersonaje(data) {
 
     document.getElementById('esqueleto').hidden = true;
     document.getElementById('ficha').hidden = false;
+    window.VisorPersonaje.mostrar(data);
     refrescarTooltips();
 }
 
@@ -309,13 +300,13 @@ function mostrarEstado(texto, esError) {
     e.classList.toggle('estado-error', !!esError);
 }
 
-async function cargarPersonaje() {
+async function cargarPersonaje(actualizarImagen = false) {
     const { nombre, reino, region, version } = parametros;
     const boton = document.getElementById('botonActualizar');
     const primeraVez = !datosActuales;
 
     boton.disabled = true;
-    boton.textContent = '⟳ Actualizando…';
+    boton.textContent = actualizarImagen ? '⟳ Actualizando imagen…' : '⟳ Actualizando…';
     if (primeraVez) {
         document.getElementById('esqueleto').hidden = false;
         mostrarEstado('Cargando personaje… (la primera vez puede tardar unos segundos)');
@@ -323,6 +314,7 @@ async function cargarPersonaje() {
 
     try {
         const query = new URLSearchParams({ nombre, reino, region, version });
+        if (actualizarImagen) query.set('actualizarImagen', 'true');
         const res = await fetch(`/api/personajes/detalles?${query}`, { credentials: 'same-origin' });
 
         let cuerpo = {};
@@ -373,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    document.getElementById('botonActualizar').addEventListener('click', cargarPersonaje);
+    document.getElementById('botonActualizar').addEventListener('click', () => cargarPersonaje(true));
     document.getElementById('botonCompartir').addEventListener('click', copiarEnlace);
     cargarPersonaje();
 });
