@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['orig
             'es_verificado' => false
         ];
         
-        $_SESSION['usuario_pendiente_password_plain'] = $_POST['password'];
     } elseif ($origen === 'login') {
         $_SESSION['usuario_pendiente'] = [ 'email' => $email ];
     }
@@ -37,7 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['orig
     $_SESSION['verificacion_email'] = $email;
 
     // Enviar el código
-    enviarCodigoDeVerificacion($email);
+    try {
+        enviarCodigoDeVerificacion($email);
+    } catch (RuntimeException $e) {
+        http_response_code(503);
+        exit('No se pudo enviar el código de verificación. Inténtalo más tarde.');
+    }
 }
 
 // Si no hay sesión, redirige
@@ -55,6 +59,7 @@ if (empty($_SESSION['usuario_pendiente']) || empty($_SESSION['verificacion_email
     <title>Verificación en dos pasos</title>
     <link rel="stylesheet" href="/css/questlog.css" />
     <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/rustic.css" />
 </head>
 
 <body class="bg-parchment font-fantasy text-dark">

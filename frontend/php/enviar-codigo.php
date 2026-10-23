@@ -9,6 +9,14 @@ use PHPMailer\PHPMailer\Exception;
 
 header('Content-Type: application/json');
 
+$smtpUsername = getenv('SMTP_USERNAME');
+$smtpPassword = getenv('SMTP_PASSWORD');
+if ($smtpUsername === false || $smtpUsername === '' || $smtpPassword === false || $smtpPassword === '') {
+    http_response_code(503);
+    echo json_encode(['error' => 'El envío de correo no está configurado.']);
+    exit;
+}
+
 // Verifica si se ha enviado un email
 if (!isset($_POST['email'])) {
     http_response_code(400);
@@ -43,13 +51,13 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com'; // ej: smtp.gmail.com
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'soporte.azerothlegends@gmail.com';
-    $mail->Password   = 'cfjz snlz djnm wohp';
+    $mail->Username   = $smtpUsername;
+    $mail->Password   = $smtpPassword;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
     // Remitente y destinatario
-    $mail->setFrom('soporte.azerothlegends@gmail.com', 'Azeroth Legends');
+    $mail->setFrom(getenv('SMTP_FROM_EMAIL') ?: $smtpUsername, 'Azeroth Legends');
     $mail->addAddress($email);
 
     // Contenido
@@ -67,5 +75,6 @@ try {
 
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'No se pudo enviar el correo. Detalles: ' . $mail->ErrorInfo]);
+    error_log('Error enviando código de verificación: ' . $mail->ErrorInfo);
+    echo json_encode(['error' => 'No se pudo enviar el correo.']);
 }

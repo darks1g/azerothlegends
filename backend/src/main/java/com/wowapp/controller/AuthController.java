@@ -40,9 +40,16 @@ public class AuthController {
         // Verifica si las credenciales son válidas
         boolean valido = usuarioService.verificarCredenciales(email, password);
         if (valido) {
-            // Si las credenciales son válidas, obtiene el usuario por su email
             Optional<Usuario> usuario = usuarioService.obtenerPorEmail(email);
-            return ResponseEntity.ok(usuario.get()); // Retorna el usuario (puedes ajustar qué datos retornar)
+            if (usuario.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");
+            }
+            Usuario autenticado = usuario.get();
+            return ResponseEntity.ok(Map.of(
+                    "email", autenticado.getEmail(),
+                    "nombreUsuario", autenticado.getNombreUsuario() == null ? "" : autenticado.getNombreUsuario(),
+                    "tipo", autenticado.getTipo(),
+                    "esVerificado", Boolean.TRUE.equals(autenticado.getEsVerificado())));
         } else {
             // Si las credenciales no son válidas, retorna un error de autorización
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas.");

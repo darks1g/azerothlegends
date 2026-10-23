@@ -4,6 +4,7 @@ import com.wowapp.model.Usuario;
 import com.wowapp.repository.UsuarioRepository;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,7 +42,8 @@ public class RegistroController {
 
     // Endpoint para registrar un nuevo usuario
     @PostMapping("/registro")
-    public ResponseEntity<Map<String, String>> registrar(@RequestBody RegistroRequest request, HttpSession session) {
+    public ResponseEntity<Map<String, String>> registrar(
+            @Valid @RequestBody RegistroRequest request, HttpSession session) {
         if (!request.password.equals(request.confirmar)) {
             return ResponseEntity.badRequest().body(Map.of("error", "Las contraseñas no coinciden."));
         }
@@ -62,6 +64,9 @@ public class RegistroController {
         usuarioPendiente.setEsVerificado(false);
 
         session.setAttribute("usuario_pendiente", usuarioPendiente);
+        session.setAttribute("registro_pendiente_expira", java.time.Instant.now().getEpochSecond() + 300);
+        session.removeAttribute("login_pendiente_email");
+        session.removeAttribute("login_pendiente_expira");
         session.setAttribute("origen", "registro");
 
         return ResponseEntity.ok(Map.of("email", request.email));

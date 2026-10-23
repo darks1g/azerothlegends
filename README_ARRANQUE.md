@@ -24,6 +24,9 @@ Notas:
 - En el primer arranque se descargan los reinos de Blizzard (tarda unos segundos).
 - El login con Battle.net y el 2FA por correo (PHP) no funcionan en este modo.
 - Para MySQL: SPRING_PROFILES_ACTIVE=prod con DB_URL, DB_USER y DB_PASSWORD.
+- En producción, configura SMTP_USERNAME y SMTP_PASSWORD en PHP y define
+  VERIFICATION_SHARED_SECRET con el mismo valor en PHP y Spring Boot para completar el 2FA.
+  La demostración local no incluye PHP ni el envío de correo.
 - Los datos de un personaje se refrescan desde Blizzard como mucho cada 5 minutos
   (se puede cambiar con la propiedad app.refresco-minutos).
 - Si cambias de versión de la base de datos o quieres empezar de cero, para la aplicación y borra

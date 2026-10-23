@@ -26,13 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
               return;
           }
 
-          // Si el código fue correcto, intenta iniciar sesión en Java
-          const loginRes = await fetch('/api/login', {
+          const loginRes = await fetch('/api/login/confirmar', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                   email: data.email,
-                  password: data.password
+                  timestamp: data.timestamp,
+                  nonce: data.nonce,
+                  signature: data.signature
               }),
               credentials: 'include'
           });

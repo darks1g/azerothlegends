@@ -3,9 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const regionSelect = document.getElementById('regionSelect');
     const versionSelect = document.getElementById('version');
     const reinoSelect = document.getElementById('reinoSelect');
+    const reinoSearch = document.getElementById('reinoSearch');
+    const reinoSuggestions = document.getElementById('reinoSuggestions');
+    const reinoStatus = document.getElementById('reinoStatus');
     const botonBuscar = document.getElementById('botonBuscar');
     const loading = document.getElementById('loader-anim');
     const mensaje = document.getElementById('mensajeError');
+    let reinosDisponibles = [];
+    let sugerenciasActuales = [];
+    let sugerenciaActiva = -1;
 
     function mostrarError(texto) {
         mensaje.textContent = texto || '';
@@ -20,13 +26,123 @@ document.addEventListener('DOMContentLoaded', () => {
         try { return localStorage.getItem(clave); } catch (e) { return null; }
     }
 
+    function normalizar(texto) {
+        return texto
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLocaleLowerCase('es')
+            .replace(/[^\p{L}\p{N}]+/gu, ' ')
+            .trim();
+    }
+
+    function cerrarSugerencias() {
+        reinoSuggestions.hidden = true;
+        reinoSearch.setAttribute('aria-expanded', 'false');
+        reinoSearch.removeAttribute('aria-activedescendant');
+        sugerenciaActiva = -1;
+    }
+
+    function seleccionarReino(reino) {
+        reinoSelect.value = reino.slug;
+        reinoSearch.value = reino.nombre || reino.slug;
+        reinoStatus.textContent = `Reino seleccionado: ${reino.nombre || reino.slug}`;
+        cerrarSugerencias();
+        mostrarError('');
+    }
+
+    function mostrarSugerencias() {
+        const consulta = normalizar(reinoSearch.value);
+        const palabras = consulta.split(/\s+/).filter(Boolean);
+
+        sugerenciasActuales = reinosDisponibles
+            .map(reino => {
+                const nombre = normalizar(reino.nombre || reino.slug);
+                const slug = normalizar(reino.slug);
+                let puntuacion = 0;
+
+                if (!consulta) puntuacion = 1;
+                else if (nombre.startsWith(consulta)) puntuacion = 4;
+                else if (nombre.split(' ').some(palabra => palabra.startsWith(consulta))) puntuacion = 3;
+                else if (palabras.every(palabra => nombre.includes(palabra))) puntuacion = 2;
+                else if (slug.includes(consulta)) puntuacion = 1;
+
+                return { reino, puntuacion };
+            })
+            .filter(resultado => resultado.puntuacion > 0)
+            .sort((a, b) => b.puntuacion - a.puntuacion
+                || (a.reino.nombre || a.reino.slug).localeCompare(b.reino.nombre || b.reino.slug, 'es'))
+            .map(resultado => resultado.reino);
+
+        reinoSuggestions.replaceChildren();
+        sugerenciaActiva = -1;
+
+        if (sugerenciasActuales.length === 0) {
+            cerrarSugerencias();
+            reinoStatus.textContent = consulta
+                ? 'No hay reinos que coincidan. Prueba con el nombre o el slug.'
+                : 'No hay reinos disponibles.';
+            return;
+        }
+
+        sugerenciasActuales.forEach((reino, indice) => {
+            const opcion = document.createElement('button');
+            opcion.type = 'button';
+            opcion.id = `reino-option-${indice}`;
+            opcion.className = 'realm-option';
+            opcion.setAttribute('role', 'option');
+            opcion.setAttribute('aria-selected', 'false');
+
+            const nombre = document.createElement('span');
+            nombre.className = 'realm-option-name';
+            nombre.textContent = reino.nombre || reino.slug;
+            opcion.appendChild(nombre);
+
+            if (reino.nombre && reino.slug && normalizar(reino.nombre) !== normalizar(reino.slug)) {
+                const slug = document.createElement('span');
+                slug.className = 'realm-option-slug';
+                slug.textContent = reino.slug;
+                opcion.appendChild(slug);
+            }
+
+            opcion.addEventListener('mousedown', evento => evento.preventDefault());
+            opcion.addEventListener('click', () => seleccionarReino(reino));
+            reinoSuggestions.appendChild(opcion);
+        });
+
+        reinoStatus.textContent = consulta
+            ? `${sugerenciasActuales.length} sugerencia${sugerenciasActuales.length === 1 ? '' : 's'} de ${reinosDisponibles.length} reinos.`
+            : `${reinosDisponibles.length} reinos disponibles. Escribe para filtrar.`;
+        reinoSuggestions.hidden = false;
+        reinoSearch.setAttribute('aria-expanded', 'true');
+    }
+
+    function activarSugerencia(indice) {
+        const opciones = reinoSuggestions.querySelectorAll('.realm-option');
+        if (!opciones.length) return;
+
+        sugerenciaActiva = ((indice % opciones.length) + opciones.length) % opciones.length;
+        opciones.forEach((opcion, i) => {
+            const activa = i === sugerenciaActiva;
+            opcion.setAttribute('aria-selected', String(activa));
+            if (activa) {
+                reinoSearch.setAttribute('aria-activedescendant', opcion.id);
+                opcion.scrollIntoView({ block: 'nearest' });
+            }
+        });
+    }
+
     // Carga los reinos de la región y la versión de juego elegidas
     async function cargarReinos(reinoPreferido) {
         const region = regionSelect.value;
         const version = versionSelect.value;
 
         reinoSelect.disabled = true;
-        reinoSelect.innerHTML = '<option value="" disabled selected>Cargando reinos…</option>';
+        reinoSearch.disabled = true;
+        reinoSearch.value = '';
+        reinoSelect.value = '';
+        reinosDisponibles = [];
+        cerrarSugerencias();
+        reinoStatus.textContent = 'Cargando reinos…';
 
         try {
             const res = await fetch(`/api/reinos?region=${encodeURIComponent(region)}&version=${encodeURIComponent(version)}`);
@@ -34,30 +150,59 @@ document.addEventListener('DOMContentLoaded', () => {
             const reinos = await res.json();
 
             reinos.sort((a, b) => (a.nombre || a.slug || '').localeCompare(b.nombre || b.slug || '', 'es'));
+            reinosDisponibles = reinos.filter(reino =>
+                typeof reino.slug === 'string'
+                && reino.slug.length > 0
+                && !/^eux(?:\s|$)/i.test(reino.nombre || '')
+            );
 
-            if (reinos.length === 0) {
-                reinoSelect.innerHTML = '<option value="" disabled selected>No hay reinos disponibles</option>';
+            if (reinosDisponibles.length === 0) {
+                reinoStatus.textContent = 'No hay reinos disponibles para esta versión.';
                 return;
             }
 
-            reinoSelect.innerHTML = '<option value="" disabled selected>Selecciona un reino</option>';
-            reinos.forEach(reino => {
-                const option = document.createElement('option');
-                option.value = reino.slug;
-                option.textContent = reino.nombre || reino.slug;
-                reinoSelect.appendChild(option);
-            });
-
-            if (reinoPreferido && reinos.some(r => r.slug === reinoPreferido)) {
-                reinoSelect.value = reinoPreferido;
+            reinoStatus.textContent = `${reinosDisponibles.length} reinos disponibles.`;
+            if (reinoPreferido) {
+                const preferido = reinosDisponibles.find(reino => reino.slug === reinoPreferido);
+                if (preferido) seleccionarReino(preferido);
             }
         } catch (err) {
             console.error('Error cargando reinos:', err);
-            reinoSelect.innerHTML = '<option value="" disabled selected>Error al cargar los reinos</option>';
+            reinoStatus.textContent = 'No se pudieron cargar los reinos. Inténtalo de nuevo más tarde.';
         } finally {
             reinoSelect.disabled = false;
+            reinoSearch.disabled = false;
         }
     }
+
+    reinoSearch.addEventListener('input', () => {
+        reinoSelect.value = '';
+        mostrarError('');
+        mostrarSugerencias();
+    });
+
+    reinoSearch.addEventListener('focus', mostrarSugerencias);
+
+    reinoSearch.addEventListener('keydown', evento => {
+        if (evento.key === 'ArrowDown' && !reinoSuggestions.hidden) {
+            evento.preventDefault();
+            activarSugerencia(sugerenciaActiva + 1);
+        } else if (evento.key === 'ArrowUp' && !reinoSuggestions.hidden) {
+            evento.preventDefault();
+            activarSugerencia(sugerenciaActiva < 0 ? -1 : sugerenciaActiva - 1);
+        } else if (evento.key === 'Enter' && sugerenciaActiva >= 0 && !reinoSuggestions.hidden) {
+            evento.preventDefault();
+            seleccionarReino(sugerenciasActuales[sugerenciaActiva]);
+        } else if (evento.key === 'Escape') {
+            cerrarSugerencias();
+        }
+    });
+
+    document.addEventListener('click', evento => {
+        if (!reinoSuggestions.contains(evento.target) && evento.target !== reinoSearch) {
+            cerrarSugerencias();
+        }
+    });
 
     // Restaurar la última selección
     const versionGuardada = recuperar('al_version');
@@ -77,8 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
         mostrarError('');
 
         const data = Object.fromEntries(new FormData(form).entries());
-        if (!data.reino) {
-            mostrarError('Selecciona un reino.');
+        if (!data.reino || !reinosDisponibles.some(reino => reino.slug === data.reino)) {
+            mostrarError('Selecciona un reino de la lista de sugerencias.');
             return;
         }
 

@@ -39,6 +39,14 @@ if ($verificacion['email'] !== $usuarioPendiente['email']) {
     exit;
 }
 
+// Firma una prueba temporal para que Spring autentique solo después del segundo factor.
+$verificationSecret = getenv('VERIFICATION_SHARED_SECRET');
+if ($verificationSecret === false || $verificationSecret === '') {
+    http_response_code(503);
+    echo json_encode(['error' => 'La verificación no está configurada en el servidor.']);
+    exit;
+}
+
 // Inserta en base de datos si es registro
 if ($origen === 'registro') {
     $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
@@ -78,19 +86,21 @@ if ($origen === 'registro') {
     $conn->close();
 }
 
-// Devuelve email y contraseña original (solo si está disponible)
 $email = $usuarioPendiente['email'];
-$password = $_SESSION['usuario_pendiente_password_plain'] ?? null;
+$timestamp = (string) time();
+$nonce = bin2hex(random_bytes(16));
+$mensaje = $email . "\n" . $timestamp . "\n" . $nonce;
+$signature = hash_hmac('sha256', $mensaje, $verificationSecret);
 
 // Limpieza de sesión
 unset($_SESSION['usuario_pendiente']);
-unset($_SESSION['usuario_pendiente_password_plain']);
 unset($_SESSION['verificacion']);
 unset($_SESSION['origen']);
 
-// Devuelve respuesta para login.js
 echo json_encode([
     'success' => true,
     'email' => $email,
-    'password' => $password
+    'timestamp' => $timestamp,
+    'nonce' => $nonce,
+    'signature' => $signature
 ]);

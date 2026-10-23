@@ -4,14 +4,17 @@ import com.wowapp.dto.TalentoDTO;
 import com.wowapp.exception.ApiException;
 import com.wowapp.model.EquipoPersonaje;
 import com.wowapp.model.Personaje;
+import com.wowapp.model.PersonajeListado;
 import com.wowapp.model.Personaje.VersionJuego;
 import com.wowapp.repository.EquipoPersonajeRepository;
-import com.wowapp.repository.PersonajeRepository;
+import com.wowapp.repository.PersonajeListadoRepository;
 import com.wowapp.service.EstadisticasService;
+import com.wowapp.service.PersonajeListadoService;
 import com.wowapp.service.PersonajeService;
 import com.wowapp.service.TalentoClassicService;
 import com.wowapp.service.TalentoRetailService;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,32 +31,35 @@ import java.util.Map;
 @RequestMapping("/api/personajes")
 public class PersonajeController {
 
-    private final PersonajeRepository personajeRepository;
+    private final PersonajeListadoRepository personajeListadoRepository;
     private final EquipoPersonajeRepository equipoPersonajeRepository;
     private final EstadisticasService estadisticasService;
     private final TalentoRetailService talentoRetailService;
     private final TalentoClassicService talentoClassicService;
     private final PersonajeService personajeService;
+    private final PersonajeListadoService personajeListadoService;
 
     public PersonajeController(
-        PersonajeRepository personajeRepository,
+        PersonajeListadoRepository personajeListadoRepository,
         EquipoPersonajeRepository equipoPersonajeRepository,
         EstadisticasService estadisticasService,
         TalentoRetailService talentoRetailService,
         TalentoClassicService talentoClassicService,
-        PersonajeService personajeService
+        PersonajeService personajeService,
+        PersonajeListadoService personajeListadoService
     ) {
-        this.personajeRepository = personajeRepository;
+        this.personajeListadoRepository = personajeListadoRepository;
         this.equipoPersonajeRepository = equipoPersonajeRepository;
         this.estadisticasService = estadisticasService;
         this.talentoRetailService = talentoRetailService;
         this.talentoClassicService = talentoClassicService;
         this.personajeService = personajeService;
+        this.personajeListadoService = personajeListadoService;
     }
 
     // Busca un personaje (en la base de datos o en Blizzard) y devuelve sus datos básicos
     @PostMapping("/buscar")
-    public Map<String, Object> buscarPersonaje(@RequestBody Map<String, String> datos) {
+    public Map<String, Object> buscarPersonaje(@RequestBody Map<String, String> datos, HttpSession session) {
         String nombre = datos.get("nombre");
         String reino = datos.get("reino");
         String region = datos.getOrDefault("region", "eu");
@@ -64,6 +70,7 @@ public class PersonajeController {
         }
 
         Personaje personaje = personajeService.obtenerYGuardarPersonaje(nombre, reino, region, version);
+        personajeListadoService.registrarBusqueda(personaje, session);
         return resumen(personaje);
     }
 
@@ -74,10 +81,12 @@ public class PersonajeController {
             @RequestParam String nombre,
             @RequestParam String reino,
             @RequestParam String region,
-            @RequestParam String version) {
+            @RequestParam String version,
+            HttpSession session) {
 
         VersionJuego versionJuego = parsearVersion(version);
         Personaje personaje = personajeService.obtenerYGuardarPersonaje(nombre, reino, region, versionJuego);
+        personajeListadoService.registrarBusqueda(personaje, session);
 
         Map<String, Object> json = new LinkedHashMap<>(resumen(personaje));
         json.put("genero", personaje.getGenero());
@@ -111,29 +120,34 @@ public class PersonajeController {
             @RequestParam(required = false) String clase,
             @RequestParam(required = false) String version,
             @RequestParam(defaultValue = "0") int pagina,
-            @RequestParam(defaultValue = "12") int tamano) {
+            @RequestParam(defaultValue = "12") int tamano,
+            HttpSession session) {
 
-        Specification<Personaje> filtro = Specification.where(null);
+        String ownerKey = personajeListadoService.obtenerOwnerKey(session);
+        Specification<PersonajeListado> filtro = (root, query, cb) -> cb.equal(root.get("ownerKey"), ownerKey);
 
         if (nombre != null && !nombre.isBlank()) {
             String patron = "%" + nombre.trim().toLowerCase() + "%";
-            filtro = filtro.and((root, query, cb) -> cb.like(cb.lower(root.<String>get("nombre")), patron));
+            filtro = filtro.and((root, query, cb) -> cb.like(
+                    cb.lower(root.join("personaje").<String>get("nombre")), patron));
         }
         if (clase != null && !clase.isBlank()) {
             String claseMin = clase.trim().toLowerCase();
-            filtro = filtro.and((root, query, cb) -> cb.equal(cb.lower(root.<String>get("clase")), claseMin));
+            filtro = filtro.and((root, query, cb) -> cb.equal(
+                    cb.lower(root.join("personaje").<String>get("clase")), claseMin));
         }
         if (version != null && !version.isBlank()) {
             VersionJuego v = parsearVersion(version);
-            filtro = filtro.and((root, query, cb) -> cb.equal(root.get("versionJuego"), v));
+            filtro = filtro.and((root, query, cb) -> cb.equal(root.join("personaje").get("versionJuego"), v));
         }
 
         int tamanoSeguro = Math.min(Math.max(tamano, 1), 48);
-        Page<Personaje> resultado = personajeRepository.findAll(filtro,
-                PageRequest.of(Math.max(pagina, 0), tamanoSeguro, Sort.by(Sort.Direction.DESC, "fechaActualizacion")));
+        Page<PersonajeListado> resultado = personajeListadoRepository.findAll(filtro,
+                PageRequest.of(Math.max(pagina, 0), tamanoSeguro, Sort.by(Sort.Direction.DESC, "ultimaBusqueda")));
 
         List<Map<String, Object>> contenido = new ArrayList<>();
-        for (Personaje p : resultado.getContent()) {
+        for (PersonajeListado listado : resultado.getContent()) {
+            Personaje p = listado.getPersonaje();
             Map<String, Object> fila = new LinkedHashMap<>(resumen(p));
             fila.put("especializacion", p.getEspecializacion());
             fila.put("heroe", p.getHeroe());

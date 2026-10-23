@@ -22,7 +22,7 @@ Es una plataforma web centrada en mostrar información de personajes de *World o
 ## 📋 Estado de funcionalidades
 
 ### Implementadas
-- [x] Guardado de personajes de WoW desde las APIs oficiales (Retail, Classic Era y Classic Progresión).
+- [x] Guardado de personajes de WoW desde las APIs oficiales (Retail, Classic Era y Classic).
 - [x] Almacenamiento de estadísticas, talentos y equipo de personajes.
 - [x] Ficha del personaje: equipo con colores de calidad y tooltips de Wowhead, estadísticas, talentos e imagen.
 - [x] Listado de personajes con filtros (nombre, clase, versión) y paginación.

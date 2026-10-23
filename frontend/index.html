@@ -6,9 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Azeroth Legends</title>
   <link rel="stylesheet" href="/css/cursor.css">
-  <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/questlog.css">
+  <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/animaciones.css">
+  <link rel="stylesheet" href="/css/rustic.css">
 </head>
 
 <body class="bg-parchment font-fantasy text-dark">
@@ -25,6 +26,7 @@
 
     <div class="header-center">
       <h1 class="title">Azeroth Legends</h1>
+      <p class="brand-subtitle">Las crónicas de Azeroth</p>
     </div>
 
     <div class="header-right">
@@ -47,7 +49,9 @@
 
     <!-- Buscador -->
     <section class="busqueda">
-      <h2 class="subtitle">Buscar personaje</h2>
+      <p class="section-kicker">Tu próxima aventura comienza aquí</p>
+      <h2 class="subtitle">Encuentra a tu héroe</h2>
+      <p class="search-intro">Explora las crónicas de Azeroth. Busca un personaje por nombre, reino y era.</p>
 
       <form id="buscarForm" class="form-busqueda">
         <select name="region" id="regionSelect" hidden>
@@ -59,7 +63,7 @@
           <select name="version" id="version" class="select" required>
             <option value="retail">Retail</option>
             <option value="classic_era">Classic Era</option>
-            <option value="classic">Classic Progresión (Mists of Pandaria)</option>
+            <option value="classic">Classic (Mists of Pandaria)</option>
           </select>
         </div>
 
@@ -70,16 +74,20 @@
           </div>
 
           <div class="form-group">
-            <label for="reinoSelect" class="label">Reino</label>
-            <select name="reino" id="reinoSelect" class="select" required>
-              <!-- Se llena dinámicamente -->
-            </select>
+            <label for="reinoSearch" class="label">Reino</label>
+            <div class="realm-picker">
+              <input type="hidden" name="reino" id="reinoSelect">
+              <input type="search" id="reinoSearch" class="input" placeholder="Busca por nombre..." autocomplete="off"
+                aria-autocomplete="list" aria-controls="reinoSuggestions" aria-expanded="false" required>
+              <div id="reinoSuggestions" class="realm-suggestions" role="listbox" hidden></div>
+              <p id="reinoStatus" class="realm-status" aria-live="polite">Escribe para ver sugerencias de reinos.</p>
+            </div>
           </div>
         </div>
 
         <p id="mensajeError" class="mensaje-error" role="alert" hidden></p>
 
-        <button type="submit" class="button" id="botonBuscar">Buscar</button>
+        <button type="submit" class="button" id="botonBuscar">Buscar personaje</button>
         <div id="loader" class="loader-overlay">
           <div class="loader" id="loader-anim" style="display: none;"></div>
         </div>
@@ -94,8 +102,8 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <p>© 2025 Azeroth Legends. Proyecto educativo.</p>
-    <p>Félix San José Hernán</p>
+    <p>© 2025 Azeroth Legends <span aria-hidden="true">·</span></p>
+    <p>@darksig_</p>
   </footer>
 
   <!-- Scripts -->
