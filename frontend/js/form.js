@@ -145,7 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
         reinoStatus.textContent = 'Cargando reinos…';
 
         try {
-            const res = await fetch(`/api/reinos?region=${encodeURIComponent(region)}&version=${encodeURIComponent(version)}`);
+            const res = await fetch(`/api/reinos?region=${encodeURIComponent(region)}&version=${encodeURIComponent(version)}`, {
+                credentials: 'same-origin'
+            });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const reinos = await res.json();
 
@@ -153,7 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
             reinosDisponibles = reinos.filter(reino =>
                 typeof reino.slug === 'string'
                 && reino.slug.length > 0
-                && !/^eux(?:\s|$)/i.test(reino.nombre || '')
+                && !/^\s*(?:eu\d+|eu[\s_-]+|rdb[\s_-]+)/i.test(reino.nombre || '')
+                && !/^\s*(?:eu\d+|eu[\s_-]+|rdb[\s_-]+)/i.test(reino.slug)
             );
 
             if (reinosDisponibles.length === 0) {
@@ -234,7 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const res = await fetch('/api/personajes/buscar', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
+                credentials: 'same-origin'
             });
 
             let cuerpo = {};

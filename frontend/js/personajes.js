@@ -49,7 +49,7 @@ async function cargar(pagina) {
         const query = new URLSearchParams({ pagina, tamano: TAMANO_PAGINA });
         Object.entries(filtros).forEach(([k, v]) => { if (v) query.set(k, v); });
 
-        const res = await fetch(`/api/personajes?${query}`);
+        const res = await fetch(`/api/personajes?${query}`, { credentials: 'same-origin' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const datos = await res.json();
 

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Realiza una solicitud para obtener el contenido del menú de perfil
-    fetch('/api/perfil-menu')
+    fetch('/api/perfil-menu', { credentials: 'same-origin' })
       .then(res => res.text())
       .then(html => {
         // Inserta el contenido del menú en el contenedor correspondiente
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
           cerrarSesionBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             try {
-              await fetch('/api/logout', { method: 'POST' });
+              await fetch('/api/logout', { method: 'POST', credentials: 'same-origin' });
               window.location.href = '/login';
             } catch (err) {
               console.error('Error cerrando sesión:', err);

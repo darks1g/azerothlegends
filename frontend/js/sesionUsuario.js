@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/api/sesion-usuario')
+    fetch('/api/sesion-usuario', { credentials: 'same-origin' })
         .then(res => res.json())
         .then(data => {
             if (data.autenticado) {

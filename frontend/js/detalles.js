@@ -323,7 +323,7 @@ async function cargarPersonaje() {
 
     try {
         const query = new URLSearchParams({ nombre, reino, region, version });
-        const res = await fetch(`/api/personajes/detalles?${query}`);
+        const res = await fetch(`/api/personajes/detalles?${query}`, { credentials: 'same-origin' });
 
         let cuerpo = {};
         try { cuerpo = await res.json(); } catch (e) { /* sin JSON */ }

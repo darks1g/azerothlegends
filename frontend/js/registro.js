@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ email, nombre_usuario, password, confirmar }),
-            redirect: 'follow'
+            redirect: 'follow',
+            credentials: 'same-origin'
         });
 
         let datos;

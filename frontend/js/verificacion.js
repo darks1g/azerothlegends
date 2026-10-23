@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   nonce: data.nonce,
                   signature: data.signature
               }),
-              credentials: 'include'
+              credentials: 'same-origin'
           });
 
           if (loginRes.ok) {

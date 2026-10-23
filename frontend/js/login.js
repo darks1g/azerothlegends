@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const res = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password }),
+                credentials: 'same-origin'
             });
 
             let datos;
